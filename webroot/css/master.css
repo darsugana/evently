@@ -10,3 +10,18 @@ body
 	padding: 1em;
 	width: 800px;
 }
+
+.search
+{
+	margin-top: 1em;
+}
+
+.search input
+{
+	font-size: 2.6em;
+}
+
+.search input
+{
+	padding: .2em;
+}

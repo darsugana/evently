@@ -11,11 +11,7 @@
 
 <body class="<?php echo $controllerName ?>_controller <?php echo $controllerName ?>-<?php echo $actionName ?>">
 <div class="outer_container">
-	<h1>Event Search</h1>
-	<form action="/search/" method="get">
-		<input name="q" type="text" />
-		<input type="submit" value="search" />
-	</form>
+	<?php echo $layoutContent ?>
 </div>
 </body>
 </html>

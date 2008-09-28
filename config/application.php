@@ -25,7 +25,7 @@ include(APP_PATH . 'modules/coughphp/load.inc.php');
 include(APP_PATH . 'classes/AppCoughObject.class.php');
 include(APP_PATH . 'classes/AppCoughCollection.class.php');
 
-// Include datase adapters
+// Include database adapters
 include(APP_PATH . 'modules/coughphp/as_database/As_Database.class.php');
 include(APP_PATH . 'modules/coughphp/as_database/As_DatabaseResult.class.php');
 include(APP_PATH . 'modules/coughphp/dal/as/CoughAsDatabase.class.php');
@@ -41,8 +41,11 @@ CoughDatabaseFactory::addConfig(array(
 	'aliases' => array('events'),
 ));
 
+// Include SimplePie
+include(APP_PATH . 'modules/simplepie/simplepie.inc');
+
 // Configure autoloader
-include_once(APP_PATH . 'classes/Autoloader.class.php');
+include(APP_PATH . 'classes/Autoloader.class.php');
 Autoloader::setCacheFilePath(APP_PATH . 'tmp/class_path_cache.txt');
 Autoloader::excludeFolderNamesMatchingRegex('/^CVS|\..*$/');
 Autoloader::setClassPaths(array(
@@ -52,7 +55,7 @@ Autoloader::setClassPaths(array(
 spl_autoload_register(array('Autoloader', 'loadClass'));
 
 // Include and configure the LighVC framework
-include_once(APP_PATH . 'modules/lightvc/lightvc.php');
+include(APP_PATH . 'modules/lightvc/lightvc.php');
 Lvc_Config::addControllerPath(APP_PATH . 'controllers/');
 Lvc_Config::addControllerViewPath(APP_PATH . 'views/');
 Lvc_Config::addLayoutViewPath(APP_PATH . 'views/layouts/');
