@@ -42,7 +42,7 @@ CoughDatabaseFactory::addConfig(array(
 ));
 
 // Configure autoloader
-include_once('classes/Autoloader.class.php');
+include_once(APP_PATH . 'classes/Autoloader.class.php');
 Autoloader::setCacheFilePath(APP_PATH . 'tmp/class_path_cache.txt');
 Autoloader::excludeFolderNamesMatchingRegex('/^CVS|\..*$/');
 Autoloader::setClassPaths(array(
