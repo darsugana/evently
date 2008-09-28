@@ -6,14 +6,6 @@ class AppController extends Lvc_PageController
 	
 	protected function beforeAction()
 	{
-		// set signed in user
-		if (isset($_SESSION['user_fields']))
-		{
-			$this->setSignedInUser(User::constructByFields($_SESSION['user_fields']));
-		}
-		
-		$this->requireSignIn();
-		
 		$this->requireCss('reset.css');
 		$this->requireCss('master.css');
 		
