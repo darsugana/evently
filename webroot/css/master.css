@@ -1,0 +1,504 @@
+body
+{
+	background-color: #f3f3f3;
+	color: #333;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
+a:visited
+{
+	color: rgb(0, 0, 238);
+}
+
+strong
+{
+	font-weight: bold;
+}
+
+h1
+{
+	font-weight: bold;
+}
+
+.avatar
+{
+	background-color: #f0afff;
+}
+
+.avatar.small
+{
+	height: 31px;
+	width: 31px;
+}
+
+.avatar.medium
+{
+	height: 48px;
+	width: 48px;
+}
+
+.avatar.large
+{
+	border: 1px solid #ccc;
+	height: 73px;
+	width: 73px;
+}
+
+.number
+{
+	font-family: Georgia, serif;
+}
+
+.container
+{
+	margin: 0 auto;
+	padding: 1em;
+	width: 78em;
+}
+
+.logo
+{
+	float: left;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 3.2em;
+	font-weight: bold;
+	margin-top: 0;
+}
+
+.primary_navigation
+{
+	background-color: #fff;
+	float: right;
+	margin-top: .5em;
+	padding: .5em;
+}
+
+.primary_navigation ul
+{
+	float: right;
+	list-style: none;
+	margin-right: 1em;
+}
+
+.primary_navigation ul li
+{
+	display: inline;
+	font-size: 1.3em;
+	line-height: 1.5em;
+	margin: 0 .2em;
+}
+
+.primary_navigation .search
+{
+	float: right;
+	font-size: 1.3em;
+}
+
+.spacer,
+.flash
+{
+	background-image: url('../images/arrow_up.gif');
+	background-repeat: no-repeat;
+	background-position: 2em 1.9em;
+	clear: both;
+}
+
+.spacer
+{
+	height: 3em;
+}
+
+.flash
+{
+	background-position: 2em 0;
+	margin-top: 5em;
+	padding-top: 1.1em;
+}
+
+.flash p
+{
+	background-color: #fff;
+	font-size: 2em;
+	font-weight: bold;
+	padding: .5em;
+}
+
+.flash .message p
+{
+	
+}
+
+.block
+{
+	background-color: #fff;
+	float: left;
+	padding: 1em;
+	width: 53em;
+}
+
+.mainbody
+{
+	clear: left;
+}
+
+.container.splash .mainbody,
+.container.splash .footer
+{
+	width: 78em;
+}
+
+.sidebar
+{
+	float: right;
+	width: 20em;
+}
+
+.sidebar .chunk
+{
+	margin-bottom: 2.5em;
+}
+
+.sidebar h4
+{
+	border-bottom: 1px solid #eee;
+	clear: both;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+
+.sidebar h4 a
+{
+	float: right;
+	font-size: .9em;
+	font-weight: normal;
+}
+
+.sidebar p
+{
+	font-size: 1.2em;
+	margin-top: .5em;
+}
+
+.sidebar .hi
+{
+	margin-top: .6em;
+}
+
+.sidebar .stats
+{
+	margin-top: .5em;
+	width: 100%;
+}
+
+.sidebar .stats td
+{
+	font-size: 1.2em;
+}
+
+.sidebar .stats td.number
+{
+	font-size: 1.4em;
+	text-align: right;
+}
+
+.sidebar .about,
+.sidebar .about strong
+{
+	font-style: italic;
+	line-height: 1.5em;
+}
+
+.sidebar .about strong
+{
+	padding-right: .3em;
+}
+
+.sidebar .avatar.small
+{
+	float: left;
+	margin: .8em .8em 2.2em 0;
+}
+
+.footer
+{
+	clear: left;
+	margin-top: 1em;
+}
+
+.footer p
+{
+	font-size: 1.2em;
+}
+
+.sign_in
+{
+	margin-top: 1em;
+}
+
+.sign_in label
+{
+	display: block;
+	font-size: 1.6em;
+}
+
+.sign_in input
+{
+	font-size: 2.0em;
+}
+
+.secondary_navigation
+{
+	border-bottom: 1px solid #ccc;
+	list-style: none;
+	margin: 0 auto;
+	padding: 1.5em 0 0 0;
+	text-align: center;
+}
+
+.secondary_navigation li
+{
+	display: inline;
+}
+
+.secondary_navigation a
+{
+	background-color: #eee;
+	border: 1px solid #ccc;
+	border-right: none;
+	color: #666;
+	display: inline-block;
+	font-size: 1.2em;
+	padding: .3em 1.5em;
+	position: relative;
+	top: 1px;
+}
+
+.secondary_navigation a.last-child
+{
+	border-right: 1px solid #ccc;
+}
+
+.secondary_navigation a.selected,
+.secondary_navigation a.selected:hover
+{
+	background-color: #fff;
+	border-bottom: 1px solid #fff;
+	color: #333;
+}
+
+.secondary_navigation a:hover
+{
+	background-color: #ddd;
+	color: #333;
+}
+
+.update
+{
+	margin: 1em;
+}
+
+.update textarea
+{
+	font-size: 1.6em;
+	height: 2.6em;
+	margin: .5em 0;
+	padding: .3em;
+	width: 31.5em;
+}
+
+.update input
+{
+	display: block;
+	font-size: 1.6em;
+	margin: 0 auto;
+}
+
+.user-index h1
+{
+	font-size: 3em;
+	margin-top: .5em;
+}
+
+.user-index .follow
+{
+	clear: both;
+	text-align: center;
+	width: 7.3em;
+}
+
+.user-index .follow .submit
+{
+	font-size: 1.2em;
+}
+
+.user-index .avatar.large
+{
+	float: left;
+	margin-bottom: 1em;
+	margin-right: 1em;
+}
+
+.tweets
+{
+	clear: both;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.user-index .tweets
+{
+	margin-top: 1em;
+}
+
+.tweets .tweet
+{
+	border-bottom: 1px solid #eee;
+	font-size: 1.6em;
+	padding: .5em 0;
+}
+
+.tweets .tweet .avatar.medium
+{
+	margin-left: .25em;
+	margin-right: .5em;
+}
+
+.tweets .tweet .when,
+.tweets .tweet .from
+{
+	font-size: .8em;
+}
+
+.tweets .tweet .when
+{
+	margin-left: .2em;
+}
+
+.user-index .tweets .tweet.first-child
+{
+	font-size: 2.8em;
+	padding: .2em 0;
+}
+
+.user-index .tweets .tweet.first-child .when,
+.user-index .tweets .tweet.first-child .from
+{
+	font-size: .45em;
+	margin-left: 0;
+}
+
+.container.tweet
+{
+	padding-top: 16em;
+}
+
+.container.tweet .tweet
+{
+	background-color: #fff;
+	padding: 1.5em;
+	padding-bottom: 3.5em;
+	position: relative;
+	width: 50em;
+}
+
+.container.tweet .tweet .message
+{
+	font-size: 2.6em;
+}
+
+.container.tweet .tweet .when.from
+{
+	font-size: 1.2em;
+	margin-top: .2em;
+}
+
+.container.tweet .tweet .controls
+{
+	bottom: 1em;
+	position: absolute;
+	right: 1em;
+}
+
+.container.tweet .author
+{
+	background-image: url('../images/arrow_down.gif');
+	background-repeat: no-repeat;
+	background-position: 11.4em 0;
+	font-size: 3em;
+	font-weight: bold;
+	line-height: 1.6em;
+	padding-top: .6em;
+}
+
+.container.tweet .author .avatar.medium
+{
+	float: left;
+	margin-left: 11em;
+	margin-right: .4em;
+}
+
+.notice
+{
+	background-color: rgb(255, 255, 204);
+	border: 1px solid yellow;
+	font-size: 1.2em;
+	margin-top: .7em;
+	padding: .5em 1em;
+	text-align: center;
+}
+
+.account_controller .avatar.small
+{
+	float: left;
+	margin-bottom: 1em;
+	margin-right: 1em;
+}
+
+.account_controller .mainbody h2
+{
+	font-size: 2em;
+	font-weight: bold;
+	padding-top: .2em;
+}
+
+.account_controller .secondary_navigation
+{
+	clear: both;
+}
+
+.account_controller .mainbody form
+{
+	margin-top: 1.5em;
+	padding-left: 4em;
+}
+
+.account_controller .settings th,
+.account_controller .settings td
+{
+	vertical-align: top;
+}
+
+.account_controller .settings th
+{
+	font-size: 1.2em;
+	padding: .4em 1em 1.5em 0;
+	padding-bottom: 1.5em;
+	padding-right: 1em;
+	text-align: right;
+}
+
+.account_controller .settings input
+{
+	font-size: 1.4em;
+	padding: .2em;
+}
