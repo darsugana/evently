@@ -1,6 +1,21 @@
 <?php
 class SearchController extends AppController
 {
+	
+	public function actionIndex()
+	{
+		if (isset($this->get['q']))
+		{
+			$events = new Event_Collection();
+			$events->loadBySearchString(trim($this->get['q']));
+		}
+		else
+		{
+			$events = new Event_Collection();
+		}
+		$this->setVar('events', $events);
+	}
+	
 	public function actionPull()
 	{
 		$this->setLayout('blank');

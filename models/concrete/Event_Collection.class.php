@@ -6,6 +6,11 @@
  * @see Event_Collection_Generated, CoughCollection
  **/
 class Event_Collection extends Event_Collection_Generated {
+	
+	public function loadBySearchString($searchString)
+	{
+		$this->load();
+	}
 }
 
 ?>
