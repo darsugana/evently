@@ -1,36 +1,27 @@
 <?php
 
 /**
- * This is the base class for Event.
+ * This is the base class for Source.
  * 
- * @see Event, CoughObject
+ * @see Source, CoughObject
  **/
-abstract class Event_Generated extends AppCoughObject {
+abstract class Source_Generated extends AppCoughObject {
 	
 	protected static $db = null;
 	protected static $dbName = 'events';
-	protected static $tableName = 'event';
-	protected static $pkFieldNames = array('event_id');
+	protected static $tableName = 'source';
+	protected static $pkFieldNames = array('source_id');
 	
 	protected $fields = array(
-		'event_id' => null,
 		'source_id' => null,
 		'name' => null,
-		'description' => null,
-		'guid' => null,
-		'link' => null,
-		'date_published' => null,
+		'feed' => null,
 		'date_modified' => null,
 		'date_created' => null,
 		'is_deleted' => 0,
 	);
 	
 	protected $fieldDefinitions = array(
-		'event_id' => array(
-			'db_column_name' => 'event_id',
-			'is_null_allowed' => false,
-			'default_value' => null
-		),
 		'source_id' => array(
 			'db_column_name' => 'source_id',
 			'is_null_allowed' => false,
@@ -41,23 +32,8 @@ abstract class Event_Generated extends AppCoughObject {
 			'is_null_allowed' => false,
 			'default_value' => null
 		),
-		'description' => array(
-			'db_column_name' => 'description',
-			'is_null_allowed' => false,
-			'default_value' => null
-		),
-		'guid' => array(
-			'db_column_name' => 'guid',
-			'is_null_allowed' => false,
-			'default_value' => null
-		),
-		'link' => array(
-			'db_column_name' => 'link',
-			'is_null_allowed' => false,
-			'default_value' => null
-		),
-		'date_published' => array(
-			'db_column_name' => 'date_published',
+		'feed' => array(
+			'db_column_name' => 'feed',
 			'is_null_allowed' => false,
 			'default_value' => null
 		),
@@ -78,37 +54,33 @@ abstract class Event_Generated extends AppCoughObject {
 		),
 	);
 	
-	protected $objectDefinitions = array(
-		'Source_Object' => array(
-			'class_name' => 'Source'
-		),
-	);
+	protected $objectDefinitions = array();
 	
 	// Static Definition Methods
 	
 	public static function getDb() {
-		if (is_null(Event::$db)) {
-			Event::$db = CoughDatabaseFactory::getDatabase(Event::$dbName);
+		if (is_null(Source::$db)) {
+			Source::$db = CoughDatabaseFactory::getDatabase(Source::$dbName);
 		}
-		return Event::$db;
+		return Source::$db;
 	}
 	
 	public static function getDbName() {
-		return CoughDatabaseFactory::getDatabaseName(Event::$dbName);
+		return CoughDatabaseFactory::getDatabaseName(Source::$dbName);
 	}
 	
 	public static function getTableName() {
-		return Event::$tableName;
+		return Source::$tableName;
 	}
 	
 	public static function getPkFieldNames() {
-		return Event::$pkFieldNames;
+		return Source::$pkFieldNames;
 	}
 	
 	// Static Construction (factory) Methods
 	
 	/**
-	 * Constructs a new Event object from
+	 * Constructs a new Source object from
 	 * a single id (for single key PKs) or a hash of [field_name] => [field_value].
 	 * 
 	 * The key is used to pull data from the database, and, if no data is found,
@@ -117,55 +89,47 @@ abstract class Event_Generated extends AppCoughObject {
 	 * field, you may pass its value in directly without using a hash.
 	 * 
 	 * @param mixed $idOrHash - id or hash of [field_name] => [field_value]
-	 * @return mixed - Event or null if no record found.
+	 * @return mixed - Source or null if no record found.
 	 **/
 	public static function constructByKey($idOrHash, $forPhp5Strict = '') {
-		return CoughObject::constructByKey($idOrHash, 'Event');
+		return CoughObject::constructByKey($idOrHash, 'Source');
 	}
 	
 	/**
-	 * Constructs a new Event object from custom SQL.
+	 * Constructs a new Source object from custom SQL.
 	 * 
 	 * @param string $sql
-	 * @return mixed - Event or null if exactly one record could not be found.
+	 * @return mixed - Source or null if exactly one record could not be found.
 	 **/
 	public static function constructBySql($sql, $forPhp5Strict = '') {
-		return CoughObject::constructBySql($sql, 'Event');
+		return CoughObject::constructBySql($sql, 'Source');
 	}
 	
 	/**
-	 * Constructs a new Event object after
+	 * Constructs a new Source object after
 	 * checking the fields array to make sure the appropriate subclass is
 	 * used.
 	 * 
 	 * No queries are run against the database.
 	 * 
 	 * @param array $hash - hash of [field_name] => [field_value] pairs
-	 * @return Event
+	 * @return Source
 	 **/
 	public static function constructByFields($hash) {
-		return new Event($hash);
+		return new Source($hash);
 	}
 	
 	public static function getLoadSql() {
-		$tableName = Event::getTableName();
+		$tableName = Source::getTableName();
 		return '
 			SELECT
 				`' . $tableName . '`.*
 			FROM
-				`' . Event::getDbName() . '`.`' . $tableName . '`
+				`' . Source::getDbName() . '`.`' . $tableName . '`
 		';
 	}
 	
 	// Generated attribute accessors (getters and setters)
-	
-	public function getEventId() {
-		return $this->getField('event_id');
-	}
-	
-	public function setEventId($value) {
-		$this->setField('event_id', $value);
-	}
 	
 	public function getSourceId() {
 		return $this->getField('source_id');
@@ -183,36 +147,12 @@ abstract class Event_Generated extends AppCoughObject {
 		$this->setField('name', $value);
 	}
 	
-	public function getDescription() {
-		return $this->getField('description');
+	public function getFeed() {
+		return $this->getField('feed');
 	}
 	
-	public function setDescription($value) {
-		$this->setField('description', $value);
-	}
-	
-	public function getGuid() {
-		return $this->getField('guid');
-	}
-	
-	public function setGuid($value) {
-		$this->setField('guid', $value);
-	}
-	
-	public function getLink() {
-		return $this->getField('link');
-	}
-	
-	public function setLink($value) {
-		$this->setField('link', $value);
-	}
-	
-	public function getDatePublished() {
-		return $this->getField('date_published');
-	}
-	
-	public function setDatePublished($value) {
-		$this->setField('date_published', $value);
+	public function setFeed($value) {
+		$this->setField('feed', $value);
 	}
 	
 	public function getDateModified() {
@@ -240,21 +180,6 @@ abstract class Event_Generated extends AppCoughObject {
 	}
 	
 	// Generated one-to-one accessors (loaders, getters, and setters)
-	
-	public function loadSource_Object() {
-		$this->setSource_Object(Source::constructByKey($this->getSourceId()));
-	}
-	
-	public function getSource_Object() {
-		if (!isset($this->objects['Source_Object'])) {
-			$this->loadSource_Object();
-		}
-		return $this->objects['Source_Object'];
-	}
-	
-	public function setSource_Object($source) {
-		$this->objects['Source_Object'] = $source;
-	}
 	
 	// Generated one-to-many collection loaders, getters, setters, adders, and removers
 	
