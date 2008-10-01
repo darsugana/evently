@@ -15,10 +15,14 @@ abstract class Event_Generated extends AppCoughObject {
 	protected $fields = array(
 		'event_id' => null,
 		'source_id' => null,
+		'raw_rss_id' => null,
 		'name' => null,
 		'description' => null,
+		'date' => null,
 		'guid' => null,
 		'link' => null,
+		'latitude' => null,
+		'longitude' => null,
 		'date_published' => null,
 		'date_modified' => null,
 		'date_created' => null,
@@ -36,6 +40,11 @@ abstract class Event_Generated extends AppCoughObject {
 			'is_null_allowed' => false,
 			'default_value' => null
 		),
+		'raw_rss_id' => array(
+			'db_column_name' => 'raw_rss_id',
+			'is_null_allowed' => false,
+			'default_value' => null
+		),
 		'name' => array(
 			'db_column_name' => 'name',
 			'is_null_allowed' => false,
@@ -43,6 +52,11 @@ abstract class Event_Generated extends AppCoughObject {
 		),
 		'description' => array(
 			'db_column_name' => 'description',
+			'is_null_allowed' => false,
+			'default_value' => null
+		),
+		'date' => array(
+			'db_column_name' => 'date',
 			'is_null_allowed' => false,
 			'default_value' => null
 		),
@@ -54,6 +68,16 @@ abstract class Event_Generated extends AppCoughObject {
 		'link' => array(
 			'db_column_name' => 'link',
 			'is_null_allowed' => false,
+			'default_value' => null
+		),
+		'latitude' => array(
+			'db_column_name' => 'latitude',
+			'is_null_allowed' => true,
+			'default_value' => null
+		),
+		'longitude' => array(
+			'db_column_name' => 'longitude',
+			'is_null_allowed' => true,
 			'default_value' => null
 		),
 		'date_published' => array(
@@ -81,6 +105,9 @@ abstract class Event_Generated extends AppCoughObject {
 	protected $objectDefinitions = array(
 		'Source_Object' => array(
 			'class_name' => 'Source'
+		),
+		'RawRss_Object' => array(
+			'class_name' => 'RawRss'
 		),
 	);
 	
@@ -175,6 +202,14 @@ abstract class Event_Generated extends AppCoughObject {
 		$this->setField('source_id', $value);
 	}
 	
+	public function getRawRssId() {
+		return $this->getField('raw_rss_id');
+	}
+	
+	public function setRawRssId($value) {
+		$this->setField('raw_rss_id', $value);
+	}
+	
 	public function getName() {
 		return $this->getField('name');
 	}
@@ -191,6 +226,14 @@ abstract class Event_Generated extends AppCoughObject {
 		$this->setField('description', $value);
 	}
 	
+	public function getDate() {
+		return $this->getField('date');
+	}
+	
+	public function setDate($value) {
+		$this->setField('date', $value);
+	}
+	
 	public function getGuid() {
 		return $this->getField('guid');
 	}
@@ -205,6 +248,22 @@ abstract class Event_Generated extends AppCoughObject {
 	
 	public function setLink($value) {
 		$this->setField('link', $value);
+	}
+	
+	public function getLatitude() {
+		return $this->getField('latitude');
+	}
+	
+	public function setLatitude($value) {
+		$this->setField('latitude', $value);
+	}
+	
+	public function getLongitude() {
+		return $this->getField('longitude');
+	}
+	
+	public function setLongitude($value) {
+		$this->setField('longitude', $value);
 	}
 	
 	public function getDatePublished() {
@@ -254,6 +313,21 @@ abstract class Event_Generated extends AppCoughObject {
 	
 	public function setSource_Object($source) {
 		$this->objects['Source_Object'] = $source;
+	}
+	
+	public function loadRawRss_Object() {
+		$this->setRawRss_Object(RawRss::constructByKey($this->getRawRssId()));
+	}
+	
+	public function getRawRss_Object() {
+		if (!isset($this->objects['RawRss_Object'])) {
+			$this->loadRawRss_Object();
+		}
+		return $this->objects['RawRss_Object'];
+	}
+	
+	public function setRawRss_Object($rawRss) {
+		$this->objects['RawRss_Object'] = $rawRss;
 	}
 	
 	// Generated one-to-many collection loaders, getters, setters, adders, and removers
