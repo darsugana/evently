@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-include(dirname(dirname(__FILE__) . '/application.php'));
+include(dirname(dirname(dirname(__FILE__))) . '/config/application.php');
 
 $rawRss = new RawRss();
 $rawRss->setRawRssData(file_get_contents('http://upcoming.yahoo.com/syndicate/v2/search_all/?loc=Austin&rt=1'));
