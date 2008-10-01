@@ -31,15 +31,8 @@ include(APP_PATH . 'modules/coughphp/as_database/As_DatabaseResult.class.php');
 include(APP_PATH . 'modules/coughphp/dal/as/CoughAsDatabase.class.php');
 include(APP_PATH . 'modules/coughphp/dal/as/CoughAsDatabaseResult.class.php');
 
-// Setup database config
-CoughDatabaseFactory::addConfig(array(
-	'adapter' => 'as',
-	'driver' => 'mysql',
-	'host' => '127.0.0.1',
-	'user' => 'root',
-	'pass' => '',
-	'aliases' => array('events'),
-));
+// Include env specific confs
+include('environment.php');
 
 // Include SimplePie
 include(APP_PATH . 'modules/simplepie/simplepie.inc');
