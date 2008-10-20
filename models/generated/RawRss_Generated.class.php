@@ -17,6 +17,7 @@ abstract class RawRss_Generated extends AppCoughObject {
 		'source_id' => null,
 		'raw_rss_data' => null,
 		'is_imported' => 0,
+		'last_build_date' => null,
 		'date_modified' => null,
 		'date_created' => null,
 		'is_deleted' => 0,
@@ -42,6 +43,11 @@ abstract class RawRss_Generated extends AppCoughObject {
 			'db_column_name' => 'is_imported',
 			'is_null_allowed' => false,
 			'default_value' => 0
+		),
+		'last_build_date' => array(
+			'db_column_name' => 'last_build_date',
+			'is_null_allowed' => false,
+			'default_value' => null
 		),
 		'date_modified' => array(
 			'db_column_name' => 'date_modified',
@@ -171,6 +177,14 @@ abstract class RawRss_Generated extends AppCoughObject {
 	
 	public function setIsImported($value) {
 		$this->setField('is_imported', $value);
+	}
+	
+	public function getLastBuildDate() {
+		return $this->getField('last_build_date');
+	}
+	
+	public function setLastBuildDate($value) {
+		$this->setField('last_build_date', $value);
 	}
 	
 	public function getDateModified() {

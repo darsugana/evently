@@ -5,7 +5,9 @@
  *
  * @see Source_Generated, CoughObject
  **/
-class Source extends Source_Generated implements CoughObjectStaticInterface {
+class Source extends Source_Generated implements CoughObjectStaticInterface
+{
+	const UPCOMING_SOURCE_ID = 1;
 }
 
 ?>
