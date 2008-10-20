@@ -35,15 +35,5 @@ class SearchController extends AppController
 		
 		var_dump($feed->get_item_quantity());
 	}
-	
-	public function actionPullRaw()
-	{
-		$this->setLayout('blank');
-		
-		$rawRss = new RawRss();
-		$rawRss->setRawRssData(file_get_contents('http://upcoming.yahoo.com/syndicate/v2/search_all/?loc=Austin&rt=1'));
-		$rawRss->setDateCreated(date('Y-m-d H:i:s', CURRENT_TIMESTAMP));
-		$rawRss->save();
-	}
 }
 ?>
