@@ -1,7 +1,6 @@
 <?php
 class SearchController extends AppController
 {
-	
 	public function actionIndex()
 	{
 		if (isset($this->get['q']))
