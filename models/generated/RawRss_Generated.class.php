@@ -8,7 +8,7 @@
 abstract class RawRss_Generated extends AppCoughObject {
 	
 	protected static $db = null;
-	protected static $dbName = 'events';
+	protected static $dbName = 'evently';
 	protected static $tableName = 'raw_rss';
 	protected static $pkFieldNames = array('raw_rss_id');
 	
@@ -16,6 +16,7 @@ abstract class RawRss_Generated extends AppCoughObject {
 		'raw_rss_id' => null,
 		'source_id' => null,
 		'raw_rss_data' => null,
+		'is_imported' => 0,
 		'date_modified' => null,
 		'date_created' => null,
 		'is_deleted' => 0,
@@ -36,6 +37,11 @@ abstract class RawRss_Generated extends AppCoughObject {
 			'db_column_name' => 'raw_rss_data',
 			'is_null_allowed' => false,
 			'default_value' => null
+		),
+		'is_imported' => array(
+			'db_column_name' => 'is_imported',
+			'is_null_allowed' => false,
+			'default_value' => 0
 		),
 		'date_modified' => array(
 			'db_column_name' => 'date_modified',
@@ -157,6 +163,14 @@ abstract class RawRss_Generated extends AppCoughObject {
 	
 	public function setRawRssData($value) {
 		$this->setField('raw_rss_data', $value);
+	}
+	
+	public function getIsImported() {
+		return $this->getField('is_imported');
+	}
+	
+	public function setIsImported($value) {
+		$this->setField('is_imported', $value);
 	}
 	
 	public function getDateModified() {

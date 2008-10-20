@@ -8,7 +8,7 @@
 abstract class Source_Generated extends AppCoughObject {
 	
 	protected static $db = null;
-	protected static $dbName = 'events';
+	protected static $dbName = 'evently';
 	protected static $tableName = 'source';
 	protected static $pkFieldNames = array('source_id');
 	

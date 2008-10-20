@@ -13,8 +13,8 @@ $config = array(
 	
 	'phpDoc' => array(
 		'author' => 'CoughGenerator',
-		'package' => 'events',
-		'copyright' => 'events',
+		'package' => 'evently',
+		'copyright' => 'evently',
 	),
 	
 	'paths' => array(
@@ -45,7 +45,7 @@ $config = array(
 	),
 	
 	'databases' => array(
-		'events' => array(
+		'evently' => array(
 			'class_names' => array(
 				'prefix' => '',
 			),

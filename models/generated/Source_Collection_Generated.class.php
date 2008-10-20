@@ -6,8 +6,8 @@
  * @see Source_Collection, CoughCollection
  **/
 abstract class Source_Collection_Generated extends AppCoughCollection {
-	protected $dbAlias = 'events';
-	protected $dbName = 'events';
+	protected $dbAlias = 'evently';
+	protected $dbName = 'evently';
 	protected $elementClassName = 'Source';
 }
 

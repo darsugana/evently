@@ -8,7 +8,7 @@
 abstract class SpiderStatus_Generated extends AppCoughObject {
 	
 	protected static $db = null;
-	protected static $dbName = 'events';
+	protected static $dbName = 'evently';
 	protected static $tableName = 'spider_status';
 	protected static $pkFieldNames = array('spider_status_id');
 	

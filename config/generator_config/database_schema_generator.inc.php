@@ -28,7 +28,7 @@ $config = array(
 		'include_databases_matching_regex' => '/
 			# is exactly
 			^(
-				events
+				evently
 			)$
 		/x' // x modififer => white space is ignored (so we can format for readability)
 	),
