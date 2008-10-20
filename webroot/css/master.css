@@ -11,12 +11,35 @@ body
 	width: 800px;
 }
 
-.search
+.home-index .outer_container
 {
-	margin-top: 1em;
+	padding-top: 20em;
+	text-align: center;
 }
 
-.search input
+.home-index h1
+{
+	font-size: 5em;
+	font-style: italic;
+}
+
+.home-index .search
+{
+	margin-top: 2em;
+}
+
+.home-index .search input.q
 {
 	font-size: 2em;
+	border: 1px solid #ccc;
+	border-left: 1px solid #999;
+	border-top: 1px solid #999;
+	padding: .2em;
+	width: 20em;
+}
+
+.home-index .search input.submit
+{
+	font-size: 1.6em;
+	margin-left: .5em;
 }

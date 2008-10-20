@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<title>event search</title>
+	<title><?php echo $pageTitle ?></title>
 	<link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen" charset="utf-8">
 	<link rel="stylesheet" href="/css/master.css" type="text/css" media="screen" charset="utf-8">
 	<script type="text/javascript" src="/js/jquery-1.2.6.min.js" charset="utf-8"></script>
