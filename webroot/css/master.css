@@ -48,6 +48,18 @@ body
 
 .home-index .search input.submit
 {
-	font-size: 1.6em;
+	background-color: #eee;
+	border: 1px solid #999;
+	border-left: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	font-size: 1.8em;
 	margin-left: .5em;
+	padding: .3em .5em;
+}
+
+.home-index .search input:active.submit
+{
+	border: 1px solid #ccc;
+	border-left: 1px solid #999;
+	border-top: 1px solid #999;
 }
