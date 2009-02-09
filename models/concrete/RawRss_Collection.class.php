@@ -6,7 +6,7 @@
  * @see RawRss_Collection_Generated, CoughCollection
  **/
 class RawRss_Collection extends RawRss_Collection_Generated {
-	public static function getUnimportedRssBySourceId($sourceId)
+	public static function getUnimportedRssBySourceId($sourceId, $limit = 50)
 	{
 		$db = RawRss::getDb();
 		$sql = '
@@ -17,7 +17,8 @@ class RawRss_Collection extends RawRss_Collection_Generated {
 			WHERE
 				is_deleted = 0
 				AND source_id = ' . $db->quote($sourceId) . '
-		
+			LIMIT
+				' . (int)($limit) . '
 		
 		';
 		
