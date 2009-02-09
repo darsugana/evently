@@ -153,3 +153,4 @@ CREATE TABLE IF NOT EXISTS `venue` (
   KEY `guid` (`guid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=13 ;
 
+ALTER TABLE `raw_rss` CHANGE `raw_rss_data` `raw_rss_data` MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ;
