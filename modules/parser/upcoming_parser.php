@@ -12,6 +12,7 @@ $now = date('Y-m-d H:i:s');
 
 foreach ($rawRsses as $rawRss)
 {
+	echo 'importing ' . $rawRss->getKeyId() . "\n";
 	$feed = new SimplePie();
 	$feed->set_raw_data($rawRss->getRawRssData());
 	$feed->enable_cache(false);
