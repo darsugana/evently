@@ -24,10 +24,17 @@ foreach ($rawRsses as $rawRss)
 		// var_dump($item->get_title());
 		// var_dump($item);
 		
+		// FIXME TODO RHP 2009-02-08 queries in loops :(
+		$event = Event::constructByGuid(trim($item->get_id()));
+		if (is_object($event))
+		{
+			// TODO update event
+			continue;
+		}
 		$event = new Event();
 		$event->setRawRssId($rawRss->getKeyId());
 		$event->setSourceId(Source::UPCOMING_SOURCE_ID);
-		$event->setGuid($item->get_id());
+		$event->setGuid(trim($item->get_id()));
 		
 		$name = $item->get_title();
 		$dateSeparator = ': ';
@@ -97,17 +104,12 @@ foreach ($rawRsses as $rawRss)
 			$event->setVenueId($venue->getKeyId());
 		}
 		
-		if (true)
-		{
-			$events->add($event);
-		}
+		$events->add($event);
+
 	}
 
-	// var_dump($feed->get_item_quantity());
-	if (false)
-	{
-		$rawRss->setIsImported(1);
-	}
+	$rawRss->setIsImported(1);
+
 	
 }
 
