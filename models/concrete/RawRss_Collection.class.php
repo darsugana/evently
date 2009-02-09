@@ -6,7 +6,7 @@
  * @see RawRss_Collection_Generated, CoughCollection
  **/
 class RawRss_Collection extends RawRss_Collection_Generated {
-	public static function getUnimportedRssBySourceId($sourceId, $limit = 50)
+	public static function getUnimportedRssBySourceId($sourceId, $limit = 5)
 	{
 		$db = RawRss::getDb();
 		$sql = '
