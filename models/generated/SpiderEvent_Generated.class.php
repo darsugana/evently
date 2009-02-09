@@ -35,7 +35,7 @@ abstract class SpiderEvent_Generated extends AppCoughObject {
 		),
 		'raw_rss_id' => array(
 			'db_column_name' => 'raw_rss_id',
-			'is_null_allowed' => false,
+			'is_null_allowed' => true,
 			'default_value' => null
 		),
 		'spider_status_id' => array(

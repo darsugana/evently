@@ -1,3 +1,5 @@
 .DS_Store
 tmp/class_path_cache.txt
 config/environment.php
+notes.txt
+modules/parser/output.txt

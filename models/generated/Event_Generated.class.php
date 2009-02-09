@@ -23,6 +23,7 @@ abstract class Event_Generated extends AppCoughObject {
 		'link' => null,
 		'latitude' => null,
 		'longitude' => null,
+		'venue_id' => null,
 		'date_published' => null,
 		'date_modified' => null,
 		'date_created' => null,
@@ -80,6 +81,11 @@ abstract class Event_Generated extends AppCoughObject {
 			'is_null_allowed' => true,
 			'default_value' => null
 		),
+		'venue_id' => array(
+			'db_column_name' => 'venue_id',
+			'is_null_allowed' => true,
+			'default_value' => null
+		),
 		'date_published' => array(
 			'db_column_name' => 'date_published',
 			'is_null_allowed' => false,
@@ -108,6 +114,9 @@ abstract class Event_Generated extends AppCoughObject {
 		),
 		'RawRss_Object' => array(
 			'class_name' => 'RawRss'
+		),
+		'Venue_Object' => array(
+			'class_name' => 'Venue'
 		),
 	);
 	
@@ -266,6 +275,14 @@ abstract class Event_Generated extends AppCoughObject {
 		$this->setField('longitude', $value);
 	}
 	
+	public function getVenueId() {
+		return $this->getField('venue_id');
+	}
+	
+	public function setVenueId($value) {
+		$this->setField('venue_id', $value);
+	}
+	
 	public function getDatePublished() {
 		return $this->getField('date_published');
 	}
@@ -328,6 +345,21 @@ abstract class Event_Generated extends AppCoughObject {
 	
 	public function setRawRss_Object($rawRss) {
 		$this->objects['RawRss_Object'] = $rawRss;
+	}
+	
+	public function loadVenue_Object() {
+		$this->setVenue_Object(Venue::constructByKey($this->getVenueId()));
+	}
+	
+	public function getVenue_Object() {
+		if (!isset($this->objects['Venue_Object'])) {
+			$this->loadVenue_Object();
+		}
+		return $this->objects['Venue_Object'];
+	}
+	
+	public function setVenue_Object($venue) {
+		$this->objects['Venue_Object'] = $venue;
 	}
 	
 	// Generated one-to-many collection loaders, getters, setters, adders, and removers
