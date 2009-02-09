@@ -17,6 +17,7 @@ class RawRss_Collection extends RawRss_Collection_Generated {
 			WHERE
 				is_deleted = 0
 				AND source_id = ' . $db->quote($sourceId) . '
+				AND is_imported = 0
 			LIMIT
 				' . (int)($limit) . '
 		
