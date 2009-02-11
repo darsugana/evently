@@ -8,6 +8,7 @@
 class Source extends Source_Generated implements CoughObjectStaticInterface
 {
 	const UPCOMING_SOURCE_ID = 1;
+	const CRAIGSLIST_SOURCE_ID = 2;
 }
 
 ?>
