@@ -29,26 +29,39 @@ foreach ($rawRsses as $rawRss)
 		if (is_object($event))
 		{
 			// TODO update event
-			// continue;
+			continue;
 		}
 		$event = new Event();
 		$event->setRawRssId($rawRss->getKeyId());
 		$event->setSourceId(Source::CRAIGSLIST_SOURCE_ID);
 		$event->setGuid(trim($item->get_id()));
 		
-		$name = $item->get_title();
+		$name = trim($item->get_title());
 
 		$event->setName($name);
-		$event->setDescription($item->get_description());
+		$event->setDescription(trim($item->get_description()));
 		$event->setDate(date('Y-m-d H:i:s', strtotime($item->get_date())));
 		$event->setDatePublished($event->getDate());
 		$event->setLink($item->get_link());
 		
 		$event->setDateCreated($now);
-		
+
+		$date = Ev_Date::stringToDate($event->getName());
+		if ($date !== false)
+		{
+			$event->setDate($date);
+		}
+		else 
+		{
+			$date = Ev_Date::stringToDate($event->getDescription());
+			if ($date !== false)
+			{
+				$event->setDate($date);
+			}			
+		}
 		$events->add($event);
 		
-		Ev_Date::stringToDate($event->getDescription);
+		
 		
 		// TODO:
 		// 1) Parse out freetext dates
@@ -56,7 +69,7 @@ foreach ($rawRsses as $rawRss)
 		// 3) Guess at locations
 	}
 
-	// $rawRss->setIsImported(1);
+	$rawRss->setIsImported(1);
 
 	
 }
