@@ -49,14 +49,14 @@ foreach ($rawRsses as $rawRss)
 		$date = Ev_Date::stringToDate($event->getName());
 		if ($date !== false)
 		{
-			$event->setDate($date);
+			$event->setDate(date('Y-m-d H:i:s',$date));
 		}
 		else 
 		{
 			$date = Ev_Date::stringToDate($event->getDescription());
 			if ($date !== false)
 			{
-				$event->setDate($date);
+				$event->setDate(date('Y-m-d H:i:s',$date));
 			}			
 		}
 		$events->add($event);
@@ -75,7 +75,7 @@ foreach ($rawRsses as $rawRss)
 }
 
 
-// $events->save();
+$events->save();
 $rawRsses->save();
 
 ?>
