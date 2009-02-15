@@ -32,6 +32,12 @@ body
 	color: #333;
 }
 
+.search-index .search input
+{
+	color: #444;
+}
+
+.search-index .search input.q,
 .home-index .search input.q
 {
 	background-image: url(../images/magnify.png);
@@ -45,6 +51,13 @@ body
 	width: 20em;
 }
 
+.search-index .search input.q
+{
+	font-size: 1.65em;
+	padding-left: 1.3em;
+}
+
+.search-index .search input.submit,
 .home-index .search input.submit
 {
 	background-color: #eee;
@@ -56,10 +69,60 @@ body
 	padding: .3em .5em;
 }
 
+.search-index .search input.submit
+{
+	font-size: 1.55em;
+}
+
+.search-index .search input:active.submit,
 .home-index .search input:active.submit
 {
 	background-color: #eaeaea;
 	border: 1px solid #ccc;
 	border-left: 1px solid #999;
 	border-top: 1px solid #999;
+}
+
+.search_controller .outer_container
+{
+	padding: 0;
+	text-align: left;
+	width: 100%;
+}
+
+.search-index h2
+{
+	background-color: #444;
+	border-bottom: .2em solid #f0f0f0;
+	font-size: 1em;
+	padding: .5em 1em;
+}
+
+.search-index h2 .logo
+{
+	color: #fff;
+	font-size: 1.7em;
+	margin-right: .5em;
+}
+
+.search-index .search
+{
+	display: inline;
+}
+
+.search-index h5
+{
+	font-size: 1.4em;
+	margin: 1em 0;
+}
+
+.search-index ul
+{
+	margin-left: 2em;
+	list-style: none;
+}
+
+.search-index li
+{
+	font-size: 1.2em
 }

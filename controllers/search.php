@@ -12,6 +12,7 @@ class SearchController extends AppController
 		{
 			$events = new Event_Collection();
 		}
+		$this->setVar('query', trim($this->get['q']));
 		$this->setVar('events', $events);
 	}
 	

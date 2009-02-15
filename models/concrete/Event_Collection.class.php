@@ -9,8 +9,15 @@ class Event_Collection extends Event_Collection_Generated {
 	
 	public function loadBySearchString($searchString)
 	{
-		$this->load();
-		$this->sortByMethod('getDate', SORT_DESC);
+		$sql = Event::getLoadSql();
+		$sql .= '
+			WHERE
+				event.is_deleted = 0
+			ORDER BY
+				date DESC
+			LIMIT 500
+		';
+		$this->loadBySql($sql);
 	}
 }
 
