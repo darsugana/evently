@@ -79,7 +79,7 @@ class Ev_Date
 		return false;
 	}
 	
-	public static function stringToDate($string)
+	public static function stringToDate($string, $verbose = false)
 	{
 		// (RECURRING/MODIFIER) (YEAR) (MONTH) (DAY) (DAY OF WEEK) (TIME)
 		
@@ -122,51 +122,88 @@ class Ev_Date
 			. self::$year . ')?(' . self::$separators 
 			. self::$dayOfWeek . ')?'. '~i';
 		$matches = array();
-		echo $string . "\n";
-		if (0)
-		{
-			
-		}
-		
-			
-		else if (preg_match($mnadyt, $string, $matches))
-		{
-			echo "matched  month name day year time\n";
-			print_r(getdate(strtotime($matches[0])));
-			print_r($matches);
-		}
-		
-		else if (preg_match($dmyt, $string, $matches))
-		{
-			echo "matched day month year time\n";
-			print_r(getdate(strtotime($matches[0])));
 
-			print_r($matches);
-		}
-		else if (preg_match($mnodyt, $string, $matches))
+		if ($verbose)
 		{
-			echo "matched  month number day year time\n";
-			print_r(getdate(strtotime($matches[0])));
-			print_r($matches);
+			echo $string . "\n";
 		}
 		
-		else if (preg_match($tmdy, $string, $matches))
-		{
-			echo "matched time month day year\n";
-			print_r(getdate(strtotime($matches[0])));
 			
-			print_r($matches);
-		}
-		else if (preg_match($ymdt, $string, $matches))
+		if (preg_match($mnadyt, $string, $matches))
 		{
-			echo "matched year month day time\n";
-			print_r(getdate(strtotime($matches[0])));
-			print_r($matches);
+			if ($verbose)
+			{
+				echo "matched  month name day year time\n";
+				print_r(getdate(strtotime($matches[0])));
+				print_r($matches);
+			}
+			if (strtotime($matches[0])  !== FALSE)
+			{
+				return strtotime($matches[0]);
+			}
 		}
 		
+		if (preg_match($dmyt, $string, $matches))
+		{
+			if ($verbose)
+			{
+				echo "matched day month year time\n";
+				print_r(getdate(strtotime($matches[0])));
+
+				print_r($matches);
+			}
+			if (strtotime($matches[0])  !== FALSE)
+			{
+				return strtotime($matches[0]);
+			}
+			
+		}
+		if (preg_match($mnodyt, $string, $matches))
+		{
+			if ($verbose)
+			{
+				echo "matched  month number day year time\n";
+				print_r(getdate(strtotime($matches[0])));
+				print_r($matches);
+			}
+			if (strtotime($matches[0])  !== FALSE)
+			{
+				return strtotime($matches[0]);
+			}
+			
+		}
 		
+		if (preg_match($tmdy, $string, $matches))
+		{
+			if ($verbose)
+			{
+				echo "matched time month day year\n";
+				print_r(getdate(strtotime($matches[0])));
+			
+				print_r($matches);
+			}
+			if (strtotime($matches[0])  !== FALSE)
+			{
+				return strtotime($matches[0]);
+			}
+			
+		}
+		if (preg_match($ymdt, $string, $matches))
+		{
+			if ($verbose)
+			{
+				echo "matched year month day time\n";
+				print_r(getdate(strtotime($matches[0])));
+				print_r($matches);
+			}
+			if (strtotime($matches[0]) !== FALSE)
+			{
+				return strtotime($matches[0]);
+			}
+			
+		}
 		
-		else
+		if ($verbose)
 		{
 			echo 'no matches for ' . $string . "\n";
 		}
@@ -177,7 +214,10 @@ class Ev_Date
 	{
 		foreach (self::$testValues as $string)
 		{
-			self::stringToDate($string);
+			echo $string . "\n";
+			$date = self::stringToDate($string);
+			echo "'" . $date . "'\n";
+			echo date('Y-M-D H:m:s', $date) . "\n";
 		}
 	}
 	
