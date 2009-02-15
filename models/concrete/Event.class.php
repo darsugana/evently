@@ -19,6 +19,7 @@ class Event extends Event_Generated implements CoughObjectStaticInterface {
 			WHERE
 				guid = ' . $db->quote($guid) . ' 
 				AND is_deleted = 0
+			LIMIT 1
 		';
 		return self::constructBySql($sql);
 		
