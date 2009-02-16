@@ -8,6 +8,7 @@ $rawRsses = RawRss_Collection::getUnimportedRssBySourceId(Source::UPCOMING_SOURC
 
 $events = new Event_Collection();
 
+$seenGuids = array();
 $now = date('Y-m-d H:i:s');
 
 foreach ($rawRsses as $rawRss)
@@ -27,7 +28,7 @@ foreach ($rawRsses as $rawRss)
 		
 		// FIXME TODO RHP 2009-02-08 queries in loops :(
 		$event = Event::constructByGuid(trim($item->get_id()));
-		if (is_object($event))
+		if (is_object($event) || isset($seenGuids[trim($item->get_id())]))
 		{
 			// TODO update event
 			continue;
@@ -106,7 +107,7 @@ foreach ($rawRsses as $rawRss)
 		}
 		
 		$events->add($event);
-
+		$seenGuids[$event->getGuid()] = true;
 	}
 
 	$rawRss->setIsImported(1);
