@@ -23,6 +23,22 @@ class Venue extends Venue_Generated implements CoughObjectStaticInterface {
 		
 	}
 	
+	public static function constructByName($name)
+	{
+		$db = self::getDb();
+		$sql = '
+			SELECT
+				*
+			FROM
+				venue
+			WHERE
+				name = ' . $db->quote($name) . ' 
+				AND is_deleted = 0
+		';
+		return self::constructBySql($sql);
+		
+	}
+	
 }
 
 ?>

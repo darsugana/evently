@@ -37,6 +37,10 @@ include('environment.php');
 // Include SimplePie
 include(APP_PATH . 'modules/simplepie/simplepie.inc');
 
+// Include SimpleHtmlDom
+include(APP_PATH . 'modules/simplehtmldom/load.inc.php');
+
+
 // Configure autoloader
 include(APP_PATH . 'classes/Autoloader.class.php');
 Autoloader::setCacheFilePath(APP_PATH . 'tmp/class_path_cache.txt');

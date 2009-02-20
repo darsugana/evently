@@ -16,6 +16,7 @@ abstract class SpiderEvent_Generated extends AppCoughObject {
 		'spider_event_id' => null,
 		'source_id' => null,
 		'raw_rss_id' => null,
+		'raw_html_id' => null,
 		'spider_status_id' => null,
 		'date_created' => null,
 		'date_modified' => null,
@@ -35,6 +36,11 @@ abstract class SpiderEvent_Generated extends AppCoughObject {
 		),
 		'raw_rss_id' => array(
 			'db_column_name' => 'raw_rss_id',
+			'is_null_allowed' => true,
+			'default_value' => null
+		),
+		'raw_html_id' => array(
+			'db_column_name' => 'raw_html_id',
 			'is_null_allowed' => true,
 			'default_value' => null
 		),
@@ -66,6 +72,9 @@ abstract class SpiderEvent_Generated extends AppCoughObject {
 		),
 		'RawRss_Object' => array(
 			'class_name' => 'RawRss'
+		),
+		'RawHtml_Object' => array(
+			'class_name' => 'RawHtml'
 		),
 		'SpiderStatus_Object' => array(
 			'class_name' => 'SpiderStatus'
@@ -171,6 +180,14 @@ abstract class SpiderEvent_Generated extends AppCoughObject {
 		$this->setField('raw_rss_id', $value);
 	}
 	
+	public function getRawHtmlId() {
+		return $this->getField('raw_html_id');
+	}
+	
+	public function setRawHtmlId($value) {
+		$this->setField('raw_html_id', $value);
+	}
+	
 	public function getSpiderStatusId() {
 		return $this->getField('spider_status_id');
 	}
@@ -233,6 +250,21 @@ abstract class SpiderEvent_Generated extends AppCoughObject {
 	
 	public function setRawRss_Object($rawRss) {
 		$this->objects['RawRss_Object'] = $rawRss;
+	}
+	
+	public function loadRawHtml_Object() {
+		$this->setRawHtml_Object(RawHtml::constructByKey($this->getRawHtmlId()));
+	}
+	
+	public function getRawHtml_Object() {
+		if (!isset($this->objects['RawHtml_Object'])) {
+			$this->loadRawHtml_Object();
+		}
+		return $this->objects['RawHtml_Object'];
+	}
+	
+	public function setRawHtml_Object($rawHtml) {
+		$this->objects['RawHtml_Object'] = $rawHtml;
 	}
 	
 	public function loadSpiderStatus_Object() {
