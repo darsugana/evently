@@ -47,14 +47,14 @@ foreach ($rawRsses as $rawRss)
 		
 		$event->setDateCreated($now);
 
-		$date = Ev_Date::stringToDate($event->getName());
+		$date = Ev_Date::stringToDateTime($event->getName());
 		if ($date !== false)
 		{
 			$event->setDate(date('Y-m-d H:i:s',$date));
 		}
 		else 
 		{
-			$date = Ev_Date::stringToDate($event->getDescription());
+			$date = Ev_Date::stringToDateTime($event->getDescription());
 			if ($date !== false)
 			{
 				$event->setDate(date('Y-m-d H:i:s',$date));

@@ -60,7 +60,7 @@ class Ev_Date
 	protected static $monthName = '((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|january|february|march\april|may|june|july|august|september|october|november|december)\.?)';
 	protected static $dayOfWeek = '((mon|tues|wed|thurs|fri|sat|sun)(\.|(day))?)?';
 	protected static $day = '([0-3]?[0-9](st|nd|rd|th)?)\b';
-	protected static $time = '(@?(([012]?[0-9](:[0-5][0-9]).?(pm|am|hours|at.night|in.the.morning))|noon|midnight))\b';
+	protected static $time = '(([012]?[0-9]:[0-5][0-9].?(pm|am|hours|at.night|in.the.morning))|noon|midnight)\b';
 	
 	
 	
@@ -79,49 +79,89 @@ class Ev_Date
 		return false;
 	}
 	
+	public static function stringToDateTime($string, $verbose = false)
+	{
+		$date = self::stringToDate($string, $verbose);
+		$time = self::stringToTime($string, $date, $verbose);
+		
+		if ($time !== false && $time != 0)
+		{
+			return  $time;
+		}
+		
+		if ($date !== false && $date != 0)
+		{
+			return $date;
+		}
+		
+		return false;
+	}
+	
+	public static function stringToTime($string, $date = 0, $verbose = true)
+	{
+		
+		$matches = array();
+
+		if ($verbose)
+		{
+			echo $string . "\n";
+		}
+	
+		if (preg_match('~' . self::$time . '~i', $string, $matches))
+		{
+			if ($verbose)
+			{
+				echo "matched time\n";
+				print_r(getdate(strtotime($matches[0], $date)));
+				print_r($matches);
+			}
+			if (strtotime($matches[0]) !== FALSE)
+			{
+				return strtotime($matches[0], $date);
+			}
+			
+			
+		}
+		
+		if ($verbose)
+		{
+			echo 'no matches for ' . $string . "\n";
+		}
+		return false;		
+	}
+	
 	public static function stringToDate($string, $verbose = false)
 	{
 		// (RECURRING/MODIFIER) (YEAR) (MONTH) (DAY) (DAY OF WEEK) (TIME)
 		
 	
 		
-		$ymdt = '~'
+		$ymd = '~'
 			. self::$year .'('	. self::$separators 
 			. self::$month . ')?(' . self::$separators 
 			. self::$day . ')?(' . self::$separators
-			. self::$dayOfWeek . ')?(' . self::$separators
-			. self::$time . ')?' . '~i';
+			. self::$dayOfWeek . ')?' . '~i';
 		
-		$dmyt = '~'
+		$dmy = '~'
 			. self::$day. self::$separators 
 			. self::$monthName  . '(' . self::$separators  . ')?('
 			. self::$year . ')?(' . self::$separators . ')?('
-			. self::$dayOfWeek . ')?(' . self::$separators 
-			. self::$time . ')?' . '~i';
+			. self::$dayOfWeek . ')?' . '~i';
 		
-		$mnadyt = '~'
+		$mnady = '~'
 			. self::$monthName . self::$separators 
 			. self::$day . '(' . self::$separators 
 			. self::$year . ')?(' . self::$separators 
-			. self::$dayOfWeek . ')?(' . self::$separators 
-			. self::$time . ')?'. '~iU';
+			. self::$dayOfWeek . ')?'. '~iU';
 
-		$mnodyt = '~'
+		$mnody = '~'
 			. self::$monthNumber . self::$separators 
 			. self::$day . '(' . self::$separators 
 			. self::$year . ')?(' . self::$separators 
-			. self::$dayOfWeek . ')?(' . self::$separators 
-			. self::$time . ')?'. '~i';
+			. self::$dayOfWeek . ')?'. '~i';
 
 		
-		$tmdy = '~' 
-			
-			. self::$time . self::$separators
-			. self::$monthName . self::$separators 
-			. self::$day . '(' . self::$separators 
-			. self::$year . ')?(' . self::$separators 
-			. self::$dayOfWeek . ')?'. '~i';
-		$matches = array();
+			$matches = array();
 
 		if ($verbose)
 		{
@@ -129,7 +169,7 @@ class Ev_Date
 		}
 		
 			
-		if (preg_match($mnadyt, $string, $matches))
+		if (preg_match($mnady, $string, $matches))
 		{
 			if ($verbose)
 			{
@@ -143,7 +183,7 @@ class Ev_Date
 			}
 		}
 		
-		if (preg_match($dmyt, $string, $matches))
+		if (preg_match($dmy, $string, $matches))
 		{
 			if ($verbose)
 			{
@@ -158,7 +198,7 @@ class Ev_Date
 			}
 			
 		}
-		if (preg_match($mnodyt, $string, $matches))
+		if (preg_match($mnody, $string, $matches))
 		{
 			if ($verbose)
 			{
@@ -173,22 +213,7 @@ class Ev_Date
 			
 		}
 		
-		if (preg_match($tmdy, $string, $matches))
-		{
-			if ($verbose)
-			{
-				echo "matched time month day year\n";
-				print_r(getdate(strtotime($matches[0])));
-			
-				print_r($matches);
-			}
-			if (strtotime($matches[0])  !== FALSE)
-			{
-				return strtotime($matches[0]);
-			}
-			
-		}
-		if (preg_match($ymdt, $string, $matches))
+		if (preg_match($ymd, $string, $matches))
 		{
 			if ($verbose)
 			{
@@ -215,9 +240,9 @@ class Ev_Date
 		foreach (self::$testValues as $string)
 		{
 			echo $string . "\n";
-			$date = self::stringToDate($string);
+			$date = self::stringToDateTime($string);
 			echo "'" . $date . "'\n";
-			echo date('Y-M-D H:m:s', $date) . "\n";
+			echo 'retval ' . date('Y-M-d H:i:s', $date) . ' for ' . $string . "\n";
 		}
 	}
 	
