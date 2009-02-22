@@ -48,7 +48,8 @@ foreach ($rawHtmls as $rawHtml)
 					}
 					
 					$guid = $name . ' ' . $link . ' ' . $date; 
-
+					$guid = substr($guid, 0, 255);
+					
 					$event = Event::constructByGuid($guid);
 					if (is_object($event) || isset($seenGuids[$guid]))
 					{
