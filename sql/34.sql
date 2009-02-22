@@ -1,0 +1,6 @@
+CREATE USER 'evently'@'localhost' IDENTIFIED BY '3v3ntlyr0cks2!';
+
+GRANT USAGE ON * . * TO 'evently'@'localhost' IDENTIFIED BY '3v3ntlyr0cks2!' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
+
+
+GRANT ALL PRIVILEGES ON `evently` . * TO 'evently'@'localhost';
