@@ -24,7 +24,7 @@ foreach ($rawHtmls as $rawHtml)
 		{
 			if ($childNode->tag == 'b')
 			{
-				$date = Ev_Date::stringToDateTime($childNode->plaintext);
+				$date = Ev_Date::stringToDate($childNode->plaintext);
 			}
 			else if ($childNode->tag == 'ul')
 			{
