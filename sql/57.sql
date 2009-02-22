@@ -4,7 +4,7 @@ CREATE TABLE  `evently`.`tag` (
 `date_created` DATETIME NOT NULL ,
 `date_modified` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NULL ,
 `is_deleted` BOOL NOT NULL
-) ENGINE = INNODB
+) ENGINE = INNODB;
 
 CREATE TABLE  `evently`.`tag2event` (
 `tag_event_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -13,7 +13,7 @@ CREATE TABLE  `evently`.`tag2event` (
 `date_created` DATETIME NOT NULL ,
 `date_modified` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NULL ,
 `is_deleted` BOOL NOT NULL DEFAULT  '0'
-) ENGINE = INNODB
+) ENGINE = INNODB;
 
 CREATE TABLE  `evently`.`tag2venue` (
 `tag_venue_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -22,7 +22,7 @@ CREATE TABLE  `evently`.`tag2venue` (
 `date_created` DATETIME NOT NULL ,
 `date_modified` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NULL ,
 `is_deleted` BOOL NOT NULL DEFAULT  '0'
-) ENGINE = INNODB
+) ENGINE = INNODB;
 
 CREATE TABLE  `evently`.`tag2source` (
 `tag_source_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -31,4 +31,4 @@ CREATE TABLE  `evently`.`tag2source` (
 `date_created` DATETIME NOT NULL ,
 `date_modified` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NULL ,
 `is_deleted` BOOL NOT NULL DEFAULT  '0'
-) ENGINE = INNODB
+) ENGINE = INNODB;
