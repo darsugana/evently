@@ -40,6 +40,9 @@ include(APP_PATH . 'modules/simplepie/simplepie.inc');
 // Include SimpleHtmlDom
 include(APP_PATH . 'modules/simplehtmldom/load.inc.php');
 
+// Include sphinx API
+include_once(APP_PATH . 'modules/sphinx/load_inc.php');
+
 
 // Configure autoloader
 include(APP_PATH . 'classes/Autoloader.class.php');
