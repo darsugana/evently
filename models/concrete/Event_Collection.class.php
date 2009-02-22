@@ -11,13 +11,16 @@ class Event_Collection extends Event_Collection_Generated {
 	{
 		$search = new Ev_Search('events_all');
 		$result = $search->search($searchString);
-		$eventIds = array_keys($result['matches']);
-		$sql = Event::getLoadSql();
-		$sql .= '
-			WHERE
-				event.event_id IN (' . implode(', ', $eventIds)  . ')
-		';
-		$this->loadBySql($sql);
+		if (is_array($result['matches']))
+		{
+			$eventIds = array_keys($result['matches']);
+			$sql = Event::getLoadSql();
+			$sql .= '
+				WHERE
+					event.event_id IN (' . implode(', ', $eventIds)  . ')
+			';
+			$this->loadBySql($sql);
+		}
 	}
 }
 
