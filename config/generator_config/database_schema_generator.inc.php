@@ -16,8 +16,8 @@ $config = array(
 	// All databases will be scanned unless specified in the 'databases' parameter in the OPTIONAL CONFIG SECTION.
 	'dsn' => array(
 		'host' => '127.0.0.1',
-		'user' => 'root',
-		'pass' => '',
+		'user' => 'evently',
+		'pass' => '3v3ntlyr0cks2!',
 		'port' => 3306,
 		'driver' => 'mysql'
 	),
