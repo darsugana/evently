@@ -9,13 +9,13 @@ class Event_Collection extends Event_Collection_Generated {
 	
 	public function loadBySearchString($searchString)
 	{
+		$search = new Ev_Search('events_all');
+		$result = $search->search($searchString);
+		$eventIds = array_keys($result['matches']);
 		$sql = Event::getLoadSql();
 		$sql .= '
 			WHERE
-				event.is_deleted = 0
-			ORDER BY
-				date DESC
-			LIMIT 500
+				event.event_id IN (' . implode(', ', $eventIds)  . ')
 		';
 		$this->loadBySql($sql);
 	}
