@@ -63,7 +63,7 @@ foreach ($rawHtmls as $rawHtml)
 					$event->setGuid($guid);
 					
 					
-					$event->setName($name);
+					$event->setName(Ev_String::wordTrim($name, 255));
 					$event->setDescription($name);
 					$event->setDate($now);
 					$event->setDatePublished($now);
