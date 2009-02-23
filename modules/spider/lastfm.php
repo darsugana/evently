@@ -5,7 +5,7 @@ include(dirname(dirname(dirname(__FILE__))) . '/config/application.php');
 $spiderEvents = new SpiderEvent_Collection();
 
 $rawRss = new RawRss();
-$rawRssData = file_get_contents('http://ws.audioscrobbler.com/2.0/geo/austin/events.rss');
+$rawRssData = file_get_contents('http://ws.audioscrobbler.com/2.0/geo/events.rss?location=Austin');
 $spiderEvents->add(SpiderEvent::buildBySourceAndStatusId(Source::LASTFM_SOURCE_ID, SpiderStatus::ATTEMPTED_CONNECTION_STATUS_ID));
 
 preg_match('/generator\>(.*)\<\/generator/', $rawRssData, $matches);

@@ -38,22 +38,28 @@ foreach ($rawRsses as $rawRss)
 		$event->setSourceId(Source::LASTFM_SOURCE_ID);
 		$event->setGuid(trim($item->get_id()));
 		
-		$name = $item->get_title();
+		$name = html_entity_decode($item->get_title());
 		$dateSeparator = ' on ';
 		$pos = strpos($name, $dateSeparator);
 		if ($pos !== false)
 		{
-			$name = substr($name, $pos + strlen($dateSeparator));
+			$name = substr($name, 0, $pos);
 		}
 		
+		$description = $item->get_description();
+		$descriptionLines = explode("\n", $description);
+		$firstLine = $descriptionLines[0];
+		$venueName = html_entity_decode(trim(str_replace('Location: ', '', $firstLine)));
+		unset($descriptionLines[0]);
+		unset($descriptionLines[1]);
+		$description = html_entity_decode(implode("\n", $descriptionLines));
+		
 		$event->setName($name);
-		$event->setDescription($item->get_description());
+		$event->setDescription($description);
 		$event->setDate(date('Y-m-d H:i:s', strtotime($item->get_date())));
 		$event->setDatePublished($event->getDate());
 		$event->setLink($item->get_link());
-		$event->setLatitude($item->get_latitude());
-		$event->setLongitude($item->get_longitude());
-
+		
 		$event->setDateCreated($now);
 		
 		$dates = $item->get_item_tags(XCAL_NAMESPACE, 'dtstart');
@@ -69,11 +75,22 @@ foreach ($rawRsses as $rawRss)
 			}
 		}
 		
-		$venueLink = $item->get_item_tags(XCAL_NAMESPACE, 'location');
-		
-		if (!empty($venueLink))
+		$venueTag = array_pop($item->get_item_tags(XCAL_NAMESPACE, 'location'));
+		if (!empty($venueTag) && isset($venueTag['data']) && !empty($venueTag['data']))
 		{
+			$venueGuid = $venueTag['data'];
 			// TODO: hook into last.fm venue API and get info
+			$venue = Venue::constructByGuid($venueGuid);
+			if (!is_object($venue))
+			{
+				$venue = new Venue();
+				$venue->setGuid($venueGuid);
+				$venue->setName($venueName);
+				$venue->setDateCreated($now);
+				$venue->setUrl($venueGuid);
+				$venue->save();
+			}
+			$event->setVenueId($venue->getKeyId());
 		}
 		
 		$events->add($event);
@@ -84,7 +101,6 @@ foreach ($rawRsses as $rawRss)
 
 	
 }
-
 
 $events->save();
 $rawRsses->save();
