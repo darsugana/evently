@@ -36,10 +36,10 @@ foreach ($rawHtmls as $rawHtml)
 					}
 
 					$name = trim($item->plaintext);
-					$name = str_replace('[+]', '', $name);
+					$name = html_entity_decode(str_replace('[+]', '', $name));
 					
 					$link = trim($item->find('a', 0)->href);
-					$venueName = $item->find('a', 0)->plaintext;
+					$venueName = html_entity_decode($item->find('a', 0)->plaintext);
 					
 					if (strpos($link, 'cgi/genpage.cgi?venue=') !== false)
 					{

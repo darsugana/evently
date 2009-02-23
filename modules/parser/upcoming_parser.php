@@ -38,7 +38,7 @@ foreach ($rawRsses as $rawRss)
 		$event->setSourceId(Source::UPCOMING_SOURCE_ID);
 		$event->setGuid(trim($item->get_id()));
 		
-		$name = $item->get_title();
+		$name = html_entity_decode($item->get_title());
 		$dateSeparator = ': ';
 		$pos = strpos($name, $dateSeparator);
 		if ($pos !== false)
@@ -47,7 +47,7 @@ foreach ($rawRsses as $rawRss)
 		}
 		
 		$event->setName($name);
-		$event->setDescription($item->get_description());
+		$event->setDescription(html_entity_decode($item->get_description()));
 		$event->setDate(date('Y-m-d H:i:s', strtotime($item->get_date())));
 		$event->setDatePublished($event->getDate());
 		$event->setLink($item->get_link());
@@ -90,7 +90,7 @@ foreach ($rawRsses as $rawRss)
 
 
 				$adr = $children['adr'][0]['child'][XCAL_NAMESPACE];
-				$venue->setName(trim($adr['x-calconnect-venue-name'][0]['data']));
+				$venue->setName(trim(html_entity_decode($adr['x-calconnect-venue-name'][0]['data'])));
 				$venue->setStreet1(trim($adr['x-calconnect-street'][0]['data']));
 				$venue->setCity(trim($adr['x-calconnect-city'][0]['data']));
 				$venue->setState(trim($adr['x-calconnect-region'][0]['data']));

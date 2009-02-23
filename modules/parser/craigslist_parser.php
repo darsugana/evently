@@ -37,10 +37,10 @@ foreach ($rawRsses as $rawRss)
 		$event->setSourceId(Source::CRAIGSLIST_SOURCE_ID);
 		$event->setGuid(trim($item->get_id()));
 		
-		$name = trim($item->get_title());
+		$name = trim(html_entity_decode($item->get_title()));
 
 		$event->setName($name);
-		$event->setDescription(trim($item->get_description()));
+		$event->setDescription(trim(html_entity_decode($item->get_description())));
 		$event->setDate(date('Y-m-d H:i:s', strtotime($item->get_date())));
 		$event->setDatePublished($event->getDate());
 		$event->setLink($item->get_link());
