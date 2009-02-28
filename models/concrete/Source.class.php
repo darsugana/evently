@@ -11,5 +11,6 @@ class Source extends Source_Generated implements CoughObjectStaticInterface
 	const CRAIGSLIST_SOURCE_ID = 2;
 	const SHOWLISTAUSTIN_SOURCE_ID = 3;
 	const LASTFM_SOURCE_ID = 4;
+	const LINKEDIN_SOURCE_ID = 5;
 }
 
