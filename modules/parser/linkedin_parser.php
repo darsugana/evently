@@ -3,7 +3,7 @@
 include(dirname(dirname(dirname(__FILE__))) . '/config/application.php');
 
 
-$rawHtmls = RawHtml_Collection::getUnimportedHtmlBySourceId(Source::LINKEDIN_SOURCE_ID,1);
+$rawHtmls = RawHtml_Collection::getUnimportedHtmlBySourceId(Source::LINKEDIN_SOURCE_ID);
 
 $events = new Event_Collection();
 
