@@ -25,9 +25,10 @@ foreach ($rawHtmls as $rawHtml)
 			{
 				$date = Ev_Date::stringToDateTime($dateNode->title);
 			}
-			$guid = $node->id;
+			// $guid = $node->id;
 			$summaryLinkNode = $node->find('h3[class=summary]',0)->find('a',0);
 			$link = $summaryLinkNode->href;
+			$guid = $link;
 			$name = trim($summaryLinkNode->plaintext);
 		
 			$venueNode = $node->find('dd[class=location]',0);
