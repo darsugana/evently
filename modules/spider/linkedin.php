@@ -6,7 +6,14 @@ $spiderEvents = new SpiderEvent_Collection();
 
 $rawHtml = new RawHtml();
 $rawHtmlData = file_get_contents('http://events.linkedin.com/austin-texas-area');
-// $rawHtmlData = file_get_contents(dirname(__FILE__) . '/linkedin.html');
+// $rawHtmlData = file_get_contents(dirname(__FILE__) . '/linkedin1.html');
+
+
+// linkedin assigns random event ids to the events each time you request the page, dunno why, but we don't want them.
+$htmlData = preg_replace("/id='#&lt;Event:0x[a-zA-z0-9]+&gt;'/",'', $rawHtmlData);
+
+$rawHtmlData = $htmlData;
+
 
 $spiderEvents->add(SpiderEvent::buildBySourceAndStatusId(Source::LINKEDIN_SOURCE_ID, SpiderStatus::ATTEMPTED_CONNECTION_STATUS_ID));
 
