@@ -18,7 +18,7 @@ if (count($events))
 			?>
 			<li>
 				<!--<span class="when"><?php echo htmlentities(date('F j, Y, g:i a', strtotime($event->getDate()))) ?></span>-->
-				<a href="<?php echo $event->getLink()?>"><?php echo htmlentities($event->getName()) ?></a> (<?php echo htmlentities($event->getDate()) ?>)
+				<a href="<?php echo $event->getLink()?>"><?php echo htmlentities($event->getName(), ENT_COMPAT, 'UTF-8', false) ?></a> (<?php echo htmlentities($event->getDate()) ?>)
 			</li>
 			<?php
 		}
