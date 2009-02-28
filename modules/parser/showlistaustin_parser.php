@@ -92,6 +92,10 @@ foreach ($rawHtmls as $rawHtml)
 		}
 	}
 
+	$html->clear();
+	$html = null;
+	
+
 	$rawHtml->setIsImported(1);
 }
 
