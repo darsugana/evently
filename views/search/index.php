@@ -1,10 +1,16 @@
 <h2>
-	<span class="logo">evently</span>
-	<form class="search" action="/search/" method="get">
-		<input class="q" name="q" type="text" value="<?php echo htmlentities($query) ?>" />
-		<input class="submit" type="submit" value="search" />
-	</form>
+	<img src="/images/logo_small.gif" />
 </h2>
+
+<form class="search" action="/search/" method="get">
+	<fieldset>
+		<input class="q" name="q" type="text" value="<?php echo htmlentities($query) ?>" />
+	</fieldset>
+	<fieldset>
+		<span class="examples">found <?php echo count($events) ?> results</span>
+		<input class="submit" type="submit" value="Search Events" />
+	</fieldset>
+</form>
 
 <?php
 if (count($events))
@@ -29,7 +35,7 @@ if (count($events))
 else
 {
 	?>
-	Your search returned no results, please change your search terms and try again to find more exciting events.
+	<h5>Your search returned no results, please change your search terms and try again to find more exciting events.</h5>
 	<?php
 }
 
