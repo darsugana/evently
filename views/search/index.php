@@ -55,6 +55,7 @@ if (count($eventsByDate))
 									<a class="like" href="/event/like/<?php echo (int)$event->getEventId() ?>">I like this (+1)</a>
 									<a class="attend" href="/event/attend/<?php echo (int)$event->getEventId() ?>">I'm going! (+10)</a>
 									<a class="comment" href="#" onclick="$('comment')">Comment (+3)</a>
+									<script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=463070c7-d402-4580-b4f3-da21897e103b&amp;type=website&amp;embeds=true"></script>
 									<a class="report" href="#">X</a>
 									<div class="clear"></div>
 								</p>

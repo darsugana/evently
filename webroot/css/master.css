@@ -336,3 +336,15 @@ a:active
 {
 	background-color: red;
 }
+
+.search-index .event .controls .stbutton
+{
+	background-color: #f2f2f2 !important;
+	background-image: none !important; 
+	padding-bottom: .1em !important;
+}
+
+.search-index .event .controls .stbutton:hover
+{
+	background-color: purple !important;
+}
