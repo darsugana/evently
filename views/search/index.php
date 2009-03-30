@@ -49,7 +49,7 @@ if (count($eventsByDate))
 								</h3>
 								<h4 class="link"><a class="external" href="<?php echo $event->getLink() ?>"><?php echo htmlentities($event->getLink()) ?></a></h4>
 								<p class="description">
-									<?php echo htmlentities(Ev_String::wordTrim(html_entity_decode(str_replace('<br />', ' ', $event->getDescription()), ENT_QUOTES, 'UTF-8'))) ?>
+									<?php echo htmlentities(Ev_String::wordTrim(html_entity_decode(strip_tags($event->getDescription()), ENT_QUOTES, 'UTF-8'))) ?>
 								</p>
 								<p class="controls">
 									<a class="like" href="/event/like/<?php echo (int)$event->getEventId() ?>">I like this (+1)</a>
