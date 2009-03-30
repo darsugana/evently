@@ -106,7 +106,7 @@ body
 	border-bottom: 1px dotted #ccc;
 	font-size: 1em;
 	height: 4em;
-	padding: .5em 1em;
+	padding: 1em;
 }
 
 .search-index img
@@ -128,5 +128,73 @@ body
 .search-index .results
 {
 	border-top: 1px dotted #ccc;
-	padding: 1em;
+	width: 100%;
+}
+
+.search-index .results .dates,
+.search-index .results .events
+{
+	background-image: url("/images/bg_gray.gif");
+	background-repeat: repeat-x;
+	vertical-align: top;
+}
+
+.search-index .results .events
+{
+	padding: 0 1em;
+}
+
+.search-index .results .dates
+{
+	border-right: 1px dotted #ccc;
+	color: #888;
+	font-family: Georgia, serif;
+	font-size: 1.7em;
+	font-style: italic;
+	padding: .6em;
+	text-align: center;
+	width: 7em;
+}
+
+.search-index .event
+{
+	line-height: 1.4em;
+	margin: 1em 0;
+	margin-bottom: 1.5em;
+	width: 60em;
+}
+
+.search-index .event .title
+{
+	font-size: 1.5em;
+	line-height: 1.2em;
+	margin-bottom: .2em;
+}
+
+.search-index .event .title .time
+{
+	float: left;
+	width: 4.5em;
+}
+
+.search-index .event .link
+{
+	margin-bottom: .2em;
+	margin-left: 6.9em;
+}
+
+.search-index .event .link a
+{
+	color: #82994d;
+	text-decoration: none;
+}
+
+.search-index .event .link a:hover
+{
+	text-decoration: underline;
+}
+
+.search-index .event .description
+{
+	margin-left: 6.9em;
 }

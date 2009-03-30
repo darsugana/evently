@@ -1,13 +1,12 @@
 <?php
-
 class Ev_String
 {
-	
 	public static function wordTrim($string, $length = 255)
 	{
 		$words = explode(' ' , $string);
 		$retval = '';
 		$curLength = 0;
+		$isTrimmed = false;
 		foreach ($words as $word)
 		{
 			if ($curLength + 1 + strlen($word) <= $length)
@@ -17,10 +16,13 @@ class Ev_String
 			}
 			else
 			{
+				$isTrimmed = true;
 				break;
 			}
 		}
+		if ($isTrimmed) {
+			$retval = $retval . ' ...';
+		}
 		return $retval;
 	}
-	
 }

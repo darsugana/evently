@@ -26,5 +26,13 @@ class Event_Collection extends Event_Collection_Generated
 			$this->loadBySql($sql);
 		}
 	}
+	
+	public function getEventsChunkedByDate()
+	{
+		$events = array();
+		foreach ($this as $event) {
+			$events[date('Y-m-d', strtotime($event->getDate()))][$event->getEventId()] = $event;
+		}
+		return $events;
+	}
 }
-

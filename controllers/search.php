@@ -7,13 +7,15 @@ class SearchController extends AppController
 		{
 			$events = new Event_Collection();
 			$events->loadBySearchString(trim($this->get['q']));
+			$eventsByDate = $events->getEventsChunkedByDate();
 		}
 		else
 		{
-			$events = new Event_Collection();
+			$eventsByDate = array();
 		}
 		$this->setVar('query', trim($this->get['q']));
-		$this->setVar('events', $events);
+		$this->setVar('eventsByDate', $eventsByDate);
+		$this->setVar('numEvents', count($events));
 	}
 	
 	public function actionPull()

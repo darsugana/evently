@@ -7,30 +7,64 @@
 		<input class="q" name="q" type="text" value="<?php echo htmlentities($query) ?>" />
 	</fieldset>
 	<fieldset>
-		<span class="examples">found <?php echo count($events) ?> events!</span>
+		<span class="examples">found <?php echo $numEvents ?> events!</span>
 		<input class="submit" type="submit" value="Find Events" />
 	</fieldset>
 </form>
 
-<div class="results">
-	<?php
-	if (count($events))
-	{
-		?>
-		<ul>
-			<?php
-			foreach ($events as $event)
-			{
-				?>
-				<li>
-					<!--<span class="when"><?php echo htmlentities(date('F j, Y, g:i a', strtotime($event->getDate()))) ?></span>-->
-					<a href="<?php echo $event->getLink()?>"><?php echo htmlentities($event->getName(), ENT_COMPAT, 'UTF-8', false) ?></a> (<?php echo htmlentities($event->getDate()) ?>)
-				</li>
-				<?php
-			}
-			?>
-		</ul>
-		<?php
-	}
+<?php
+if (count($eventsByDate))
+{
 	?>
-</div>
+	
+	<table class="results">
+		<?php
+		foreach ($eventsByDate as $date => $events)
+		{
+			?>
+			
+			<tr>
+				<td class="dates">
+					<?php
+					$displayDate = date('F j', strtotime($date));
+					if (date('Y-m-d') == $date) {
+						$displayDate = 'Today';
+					} else if (date('Y-m-d', strtotime('tomorrow')) == $date) {
+						$displayDate = 'Tomorrow';
+					}
+					?>
+					<?php echo htmlentities($displayDate) ?>
+				</td>
+				<td class="events">
+					<ul>
+						<?php
+						foreach ($events as $event)
+						{
+							?>
+							
+							<li class="event">
+								<h3 class="title">
+									<span class="time"><?php echo htmlentities(date('g:ia', strtotime($event->getDate()))) ?></span>
+									<a href="<?php echo $event->getLink() ?>"><?php echo htmlentities(Ev_String::wordTrim($event->getName(), 75), ENT_COMPAT, 'UTF-8', false) ?></a>
+								</h3>
+								<h4 class="link"><a href="<?php echo $event->getLink() ?>"><?php echo htmlentities($event->getLink()) ?></a></h4>
+								<p class="description">
+									<?php echo htmlentities(Ev_String::wordTrim($event->getDescription())) ?>
+								</p>
+							</li>
+							
+							<?php
+						}
+						?>
+					</ul>
+				</td>
+			</tr>
+			
+			<?php
+		}
+		?>
+	</table>
+	
+	<?php
+}
+?>
