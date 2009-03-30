@@ -1,13 +1,9 @@
 body
 {
 	background-color: #fff;
+	background-image: url("/images/bg_gray.gif");
+	background-repeat: repeat-x;
 	color: #333;
-}
-
-.home-index
-{
-	background-color: #e2f0d6;
-	background-color: #d6ea9b;
 }
 
 .outer_container
@@ -25,7 +21,7 @@ body
 
 .home-index h1
 {
-	background-image: url("/images/logo.gif");
+	background-image: url("/images/logo_blue.gif");
 	height: 83px;
 	margin: 0 auto;
 	margin-bottom: 1em;
@@ -39,9 +35,14 @@ body
 
 .home-index .search
 {
-	float: left;
 	margin: 0 auto;
 	width: 50em;
+}
+
+.search-index .search
+{
+	margin-left: 1em;
+	width: 41.7em;
 }
 
 .home-index .search fieldset,
@@ -70,6 +71,11 @@ body
 	font-style: italic;
 }
 
+.search-index .search .examples
+{
+	margin-left: .2em;
+}
+
 .search-index .search input.q,
 .home-index .search input.q
 {
@@ -84,16 +90,8 @@ body
 .search-index .search input.q
 {
 	font-size: 1.65em;
-	margin-left: .5em;
+	margin-bottom: 0em;
 	padding-left: 1.3em;
-}
-
-.search-index .search input:active.submit
-{
-	background-color: #eaeaea;
-	border: 1px solid #ccc;
-	border-left: 1px solid #999;
-	border-top: 1px solid #999;
 }
 
 .search_controller .outer_container
@@ -105,7 +103,7 @@ body
 
 .search-index h2
 {
-	background-image: url("/images/bg_header.gif");
+	border-bottom: 1px dotted #ccc;
 	font-size: 1em;
 	height: 4em;
 	padding: .5em 1em;
@@ -117,19 +115,18 @@ body
 	vertical-align: top;
 }
 
-.search-index h5
-{
-	font-size: 1.4em;
-	margin: 1em 0;
-}
-
 .search-index ul
 {
-	margin-left: 2em;
 	list-style: none;
 }
 
 .search-index li
 {
 	font-size: 1.2em
+}
+
+.search-index .results
+{
+	border-top: 1px dotted #ccc;
+	padding: 1em;
 }

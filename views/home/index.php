@@ -4,7 +4,7 @@
 		<input class="q" name="q" type="text" />
 	</fieldset>
 	<fieldset>
-		<input class="submit" type="submit" value="Search Events" />
+		<input class="submit" type="submit" value="Find Events" />
 		<span class="examples">
 			examples:
 			<a href="/search/?q=wine+tasting">wine tasting</a>,

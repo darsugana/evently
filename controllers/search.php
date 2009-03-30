@@ -36,4 +36,3 @@ class SearchController extends AppController
 		var_dump($feed->get_item_quantity());
 	}
 }
-?>
