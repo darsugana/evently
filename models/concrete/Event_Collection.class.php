@@ -6,7 +6,7 @@
  **/
 class Event_Collection extends Event_Collection_Generated
 {
-	public function loadBySearchString($searchString)
+	public function loadBySearchString($searchString, $shouldShowPastEvents = false)
 	{
 		$search = new Ev_Search('events_all');
 		$result = $search->search($searchString);
@@ -18,7 +18,13 @@ class Event_Collection extends Event_Collection_Generated
 			$sql .= '
 				WHERE
 					`event`.`event_id` IN (' . implode(', ', $eventIds)  . ')
+			';
+			if (!$shouldShowPastEvents) {
+				$sql .= '
 					AND `event`.`date` >= ' . $db->quote(date('Y-m-d', time())) . '
+				';
+			}
+			$sql .= '
 					AND `event`.`is_deleted` = 0
 				ORDER BY
 					`event`.`date`
