@@ -186,7 +186,7 @@ a:active
 .search-index .results
 {
 	border-bottom: 1px dotted #ccc;
-	border-top: 1px dotted #ccc;
+/*	border-top: 1px dotted #ccc;*/
 	width: 100%;
 }
 
