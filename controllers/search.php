@@ -5,6 +5,10 @@ class SearchController extends AppController
 	{
 		if (isset($this->get['q']))
 		{
+			// if (!isset($this->get['p'])) {
+			// 	$shouldShowPastEvents = false;
+			// } else if (!in_array$this->get['p'])
+			
 			$events = new Event_Collection();
 			$events->loadBySearchString(trim($this->get['q']));
 			$eventsByDate = $events->getEventsChunkedByDate();

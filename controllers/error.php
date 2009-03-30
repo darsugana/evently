@@ -3,7 +3,7 @@
 class ErrorController extends AppController
 {
 	protected $requireSignIn = false;
-	protected $layout = 'splash';
+	protected $layout = 'default';
 	
 	/**
 	 * Hash of error code -> error message mappings.
@@ -71,7 +71,7 @@ class ErrorController extends AppController
 			$errorMsg = 'Not Found';
 		}
 		
-		$this->setLayoutVar('pageTitle', $errorMsg . ' - LightVC');
+		$this->setLayoutVar('pageTitle', $errorMsg);
 		$this->loadView($this->getControllerName() . '/' . $errorNum);
 	}
 	
