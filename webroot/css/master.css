@@ -255,6 +255,8 @@ a:active
 
 .search-index .event .title a
 {
+	color: #2e5277;
+	font-weight: bold;
 	text-decoration: none;
 }
 
