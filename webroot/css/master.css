@@ -6,6 +6,31 @@ body
 	color: #333;
 }
 
+a
+{
+	color: #1b2991;
+}
+
+a:visited
+{
+	color: #4e4f5d;
+}
+
+a:hover
+{
+	color: #6570c7;
+}
+
+a:active
+{
+	color: red;
+}
+
+.clear
+{
+	clear: both;
+}
+
 .outer_container
 {
 	margin: 0 auto;
@@ -127,6 +152,7 @@ body
 
 .search-index .results
 {
+	border-bottom: 1px dotted #ccc;
 	border-top: 1px dotted #ccc;
 	width: 100%;
 }
@@ -139,9 +165,13 @@ body
 	vertical-align: top;
 }
 
-.search-index .results .events
+.search-index .results .sidebar
 {
-	padding: 0 1em;
+	background-image: none;
+	background-color: #fff;
+	border-left: 1px dotted #ccc;
+	vertical-align: top;
+	width: 25em;
 }
 
 .search-index .results .dates
@@ -158,10 +188,16 @@ body
 
 .search-index .event
 {
+	clear: both;
 	line-height: 1.4em;
 	margin: 1em 0;
+	margin-bottom: 3em;
+	padding-right: 1em;
+}
+
+.search-index .event:last-child
+{
 	margin-bottom: 1.5em;
-	width: 60em;
 }
 
 .search-index .event .title
@@ -173,8 +209,15 @@ body
 
 .search-index .event .title .time
 {
+	color: #777;
 	float: left;
-	width: 4.5em;
+	font-family: Georgia, serif;
+	font-size: .8em;
+	font-style: italic;
+	margin: 0 1em;
+	margin-bottom: 3em;
+	text-align: right;
+	width: 3.8em;
 }
 
 .search-index .event .link
@@ -197,4 +240,56 @@ body
 .search-index .event .description
 {
 	margin-left: 6.9em;
+}
+
+.search-index .event .controls
+{
+	padding: .5em;
+	padding-left: 6.9em;
+}
+
+.search-index .event .controls a
+{
+	background-color: #f2f2f2;
+	border-bottom: 1px solid #e6e6e6;
+	border-right: 1px solid #e6e6e6;
+	color: #888;
+	display: block;
+	float: left;
+	margin-right: 1em;
+	padding: .3em .5em;
+	padding-bottom: .15em;
+	text-decoration: none;
+}
+
+.search-index .event .controls a:hover
+{
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	color: #fff;
+}
+
+.search-index .event .controls a:visited
+{
+	color: inherit;
+}
+
+.search-index .event .controls a:hover.like
+{
+	background-color: green;
+}
+
+.search-index .event .controls a:hover.attend
+{
+	background-color: orange;
+}
+
+.search-index .event .controls a:hover.comment
+{
+	background-color: #1b2991;
+}
+
+.search-index .event .controls a:hover.report
+{
+	background-color: red;
 }
