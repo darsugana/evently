@@ -12,6 +12,7 @@ class AppController extends Lvc_PageController
 		$this->setLayoutVar('pageTitle', 'evently - everyone\'s event search');
 		$this->setLayoutVar('controllerName', $this->controllerName);
 		$this->setLayoutVar('actionName', $this->actionName);
+		$this->setLayoutVar('layoutName', $this->layout);
 	}
 	
 	public function requireCss($cssFile)

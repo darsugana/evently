@@ -1,9 +1,14 @@
 <?php
 class HomeController extends AppController
 {
-	protected function actionIndex()
+	protected function beforeAction()
 	{
 		$this->setLayout('splash');
+		parent::beforeAction();
+	}
+	
+	protected function actionIndex()
+	{
+		
 	}
 }
-?>

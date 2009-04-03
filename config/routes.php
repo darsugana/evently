@@ -8,6 +8,13 @@ $regexRoutes = array(
 		'controller' => 'home',
 		'action' => 'index',
 	),
+	
+	// Map events view page
+	'#^event/([^/]+)/?$#' => array(
+		'controller' => 'event',
+		'action' => 'view',
+		'additional_params' => 1,
+	),
 				
 	// Map controler/action/params
 	'#^([^/]+)/([^/]+)/?(.*)$#' => array(

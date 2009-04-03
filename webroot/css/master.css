@@ -38,13 +38,13 @@ a:active
 	width: 800px;
 }
 
-.home-index .outer_container
+.splash_layout .outer_container
 {
 	padding-top: 10em;
 	text-align: center;
 }
 
-.home-index h1
+.splash_layout h1
 {
 	background-image: url("/images/logo_blue.gif");
 	height: 83px;
@@ -53,12 +53,12 @@ a:active
 	width: 339px;
 }
 
-.home-index h1 span
+.splash_layout h1 span
 {
 	display: none;
 }
 
-.home-index .search
+.splash_layout .search
 {
 	margin: 0 auto;
 	width: 50em;
@@ -76,7 +76,7 @@ a:active
 	margin-top: .2em;
 }
 
-.home-index .search fieldset
+.splash_layout .search fieldset
 {
 	margin: 1em 0;
 }
@@ -88,18 +88,18 @@ a:active
 	margin-right: 1em;
 }
 
-.home-index .search input.q,
+.splash_layout .search input.q,
 .search-index .search input.q
 {
 	color: #203743;
 }
 
-.home-index .search input.submit
+.splash_layout .search input.submit
 {
 	float: right;
 }
 
-.home-index .search .examples
+.splash_layout .search .examples
 {
 	font-family: Georgia, serif;
 	font-size: 1.7em;
@@ -107,7 +107,7 @@ a:active
 }
 
 .search-index .search input.q,
-.home-index .search input.q
+.splash_layout .search input.q
 {
 	background-image: url("../images/magnify.png");
 	background-position: .4em .5em;
