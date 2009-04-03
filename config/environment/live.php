@@ -1,4 +1,5 @@
 <?php
+define('DEV', false);
 // Setup database config
 CoughDatabaseFactory::addConfig(array(
 	'adapter' => 'as',
