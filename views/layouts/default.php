@@ -6,7 +6,7 @@ include APP_PATH . 'views/elements/header.php';
 	<p class="account_controls">
 		<a href="/login" class="signup">Signup/Login</a>
 	</p>
-	<a href="/"><img src="/images/logo_small.gif" /></a>
+	<a href="/<?php echo urlencode($city->getShortName()) ?>"><img src="/images/logo_small.gif" /></a>
 	<form class="search" action="/<?php echo urlencode($city->getShortName()) ?>/search/" method="get">
 		<fieldset>
 			<input class="q" name="q" type="text" value="<?php echo htmlentities($query) ?>" />

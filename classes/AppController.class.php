@@ -16,9 +16,9 @@ class AppController extends Lvc_PageController
 		
 		$this->setSearchVars();
 		
+
 		$this->setVar('city', City::getInstance());
 		$this->setLayoutVar('city', City::getInstance());
-		
 	}
 	
 	public function requireCss($cssFile)

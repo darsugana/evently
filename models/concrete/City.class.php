@@ -11,7 +11,7 @@ class City extends City_Generated implements CoughObjectStaticInterface {
 	const NEW_YORK = 2;
 	const SAN_FRANCISCO = 3;
 	
-	static $instance = null;
+	private static $instance = null;
 	
 	public static function constructByShortName($shortName)
 	{
@@ -25,6 +25,7 @@ class City extends City_Generated implements CoughObjectStaticInterface {
 	
 	public static function setInstance($city)
 	{
+		
 		self::$instance = $city;
 	}
 	
@@ -32,9 +33,9 @@ class City extends City_Generated implements CoughObjectStaticInterface {
 	{
 		if (is_null(self::$instance))
 		{
-			self::$instance = self::loadDefaultInstance();
+			self::loadDefaultInstance();
 		}
-		
+
 		return self::$instance;
 		
 	}
