@@ -1,6 +1,6 @@
 <h1><span>Evently</span></h1>
 
-<form class="search" action="/<?php echo urlencode($city->getShortName()) ?>/search/" method="get">
+<form class="search" action="<?php echo Ev_Link::getLinkPath('/search/') ?>" method="get">
 	<fieldset>
 		<input class="q" name="q" type="text" value="<?php echo htmlentities($query) ?>"/>
 	</fieldset>
