@@ -25,6 +25,7 @@ abstract class Event_Generated extends AppCoughObject {
 		'latitude' => null,
 		'longitude' => null,
 		'venue_id' => null,
+		'city_id' => null,
 		'date_published' => null,
 		'date_modified' => null,
 		'date_created' => null,
@@ -92,6 +93,11 @@ abstract class Event_Generated extends AppCoughObject {
 			'is_null_allowed' => true,
 			'default_value' => null
 		),
+		'city_id' => array(
+			'db_column_name' => 'city_id',
+			'is_null_allowed' => true,
+			'default_value' => null
+		),
 		'date_published' => array(
 			'db_column_name' => 'date_published',
 			'is_null_allowed' => false,
@@ -126,6 +132,9 @@ abstract class Event_Generated extends AppCoughObject {
 		),
 		'Venue_Object' => array(
 			'class_name' => 'Venue'
+		),
+		'City_Object' => array(
+			'class_name' => 'City'
 		),
 	);
 	
@@ -300,6 +309,14 @@ abstract class Event_Generated extends AppCoughObject {
 		$this->setField('venue_id', $value);
 	}
 	
+	public function getCityId() {
+		return $this->getField('city_id');
+	}
+	
+	public function setCityId($value) {
+		$this->setField('city_id', $value);
+	}
+	
 	public function getDatePublished() {
 		return $this->getField('date_published');
 	}
@@ -392,6 +409,21 @@ abstract class Event_Generated extends AppCoughObject {
 	
 	public function setVenue_Object($venue) {
 		$this->objects['Venue_Object'] = $venue;
+	}
+	
+	public function loadCity_Object() {
+		$this->setCity_Object(City::constructByKey($this->getCityId()));
+	}
+	
+	public function getCity_Object() {
+		if (!isset($this->objects['City_Object'])) {
+			$this->loadCity_Object();
+		}
+		return $this->objects['City_Object'];
+	}
+	
+	public function setCity_Object($city) {
+		$this->objects['City_Object'] = $city;
 	}
 	
 	// Generated one-to-many collection loaders, getters, setters, adders, and removers

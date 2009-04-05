@@ -16,6 +16,8 @@ abstract class Source_Generated extends AppCoughObject {
 		'source_id' => null,
 		'name' => null,
 		'feed' => null,
+		'city_id' => null,
+		'source_group_id' => null,
 		'date_modified' => null,
 		'date_created' => null,
 		'is_deleted' => 0,
@@ -37,6 +39,16 @@ abstract class Source_Generated extends AppCoughObject {
 			'is_null_allowed' => false,
 			'default_value' => null
 		),
+		'city_id' => array(
+			'db_column_name' => 'city_id',
+			'is_null_allowed' => true,
+			'default_value' => null
+		),
+		'source_group_id' => array(
+			'db_column_name' => 'source_group_id',
+			'is_null_allowed' => true,
+			'default_value' => null
+		),
 		'date_modified' => array(
 			'db_column_name' => 'date_modified',
 			'is_null_allowed' => true,
@@ -54,7 +66,14 @@ abstract class Source_Generated extends AppCoughObject {
 		),
 	);
 	
-	protected $objectDefinitions = array();
+	protected $objectDefinitions = array(
+		'City_Object' => array(
+			'class_name' => 'City'
+		),
+		'SourceGroup_Object' => array(
+			'class_name' => 'SourceGroup'
+		),
+	);
 	
 	// Static Definition Methods
 	
@@ -155,6 +174,22 @@ abstract class Source_Generated extends AppCoughObject {
 		$this->setField('feed', $value);
 	}
 	
+	public function getCityId() {
+		return $this->getField('city_id');
+	}
+	
+	public function setCityId($value) {
+		$this->setField('city_id', $value);
+	}
+	
+	public function getSourceGroupId() {
+		return $this->getField('source_group_id');
+	}
+	
+	public function setSourceGroupId($value) {
+		$this->setField('source_group_id', $value);
+	}
+	
 	public function getDateModified() {
 		return $this->getField('date_modified');
 	}
@@ -180,6 +215,36 @@ abstract class Source_Generated extends AppCoughObject {
 	}
 	
 	// Generated one-to-one accessors (loaders, getters, and setters)
+	
+	public function loadCity_Object() {
+		$this->setCity_Object(City::constructByKey($this->getCityId()));
+	}
+	
+	public function getCity_Object() {
+		if (!isset($this->objects['City_Object'])) {
+			$this->loadCity_Object();
+		}
+		return $this->objects['City_Object'];
+	}
+	
+	public function setCity_Object($city) {
+		$this->objects['City_Object'] = $city;
+	}
+	
+	public function loadSourceGroup_Object() {
+		$this->setSourceGroup_Object(SourceGroup::constructByKey($this->getSourceGroupId()));
+	}
+	
+	public function getSourceGroup_Object() {
+		if (!isset($this->objects['SourceGroup_Object'])) {
+			$this->loadSourceGroup_Object();
+		}
+		return $this->objects['SourceGroup_Object'];
+	}
+	
+	public function setSourceGroup_Object($sourceGroup) {
+		$this->objects['SourceGroup_Object'] = $sourceGroup;
+	}
 	
 	// Generated one-to-many collection loaders, getters, setters, adders, and removers
 	

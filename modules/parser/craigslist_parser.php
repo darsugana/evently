@@ -3,7 +3,7 @@
 include(dirname(dirname(dirname(__FILE__))) . '/config/application.php');
 
 
-$rawRsses = RawRss_Collection::getUnimportedRssBySourceId(Source::CRAIGSLIST_SOURCE_ID);
+$rawRsses = RawRss_Collection::getUnimportedRssBySourceGroupId(SourceGroup::CRAIGSLIST_SOURCE_GROUP_ID);
 
 $events = new Event_Collection();
 $seenGuids = array();
@@ -34,7 +34,11 @@ foreach ($rawRsses as $rawRss)
 		}
 		$event = new Event();
 		$event->setRawRssId($rawRss->getKeyId());
-		$event->setSourceId(Source::CRAIGSLIST_SOURCE_ID);
+		
+		$source = $rawRss->getSource_Object();
+		$event->setSourceId($source->getSourceId());
+		$event->setCityId($source->getCityId());
+	
 		$event->setGuid(trim($item->get_id()));
 		
 		$name = trim(html_entity_decode($item->get_title()));

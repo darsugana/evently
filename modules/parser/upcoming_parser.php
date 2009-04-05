@@ -4,7 +4,7 @@ include(dirname(dirname(dirname(__FILE__))) . '/config/application.php');
 
 define('XCAL_NAMESPACE', 'urn:ietf:params:xml:ns:xcal');
 
-$rawRsses = RawRss_Collection::getUnimportedRssBySourceId(Source::UPCOMING_SOURCE_ID);
+$rawRsses = RawRss_Collection::getUnimportedRssBySourceGroupId(SourceGroup::UPCOMING_SOURCE_GROUP_ID);
 
 $events = new Event_Collection();
 
@@ -35,7 +35,13 @@ foreach ($rawRsses as $rawRss)
 		}
 		$event = new Event();
 		$event->setRawRssId($rawRss->getKeyId());
-		$event->setSourceId(Source::UPCOMING_SOURCE_ID);
+
+		$source = $rawRss->getSource_Object();
+		$event->setSourceId($source->getSourceId());
+		$event->setCityId($source->getCityId());
+
+
+
 		$event->setGuid(trim($item->get_id()));
 		
 		$name = html_entity_decode($item->get_title());

@@ -3,7 +3,7 @@
 include(dirname(dirname(dirname(__FILE__))) . '/config/application.php');
 
 
-$rawHtmls = RawHtml_Collection::getUnimportedHtmlBySourceId(Source::SHOWLISTAUSTIN_SOURCE_ID);
+$rawHtmls = RawHtml_Collection::getUnimportedHtmlBySourceGroupId(SourceGroup::SHOWLISTAUSTIN_SOURCE_GROUP_ID);
 
 $events = new Event_Collection();
 $seenGuids = array();
@@ -59,7 +59,11 @@ foreach ($rawHtmls as $rawHtml)
 				
 					$event = new Event();
 					$event->setRawHtmlId($rawHtml->getKeyId());
-					$event->setSourceId(Source::SHOWLISTAUSTIN_SOURCE_ID);
+
+					$source = $rawHtml->getSource_Object();
+					$event->setSourceId($source->getSourceId());
+					$event->setCityId($source->getCityId());
+
 					$event->setGuid($guid);
 					
 					
