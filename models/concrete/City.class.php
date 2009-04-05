@@ -20,7 +20,7 @@ class City extends City_Generated implements CoughObjectStaticInterface {
 	
 	public static function loadDefaultInstance()
 	{
-		return self::constructByKey(self::AUSTIN);
+		self::setInstance(self::constructByKey(self::AUSTIN));
 	}
 	
 	public static function setInstance($city)

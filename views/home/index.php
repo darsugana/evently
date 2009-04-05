@@ -1,15 +1,14 @@
 <h1><span>Evently</span></h1>
-<form class="search" action="/search/" method="get">
+<form class="search" action="/atx/search/" method="get">
 	<fieldset>
 		<input class="q" name="q" type="text" />
 	</fieldset>
 	<fieldset>
 		<input class="submit" type="submit" value="Find Events" />
 		<span class="examples">
-			examples:
-			<a href="/search/?q=wine+tasting">wine tasting</a>,
-			<a href="/search/?q=punk+rock">punk rock</a>,
-			<a href="/search/?q=kanye+west">kanye west</a>
+			Not in Austin?
+			<a href="/sfc/">San Francisco</a>,
+			<a href="/nyc/">New York</a>
 		</span>
 	</fieldset>
 </form>

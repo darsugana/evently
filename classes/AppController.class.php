@@ -24,6 +24,14 @@ class AppController extends Lvc_PageController
 	{
 		$this->layoutVars['requiredJs'][$jsFile] = true;
 	}
+	
+	public function handleMissingCity()
+	{
+		if (is_null(City::getInstance()))
+		{
+			City::loadDefaultInstance();
+			$this->redirect('/' . City::getInstance()->getShortName() . '/');
+			exit();
+		}
+	}
 }
-
-?>

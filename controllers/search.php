@@ -1,6 +1,12 @@
 <?php
 class SearchController extends AppController
 {
+	protected function beforeAction()
+	{
+		// $this->handleMissingCity();
+		parent::beforeAction();
+	}
+	
 	public function actionIndex()
 	{
 		if (isset($this->get['q']))
