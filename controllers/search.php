@@ -21,7 +21,7 @@ class SearchController extends AppController
 		{
 			$eventsByDate = array();
 		}
-		$this->setVar('query', trim($this->get['q']));
+		$this->setLayoutVar('query', trim($this->get['q']));
 		$this->setVar('eventsByDate', $eventsByDate);
 		$this->setVar('numEvents', count($events));
 	}
