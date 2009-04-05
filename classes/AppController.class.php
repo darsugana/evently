@@ -13,6 +13,12 @@ class AppController extends Lvc_PageController
 		$this->setLayoutVar('controllerName', $this->controllerName);
 		$this->setLayoutVar('actionName', $this->actionName);
 		$this->setLayoutVar('layoutName', $this->layout);
+		
+		$this->setSearchVars();
+		
+		$this->setVar('city', City::getInstance());
+		$this->setLayoutVar('city', City::getInstance());
+		
 	}
 	
 	public function requireCss($cssFile)
@@ -24,6 +30,34 @@ class AppController extends Lvc_PageController
 	{
 		$this->layoutVars['requiredJs'][$jsFile] = true;
 	}
+
+	
+	public function setSearchVars()
+	{
+		$this->setLayoutVar('query', '');
+		$this->setVar('query', '');
+		
+		if (isset($_SESSION['last_search_query']))
+		{
+			$this->setLayoutVar('query', trim($_SESSION['last_search_query']));
+			$this->setVar('query', trim($_SESSION['last_search_query']));
+			
+		}
+		
+	}
+	
+	public function setLastSearchQuery($query)
+	{
+		$_SESSION['last_search_query'] = $query;
+	}
+	
+	public function clearLastSearchQuery()
+	{
+		unset($_SESSION['last_search_query']);
+	}
+	
+	
+
 	
 	public function handleMissingCity()
 	{
@@ -34,4 +68,5 @@ class AppController extends Lvc_PageController
 			exit();
 		}
 	}
+
 }
