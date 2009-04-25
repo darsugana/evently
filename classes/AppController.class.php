@@ -31,7 +31,6 @@ class AppController extends Lvc_PageController
 		$this->layoutVars['requiredJs'][$jsFile] = true;
 	}
 
-	
 	public function setSearchVars()
 	{
 		$this->setLayoutVar('query', '');
@@ -43,7 +42,6 @@ class AppController extends Lvc_PageController
 			$this->setVar('query', trim($_SESSION['last_search_query']));
 			
 		}
-		
 	}
 	
 	public function setLastSearchQuery($query)
@@ -56,9 +54,6 @@ class AppController extends Lvc_PageController
 		unset($_SESSION['last_search_query']);
 	}
 	
-	
-
-	
 	public function handleMissingCity()
 	{
 		if (is_null(City::getInstance()))
@@ -67,6 +62,6 @@ class AppController extends Lvc_PageController
 			$this->redirect('/' . City::getInstance()->getShortName() . '/');
 			exit();
 		}
-	}
 
+	}
 }

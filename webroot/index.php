@@ -14,7 +14,6 @@ if (isset($_GET['url']) && $_GET['url'] === 'favicon.ico') {
 		// Process the HTTP request using only the routers we need for this application.
 		$fc = new Lvc_FrontController();
 		$fc->addRouter(new Ev_EventlyCityRouter($regexRoutes));
-		// $fc->addRouter(new Lvc_RegexRewriteRouter($regexRoutes));
 		$fc->processRequest(new Lvc_HttpRequest());
 		
 	} catch (Lvc_Exception $e) {

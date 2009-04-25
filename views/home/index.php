@@ -10,7 +10,7 @@
 			Not in <?php echo htmlentities($city->getLongName()) ?>?
 			<a href="/sfc/">San Francisco</a>,
 			<a href="/nyc/">New York</a>,
-			<a href="/atx">Austin</a>
+			<a href="/atx/">Austin</a>
 		</span>
 	</fieldset>
 </form>
