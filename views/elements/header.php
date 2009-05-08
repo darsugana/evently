@@ -9,7 +9,8 @@
 	<?php
 	include 'google_analytics.php';
 	?>
-	<script type="text/javascript" src="/js/jquery-1.2.6.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/jquery-1.3.2.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/global.js" charset="utf-8"></script>
 </head>
 
 <body class="<?php echo $controllerName ?>_controller <?php echo $controllerName ?>-<?php echo $actionName ?> <?php echo $layoutName ?>_layout">

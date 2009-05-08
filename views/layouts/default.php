@@ -4,7 +4,7 @@ include APP_PATH . 'views/elements/header.php';
 
 <h2>
 	<p class="account_controls">
-		<a href="/login" class="signup">Signup/Login</a>
+		<a href="/login" class="button orange large signup">Signup/Login</a>
 	</p>
 	<a href="<?php echo Ev_Link::getLinkPath('') ?>"><img src="/images/logo_small.gif" /></a>
 	<form class="search" action="<?php echo Ev_Link::getLinkPath('/search/') ?>" method="get">

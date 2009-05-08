@@ -16,7 +16,6 @@ class AppController extends Lvc_PageController
 		
 		$this->setSearchVars();
 		
-
 		$this->setVar('city', City::getInstance());
 		$this->setLayoutVar('city', City::getInstance());
 	}
@@ -62,6 +61,5 @@ class AppController extends Lvc_PageController
 			$this->redirect('/' . City::getInstance()->getShortName() . '/');
 			exit();
 		}
-
 	}
 }
