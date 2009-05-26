@@ -10,6 +10,9 @@ define('WWW_CSS_PATH', WWW_BASE_PATH . 'css/');
 define('WWW_JS_PATH', WWW_BASE_PATH . 'js/');
 define('WWW_IMAGE_PATH', WWW_BASE_PATH . 'images/');
 
+// Include array helper
+include(APP_PATH . 'classes/As_Array.class.php');
+
 // Include messaging helper
 include(APP_PATH . 'classes/As_Message.class.php');
 
@@ -31,8 +34,12 @@ include(APP_PATH . 'modules/coughphp/as_database/As_DatabaseResult.class.php');
 include(APP_PATH . 'modules/coughphp/dal/as/CoughAsDatabase.class.php');
 include(APP_PATH . 'modules/coughphp/dal/as/CoughAsDatabaseResult.class.php');
 
+
+// Include config helpers
+include(APP_PATH . 'classes/Ev_Config.class.php');
+
 // Include env specific confs
-include('environment.php');
+Ev_Config::initConfig(parse_ini_file('environment.ini', true), parse_ini_file('environment/default.ini', true));
 
 // Include SimplePie
 include(APP_PATH . 'modules/simplepie/simplepie.inc');

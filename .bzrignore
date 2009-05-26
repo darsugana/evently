@@ -20,3 +20,4 @@ modules/sphinx/src/spelldump
 modules/sphinx/src/tests
 modules/sphinx/sphinx.conf.dist
 linkedin?.html
+config/environment.ini
