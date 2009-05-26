@@ -36,5 +36,10 @@ class Ev_Config
 		
 		// Setup CoughPHP
 		CoughDatabaseFactory::addConfig(self::$config['mysql']);
+		
+		// Setup Sphinx
+		self::$config['sphinx']['mode'] = (int) self::$config['sphinx']['mode'];
+		self::$config['sphinx']['port'] = (int) self::$config['sphinx']['port'];
+		Ev_Search::setConfig(self::$config['sphinx']);
 	}
 }

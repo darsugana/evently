@@ -1,51 +1,59 @@
 <?php
 class Ev_Search
 {
-	protected $index;
-	protected $mode;
-	protected $host;
-	protected $port;
-	protected $cl;
+	protected static $index = null;
+	protected static $mode = SPH_MATCH_ALL;
+	protected static $host = 'localhost';
+	protected static $port = 3312;
+	protected static $cl = null;
 
-	public function __construct($index, $mode = SPH_MATCH_ALL, $host="localhost", $port=3312)
+	public static function setConfig($config)
 	{
-		$this->index = $index;
-		$this->mode = $mode;
-		$this->host = $host;
-		$this->port = $port;
-		$this->cl = new SphinxClient();
+		self::$index = $config['index'];
+		self::$mode = $config['mode'];
+		self::$host = $config['host'];
+		self::$port = $config['port'];
 	}
-
+	
+	public function getSphinx()
+	{
+		if (is_null(self::$cl))
+		{
+			self::$cl = new SphinxClient();
+			self::$cl->SetServer(self::$host, self::$port);
+			self::$cl->SetMatchMode(self::$mode);
+		}
+		
+		return self::$cl;
+	}
+	
 	public function escapeString($string)
 	{
-		return $this->cl->EscapeString($string);
+		return $this->getSphinx()->EscapeString($string);
 	}
 
 	public function setGroupBy($attribute, $func, $groupsort = "@group desc")
 	{
-		return $this->cl->SetGroupBy($attribute, $func, $groupsort);
+		return $this->getSphinx()->SetGroupBy($attribute, $func, $groupsort);
 	}
 
 	public function setFilter($attribute, $values, $exclude=false)
 	{
-		$this->cl->setFilter($attribute, $values, $exclude);
+		$this->getSphinx()->setFilter($attribute, $values, $exclude);
 	}
 
 	public function setWeights($weightArray)
 	{
-		$this->cl->SetWeights($weightArray);
+		$this->getSphinx()->SetWeights($weightArray);
 	}
 
 	public function search($searchQuery, $offset=0, $limit=4000, $max=0)
 	{
-		$this->cl->SetServer($this->host, $this->port);
-		$this->cl->SetMatchMode($this->mode);
-		$this->cl->SetLimits($offset, $limit, $max);
-		$res = $this->cl->Query($searchQuery, $this->index);
+		$sphinx = $this->getSphinx();
+		$sphinx->SetLimits($offset, $limit, $max);
+		$res = $sphinx->Query($searchQuery, self::$index);
 		return $res;
 	}
-
-  
 }
 
 ?>

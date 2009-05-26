@@ -8,7 +8,7 @@ class Event_Collection extends Event_Collection_Generated
 {
 	public function loadBySearchString($searchString, $shouldShowPastEvents = false)
 	{
-		$search = new Ev_Search('events_all');
+		$search = new Ev_Search();
 		$city = City::getInstance();
 		if (is_object($city))
 		{
