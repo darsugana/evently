@@ -49,6 +49,7 @@ class Ev_Date
 			'02/10@8:30',
 			'Every Weds.',
 			'10 Feb \'09;',
+			'Monday, March 8 at 6:00 PM'
 		);
 	
 	protected static $separators = '[/, @-]+';
@@ -58,7 +59,7 @@ class Ev_Date
 	protected static $month = '(([01]?[0-9])|((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)(\.|[a-z])*))\b';
 	protected static $monthNumber = '([01]?[0-9])\b';
 	protected static $monthName = '((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|january|february|march\april|may|june|july|august|september|october|november|december)\.?)';
-	protected static $dayOfWeek = '((mon|tues|wed|thurs|fri|sat|sun)(\.|(day))?)?';
+	protected static $dayOfWeek = '((mon|tues|wed|thurs|fri|sat|sun)(\.|(day))?)';
 	protected static $day = '([0-3]?[0-9](st|nd|rd|th)?)\b';
 	protected static $time = '(([012]?[0-9]:[0-5][0-9].?(pm|am|hours|at.night|in.the.morning))|noon|midnight)\b';
 	
@@ -160,12 +161,33 @@ class Ev_Date
 			. self::$year . ')?(' . self::$separators 
 			. self::$dayOfWeek . ')?'. '~i';
 
+		$dwmd = '~'
+			. self::$dayOfWeek . self::$separators 
+			. self::$monthName . '(' . self::$separators 
+			. self::$day . ')?'. '~i';
 		
-			$matches = array();
+		
+		$matches = array();
 
 		if ($verbose)
 		{
-			echo $string . "\n";
+			echo "matching against: " . $string . "\n";
+		}
+		
+		
+		if (preg_match($dwmd, $string, $matches))
+		{
+			if ($verbose)
+			{
+				echo "matched dayofweek monthname day\n";
+				print_r(getdate(strtotime($matches[0])));
+				print_r($matches);
+			}
+			if (strtotime($matches[0]) !== FALSE)
+			{
+				return strtotime($matches[0]);
+			}
+			
 		}
 		
 			
@@ -240,7 +262,7 @@ class Ev_Date
 		foreach (self::$testValues as $string)
 		{
 			echo $string . "\n";
-			$date = self::stringToDateTime($string);
+			$date = self::stringToDateTime($string, true);
 			echo "'" . $date . "'\n";
 			echo 'retval ' . date('Y-M-d H:i:s', $date) . ' for ' . $string . "\n";
 		}
