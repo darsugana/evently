@@ -9,7 +9,7 @@
 	<?php
 	include 'google_analytics.php';
 	?>
-	<script type="text/javascript" src="/js/jquery-1.3.2.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/jquery-1.4.2.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/js/global.js" charset="utf-8"></script>
 </head>
 

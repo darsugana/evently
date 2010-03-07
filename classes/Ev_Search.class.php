@@ -4,7 +4,7 @@ class Ev_Search
 	protected static $index = null;
 	protected static $mode = SPH_MATCH_ALL;
 	protected static $host = 'localhost';
-	protected static $port = 3312;
+	protected static $port = 9312;
 	protected static $cl = null;
 
 	public static function setConfig($config)

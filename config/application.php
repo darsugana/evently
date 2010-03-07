@@ -34,6 +34,9 @@ include(APP_PATH . 'modules/coughphp/as_database/As_DatabaseResult.class.php');
 include(APP_PATH . 'modules/coughphp/dal/as/CoughAsDatabase.class.php');
 include(APP_PATH . 'modules/coughphp/dal/as/CoughAsDatabaseResult.class.php');
 
+// Include sphinx API
+include_once(APP_PATH . 'modules/sphinx/load_inc.php');
+
 // Include Sphinx search class
 include(APP_PATH . 'classes/Ev_Search.class.php');
 
@@ -49,8 +52,6 @@ include(APP_PATH . 'modules/simplepie/simplepie.inc');
 // Include SimpleHtmlDom
 include(APP_PATH . 'modules/simplehtmldom/load.inc.php');
 
-// Include sphinx API
-include_once(APP_PATH . 'modules/sphinx/load_inc.php');
 
 // Configure autoloader
 include(APP_PATH . 'classes/Autoloader.class.php');

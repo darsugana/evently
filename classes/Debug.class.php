@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 // Debug static class 
 // TODO: break this up in a more sensible fashion
@@ -127,7 +127,7 @@ class Debug {
 			}
 		// ]]>
 		</script>
-		<?
+		<?php
 		return ob_get_clean();
 	}
 	
@@ -541,53 +541,53 @@ class Debug {
 			}
 			?>
 			<table width=100% border=1><tr><td bgcolor="#DDDDDD"><b>Backtrace:</b></td></tr>
-			<?
+			<?php
 			foreach ($arr as $level => $step) {
 				?>
 				<tr><td bgcolor="#ABCDEF">Level <?=$level?></td></tr>
-				<?
+				<?php
 				self::showBacktraceItem($step);
 			}
 			?>
 			</table>
-			<?
+			<?php
 		}
 	}
 	static function showBacktraceItem($item) {
 		?>
 		<tr><td>
-			<? if ($item["file"] != "") { ?>
+			<?php if ($item["file"] != "") { ?>
 				<b>File: </b><?=$item["file"]?><br>
-			<? } ?>
-			<? if ($item["type"] == "->" OR ($item["type"] == "::")) {
+			<?php } ?>
+			<?php if ($item["type"] == "->" OR ($item["type"] == "::")) {
 					?>
 					<b>Method: </b> <?=$item["class"]?><?=$item["type"]?><?=$item["function"]?><br>
-					<?
+					<?php
 			} else {
 				?>
-				<? if ($item["class"] != "") { ?>
+				<?php if ($item["class"] != "") { ?>
 					<b>Class: </b><?=$item["class"]?><br>
-				<? } ?>
-				<? if ($item["function"] != "") { ?>
+				<?php } ?>
+				<?php if ($item["function"] != "") { ?>
 					<b>Function: </b><?=$item["function"]?><br>
-					<? if ($item["type"] != "") { ?>
+					<?php if ($item["type"] != "") { ?>
 						(Call type: <?=$item["type"]?>)<br>
-					<? } ?>
-				<? } 
+					<?php } ?>
+				<?php } 
 			} ?>
 				
-				<? if ($item["line"] != "") { ?>
+				<?php if ($item["line"] != "") { ?>
 					<b>Line: </b><?=$item["line"]?><br>
-				<? } ?>
-				<? if (count($item["args"]) > 0) { ?>
-					<b>Args: </b><? jamvar($item["args"])?><br>
-				<? } else {
+				<?php } ?>
+				<?php if (count($item["args"]) > 0) { ?>
+					<b>Args: </b><?php jamvar($item["args"])?><br>
+				<?php } else {
 					?>
 					<b>Args: none passed</b>
-					<?
+					<?php
 				} ?>
 		</td></tr>
-		<?
+		<?php
 	}
 	
 	/**
@@ -730,7 +730,7 @@ class Debug {
 			backtraceWindow<?= $window ?>.document.writeln('<html><head><title><?= $windowTitle ?></title></head><body><?= $js ?></body></html>');
 		// ]]>
 		</script>
-		<?
+		<?php
 	}
 	
 	static function getmicrotime() {
@@ -780,5 +780,3 @@ class Debug {
 		return new dBug($obj);
 	}
 }
-
-?>
