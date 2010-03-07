@@ -47,7 +47,7 @@ include(APP_PATH . 'classes/Ev_Config.class.php');
 Ev_Config::initConfig(parse_ini_file('environment.ini', true), parse_ini_file('environment/default.ini', true));
 
 // Include SimplePie
-include(APP_PATH . 'modules/simplepie/simplepie.inc');
+include(APP_PATH . 'modules/simplepie/simplepie.class.php');
 
 // Include SimpleHtmlDom
 include(APP_PATH . 'modules/simplehtmldom/load.inc.php');
