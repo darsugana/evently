@@ -19,6 +19,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `event`
 --
 
+DROP TABLE IF EXISTS `event`;
 CREATE TABLE IF NOT EXISTS `event` (
   `event_id` int(11) NOT NULL auto_increment,
   `source_id` int(11) NOT NULL,
@@ -45,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `event` (
 -- Table structure for table `raw_rss`
 --
 
+DROP TABLE IF EXISTS `raw_rss`;
 CREATE TABLE IF NOT EXISTS `raw_rss` (
   `raw_rss_id` int(11) unsigned NOT NULL auto_increment,
   `source_id` int(11) NOT NULL,
@@ -67,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `raw_rss` (
 -- Table structure for table `source`
 --
 
+DROP TABLE IF EXISTS `source`;
 CREATE TABLE IF NOT EXISTS `source` (
   `source_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL,
@@ -90,6 +93,7 @@ INSERT INTO `source` (`source_id`, `name`, `feed`, `date_modified`, `date_create
 -- Table structure for table `spider_event`
 --
 
+DROP TABLE IF EXISTS `spider_event`;
 CREATE TABLE IF NOT EXISTS `spider_event` (
   `spider_event_id` int(11) NOT NULL auto_increment,
   `source_id` int(11) NOT NULL,
@@ -109,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `spider_event` (
 -- Table structure for table `spider_status`
 --
 
+DROP TABLE IF EXISTS `spider_status`;
 CREATE TABLE IF NOT EXISTS `spider_status` (
   `spider_status_id` int(11) NOT NULL,
   `spider_status` varchar(255) NOT NULL,
@@ -131,6 +136,7 @@ INSERT INTO `spider_status` (`spider_status_id`, `spider_status`) VALUES
 -- Table structure for table `venue`
 --
 
+DROP TABLE IF EXISTS `venue`;
 CREATE TABLE IF NOT EXISTS `venue` (
   `venue_id` int(11) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL,
