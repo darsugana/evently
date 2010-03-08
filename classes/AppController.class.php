@@ -18,6 +18,10 @@ class AppController extends Lvc_PageController
 		
 		$this->setVar('city', City::getInstance());
 		$this->setLayoutVar('city', City::getInstance());
+		
+		$shouldShowPastEvents = isset($this->get['p']) ? (bool)$this->get['p'] : false;
+		$this->setVar('shouldShowPastEvents', $shouldShowPastEvents);
+		$this->setLayoutVar('shouldShowPastEvents', $shouldShowPastEvents);
 	}
 	
 	public function requireCss($cssFile)
