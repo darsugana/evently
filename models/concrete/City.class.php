@@ -20,7 +20,31 @@ class City extends City_Generated implements CoughObjectStaticInterface {
 	
 	public static function loadDefaultInstance()
 	{
-		self::setInstance(self::constructByKey(self::AUSTIN));
+		// try to match a city to the user's ip
+		$geoip = @geoip_record_by_name($_SERVER['REMOTE_ADDR']);
+		
+		if (isset($geoip['city']) && !empty($geoip['city']))
+		{
+			switch ($geoip['city'])
+			{
+				case 'Austin':
+					self::setInstance(self::constructByKey(self::AUSTIN));
+					break;
+				case 'New York':
+					self::setInstance(self::constructByKey(self::NEW_YORK));
+					break;
+				case 'San Francisco':
+					self::setInstance(self::constructByKey(self::SAN_FRANCISCO));
+					break;
+				default:
+					self::setInstance(self::constructByKey(self::AUSTIN));
+					break;
+			}
+		}
+		else
+		{
+			self::setInstance(self::constructByKey(self::AUSTIN));
+		}
 	}
 	
 	public static function setInstance($city)
