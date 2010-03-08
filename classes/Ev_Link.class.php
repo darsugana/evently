@@ -5,12 +5,7 @@ class Ev_Link
 	{
 		$city = City::getInstance();
 		$cityPath = '/' . urlencode($city->getShortName());
-		if (strpos($url, $cityPath) === 0)
-		{
-			return $url;
-		}
 		
 		return $cityPath . $path;
-		
 	}
 }
