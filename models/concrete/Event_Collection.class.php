@@ -15,7 +15,7 @@ class Event_Collection extends Event_Collection_Generated
 			$search->setFilter('city_id', array($city->getKeyId()));
 		}
 		$result = $search->search($searchString);
-		if (is_array($result['matches']))
+		if (isset($result['matches']) && is_array($result['matches']))
 		{
 			$eventIds = array_keys($result['matches']);
 			$db = Event::getDb();
