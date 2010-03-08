@@ -34,7 +34,7 @@ if (count($eventsByDate))
 									<a href="<?php echo Ev_Link::getLinkPath('/event/' . (int) $event->getEventId()) ?>"><?php echo htmlentities(Ev_String::wordTrim($event->getName(), 75), ENT_COMPAT, 'UTF-8', false) ?></a>
 								</h3>
 								<p class="description">
-									<?php echo htmlentities(Ev_String::wordTrim(html_entity_decode(strip_tags($event->getDescription()), ENT_QUOTES, 'UTF-8'))) ?>
+									<?php echo htmlentities(Ev_String::wordTrim(html_entity_decode(strip_tags($event->getDescription()), ENT_QUOTES))) ?>
 								</p>
 								<h4 class="link"><a class="external" href="<?php echo $event->getLink() ?>"><?php echo htmlentities($event->getLink()) ?></a></h4>
 								<p class="controls">
