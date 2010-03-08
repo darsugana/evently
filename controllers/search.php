@@ -12,11 +12,10 @@ class SearchController extends AppController
 		{
 			$shouldShowPastEvents = isset($this->get['p']) ? (bool)$this->get['p'] : false;
 			$this->setVar('shouldShowPastEvents', $shouldShowPastEvents);
+			$this->setLayoutVar('shouldShowPastEvents', $shouldShowPastEvents);
 			$events = new Event_Collection();
 			$events->loadBySearchString(trim($this->get['q']), $shouldShowPastEvents);
 			$eventsByDate = $events->getEventsChunkedByDate();
-
-
 			
 			$this->setLayoutVar('query', trim($this->get['q']));
 			$this->setVar('query', trim($this->get['q']));
@@ -25,9 +24,8 @@ class SearchController extends AppController
 		else
 		{
 			$eventsByDate = array();
-
 		}
-
+		
 		$this->setVar('eventsByDate', $eventsByDate);
 		$this->setVar('numEvents', count($events));
 	}
