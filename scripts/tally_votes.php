@@ -28,3 +28,5 @@ $sql = '
 	WHERE
 		event.is_deleted = 0
 ';
+
+$db->query($sql);

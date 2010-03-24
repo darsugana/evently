@@ -29,6 +29,7 @@ class EventController extends AppController
 			$eventVote->setValue(10);
 			$eventVote->setDateCreated(date('Y-m-d H:i:s', CURRENT_TIMESTAMP));
 			$eventVote->save();
+			$event->updateVoteTotal();
 			$this->redirect('/' . City::getInstance()->getShortName() . '/search?q='. urlencode($this->getLastSearchQuery()));
 			die;
 		} else {
@@ -52,6 +53,7 @@ class EventController extends AppController
 			$eventVote->setValue(-10);
 			$eventVote->setDateCreated(date('Y-m-d H:i:s', CURRENT_TIMESTAMP));
 			$eventVote->save();
+			$event->updateVoteTotal();
 			$this->redirect('/' . City::getInstance()->getShortName() . '/search?q='. urlencode($this->getLastSearchQuery()));
 			die;
 		} else {

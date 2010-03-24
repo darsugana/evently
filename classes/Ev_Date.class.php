@@ -89,7 +89,7 @@ class Ev_Date
 		{
 			return  $time;
 		}
-		
+		// FIXME 2010-03-24 RHP: We need to distinguish between times of midnight, and cases where we don't have a time...
 		if ($date !== false && $date != 0)
 		{
 			return $date;

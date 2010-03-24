@@ -34,6 +34,36 @@ class Event extends Event_Generated implements CoughObjectStaticInterface {
 		return self::constructBySql($sql);
 		
 	}
+	
+	public function updateVoteTotal()
+	{
+		$db = self::getDb();
+
+		$sql = '
+			UPDATE
+				event
+				INNER JOIN (
+						SELECT 
+							event_id, 
+							SUM(value) AS total
+						FROM
+							event_vote
+						WHERE
+							is_deleted = 0
+						GROUP BY
+							event_id
+							) AS event_sum ON event.event_id = event_sum.event_id
+			SET
+				event.vote_total = event_sum.total
+
+			WHERE
+				event.is_deleted = 0
+				AND event.event_id = ' . $db->quote($this->getEventId()) . '
+		';
+
+		$db->query($sql);	
+		
+	}
 }
 
 ?>

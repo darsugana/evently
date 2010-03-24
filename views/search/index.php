@@ -31,7 +31,7 @@ if (count($eventsByDate))
 							<li class="event">
 								<h3 class="title">
 									<span class="time"><?php echo htmlentities(date('g:ia', strtotime($event->getDate()))) ?></span>
-									<a href="<?php echo Ev_Link::getLinkPath('/event/' . (int) $event->getEventId()) ?>"><?php echo htmlentities(Ev_String::wordTrim($event->getName(), 75), ENT_COMPAT, 'UTF-8', false) ?></a>
+									<a href="<?php echo Ev_Link::getLinkPath('/event/' . (int) $event->getEventId()) ?>"><?php echo htmlentities(Ev_String::wordTrim($event->getName(), 75), ENT_COMPAT, 'UTF-8', false) ?></a> (<?php echo htmlentities($event->getVoteTotal()) ?>)
 								</h3>
 								<p class="description">
 									<?php echo htmlentities(Ev_String::wordTrim(html_entity_decode(strip_tags($event->getDescription()), ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8') ?>
