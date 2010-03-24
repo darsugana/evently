@@ -47,6 +47,15 @@ class AppController extends Lvc_PageController
 		}
 	}
 	
+	public function getLastSearchQuery()
+	{
+		if (isset($_SESSION['last_search_query']))
+		{
+			return $_SESSION['last_search_query'];
+		}
+		return '';
+	}
+	
 	public function setLastSearchQuery($query)
 	{
 		$_SESSION['last_search_query'] = $query;
@@ -65,5 +74,10 @@ class AppController extends Lvc_PageController
 			$this->redirect('/' . City::getInstance()->getShortName() . '/');
 			exit();
 		}
+	}
+	
+	public function getLoggedInUser()
+	{
+		return null;
 	}
 }

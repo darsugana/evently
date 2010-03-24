@@ -6,7 +6,17 @@
  * @see Event_Generated, CoughObject
  **/
 class Event extends Event_Generated implements CoughObjectStaticInterface {
+	private $weight;
 	
+	public function setWeight($weight)
+	{
+		$this->weight = $weight;
+	}
+	
+	public function getWeight()
+	{
+		return $this->weight;
+	}
 	
 	public static function constructByGuid($guid)
 	{

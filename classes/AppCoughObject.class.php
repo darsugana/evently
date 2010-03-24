@@ -1,5 +1,5 @@
 <?php
-class AppCoughCollection extends CoughCollection
+class AppCoughObject extends CoughObject
 {
 	
 }

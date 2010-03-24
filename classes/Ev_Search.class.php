@@ -42,14 +42,16 @@ class Ev_Search
 		$this->getSphinx()->setFilter($attribute, $values, $exclude);
 	}
 
-	public function setWeights($weightArray)
+	public function setFieldWeights($weightArray)
 	{
-		$this->getSphinx()->SetWeights($weightArray);
+		$this->getSphinx()->SetFieldWeights($weightArray);
 	}
 
 	public function search($searchQuery, $offset=0, $limit=4000, $max=0)
 	{
 		$sphinx = $this->getSphinx();
+		$sphinx->SetMatchMode(self::$mode);
+		
 		$sphinx->SetLimits($offset, $limit, $max);
 		$res = $sphinx->Query($searchQuery, self::$index);
 		return $res;

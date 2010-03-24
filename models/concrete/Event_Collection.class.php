@@ -14,6 +14,15 @@ class Event_Collection extends Event_Collection_Generated
 		{
 			$search->setFilter('city_id', array($city->getKeyId()));
 		}
+		$search->setFieldWeights(
+			array(
+					'name' => 10,
+					'description' => 20,
+					'venue_name' => 5,
+					'city_id' => 0,
+					'vote_total' => 0,
+				)
+			);
 		$result = $search->search($searchString);
 		if (isset($result['matches']) && is_array($result['matches']))
 		{
@@ -31,10 +40,18 @@ class Event_Collection extends Event_Collection_Generated
 			}
 			$sql .= '
 					AND `event`.`is_deleted` = 0
+					AND `event`.`vote_total` >= -50
 				ORDER BY
-					`event`.`date`
+					`event`.`date` ASC, `event`.`vote_total` DESC
 			';
 			$this->loadBySql($sql);
+			foreach ($this as $event)
+			{
+				if (isset($result['matches'][$event->getEventId()]))
+				{
+					$event->setWeight($result['matches'][$event->getEventId()]['weight']);
+				}
+			}
 		}
 	}
 	

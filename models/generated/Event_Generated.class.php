@@ -26,6 +26,7 @@ abstract class Event_Generated extends AppCoughObject {
 		'longitude' => null,
 		'venue_id' => null,
 		'city_id' => null,
+		'vote_total' => null,
 		'date_published' => null,
 		'date_modified' => null,
 		'date_created' => null,
@@ -96,6 +97,11 @@ abstract class Event_Generated extends AppCoughObject {
 		'city_id' => array(
 			'db_column_name' => 'city_id',
 			'is_null_allowed' => true,
+			'default_value' => null
+		),
+		'vote_total' => array(
+			'db_column_name' => 'vote_total',
+			'is_null_allowed' => false,
 			'default_value' => null
 		),
 		'date_published' => array(
@@ -315,6 +321,14 @@ abstract class Event_Generated extends AppCoughObject {
 	
 	public function setCityId($value) {
 		$this->setField('city_id', $value);
+	}
+	
+	public function getVoteTotal() {
+		return $this->getField('vote_total');
+	}
+	
+	public function setVoteTotal($value) {
+		$this->setField('vote_total', $value);
 	}
 	
 	public function getDatePublished() {

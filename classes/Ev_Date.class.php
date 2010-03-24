@@ -49,7 +49,8 @@ class Ev_Date
 			'02/10@8:30',
 			'Every Weds.',
 			'10 Feb \'09;',
-			'Monday, March 8 at 6:00 PM'
+			'Monday, March 8 at 6:00 PM',
+			'Wednesday, April 14th, 2010, Doors at 6:30 p.m.',
 		);
 	
 	protected static $separators = '[/, @-]+';
@@ -58,11 +59,11 @@ class Ev_Date
 	protected static $year = '((20|\')?[0-9][0-9])\b';
 	protected static $month = '(([01]?[0-9])|((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)(\.|[a-z])*))\b';
 	protected static $monthNumber = '([01]?[0-9])\b';
-	protected static $monthName = '((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|january|february|march\april|may|june|july|august|september|october|november|december)\.?)';
+	protected static $monthName = '((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|january|february|march|april|may|june|july|august|september|october|november|december)\.?)';
 	protected static $dayOfWeek = '((mon|tues|wed|thurs|fri|sat|sun)(\.|(day))?)';
 	protected static $day = '([0-3]?[0-9](st|nd|rd|th)?)\b';
-	protected static $time = '(([012]?[0-9]:[0-5][0-9].?(pm|am|hours|at.night|in.the.morning))|noon|midnight)\b';
-	
+	protected static $time = '(([012]?[0-9]:[0-5][0-9].?(p.?m.?|a.?m.?|hours|at.night|in.the.morning))|noon|midnight)\b';
+	protected static $modifiers = '(next|every)';
 	
 	
 	public static function isDate($string)
@@ -84,7 +85,6 @@ class Ev_Date
 	{
 		$date = self::stringToDate($string, $verbose);
 		$time = self::stringToTime($string, $date, $verbose);
-		
 		if ($time !== false && $time != 0)
 		{
 			return  $time;
@@ -108,19 +108,21 @@ class Ev_Date
 			echo $string . "\n";
 		}
 	
-		if (preg_match('~' . self::$time . '~i', $string, $matches))
+		if (preg_match_all('~' . self::$time . '~i', $string, $matches))
 		{
 			if ($verbose)
 			{
 				echo "matched time\n";
-				print_r(getdate(strtotime($matches[0], $date)));
+				print_r(getdate(strtotime($matches[0][0], $date)));
 				print_r($matches);
 			}
-			if (strtotime($matches[0]) !== FALSE)
+			foreach ($matches as $match)
 			{
-				return strtotime($matches[0], $date);
+				if (strtotime($match[0]) !== FALSE)
+				{
+					return strtotime($match[0], $date);
+				}
 			}
-			
 			
 		}
 		
@@ -152,8 +154,7 @@ class Ev_Date
 		$mnady = '~'
 			. self::$monthName . self::$separators 
 			. self::$day . '(' . self::$separators 
-			. self::$year . ')?(' . self::$separators 
-			. self::$dayOfWeek . ')?'. '~iU';
+			. self::$year . ')?'. '~iU';
 
 		$mnody = '~'
 			. self::$monthNumber . self::$separators 
@@ -166,6 +167,9 @@ class Ev_Date
 			. self::$monthName . '(' . self::$separators 
 			. self::$day . ')?'. '~i';
 		
+		$modifier = '~'
+			. self::$modifiers . self::$separators
+			. self::$dayOfWeek . '~i';
 		
 		$matches = array();
 
@@ -195,7 +199,7 @@ class Ev_Date
 		{
 			if ($verbose)
 			{
-				echo "matched  month name day year time\n";
+				echo "matched  month name day year\n";
 				print_r(getdate(strtotime($matches[0])));
 				print_r($matches);
 			}
@@ -240,6 +244,27 @@ class Ev_Date
 			if ($verbose)
 			{
 				echo "matched year month day time\n";
+				print_r(getdate(strtotime($matches[0])));
+				print_r($matches);
+			}
+			if (strtotime($matches[0]) !== FALSE)
+			{
+				return strtotime($matches[0]);
+			}
+			
+		}
+		
+		
+		if (preg_match($modifier, $string, $matches))
+		{
+			// FIXME 2009-03-24 RHP: Add actual recurring events
+			if (stripos($matches[0], 'every') !== FALSE)
+			{
+				$matches[0] = str_ireplace('every', 'next', $matches[0]);
+			}
+			if ($verbose)
+			{
+				echo "matched modifier day\n";
 				print_r(getdate(strtotime($matches[0])));
 				print_r($matches);
 			}

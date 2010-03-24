@@ -22,7 +22,6 @@ class City extends City_Generated implements CoughObjectStaticInterface {
 	{
 		// try to match a city to the user's ip
 		$geoip = @geoip_record_by_name($_SERVER['REMOTE_ADDR']);
-		
 		if (isset($geoip['city']) && !empty($geoip['city']))
 		{
 			switch ($geoip['city'])

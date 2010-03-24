@@ -35,7 +35,7 @@ foreach ($rawHtmls as $rawHtml)
 			$venueRawName = $venueNode->plaintext;
 			$venueName = $venueRawName;
 			
-			$venueArray = split(',', $venueRawName);
+			$venueArray = explode(',', $venueRawName);
 			if ($venueArray !== FALSE)
 			{
 				$venueName = $venueArray[0];
