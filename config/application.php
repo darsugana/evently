@@ -43,6 +43,13 @@ include(APP_PATH . 'classes/Ev_Search.class.php');
 // Include config helpers
 include(APP_PATH . 'classes/Ev_Config.class.php');
 
+// Include Vogoo
+include_once(APP_PATH . 'modules/vogoo/load_inc.php');
+
+// Include Recommendation wrapper class
+include(APP_PATH . 'classes/Ev_Recommendation.class.php');
+Ev_Recommendation::setEngines($vogoo, $vogoo_items, $vogoo_users);
+
 // Include env specific confs
 Ev_Config::initConfig(parse_ini_file('environment.ini', true), parse_ini_file('environment/default.ini', true));
 

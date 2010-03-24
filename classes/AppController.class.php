@@ -78,6 +78,11 @@ class AppController extends Lvc_PageController
 	
 	public function getLoggedInUser()
 	{
+		if (DEV)
+		{
+			return User::constructByKey(2);
+		}
+		
 		return null;
 	}
 }

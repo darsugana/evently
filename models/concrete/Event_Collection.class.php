@@ -55,6 +55,39 @@ class Event_Collection extends Event_Collection_Generated
 		}
 	}
 	
+	public function loadByArray($ids, $shouldShowPastEvents = false)
+	{
+		$city = City::getInstance();
+		$eventIds = array();
+		foreach($ids as $id)
+		{
+			$eventIds[] = (int) $id;
+		}
+		if (count($eventIds))
+		{
+			$db = Event::getDb();
+			$sql = Event::getLoadSql();
+			$sql .= '
+				WHERE
+					`event`.`event_id` IN (' . implode(', ', $eventIds)  . ')
+			';
+			if (!$shouldShowPastEvents) {
+				$sql .= '
+					AND `event`.`date` >= ' . $db->quote(date('Y-m-d', time())) . '
+				';
+			}
+			$sql .= '
+					AND `event`.`is_deleted` = 0
+					AND `event`.`vote_total` >= -50
+					AND `event`.`city_id` = ' . $city->getCityId() . '
+				ORDER BY
+					`event`.`date` ASC, `event`.`vote_total` DESC
+			';
+			$this->loadBySql($sql);
+		}
+	}
+	
+	
 	public function getEventsChunkedByDate()
 	{
 		$events = array();

@@ -7,6 +7,14 @@ class EventController extends AppController
 		$eventId = (int)$eventId;
 		$event = Event::constructByKey($eventId);
 		if (is_object($event)) {
+			$user = $this->getLoggedInUser();
+			if (is_object($user))
+			{
+				$eventVote->setUserId($user->getUserId());
+				$recommender = new Ev_Recommendation();
+				$recommender->visit($user->getUserId(), $event->getEventId());
+			}
+			
 			$this->setVar('event', $event);
 		} else {
 			die('404');
@@ -24,6 +32,8 @@ class EventController extends AppController
 			if (is_object($user))
 			{
 				$eventVote->setUserId($user->getUserId());
+				$recommender = new Ev_Recommendation();
+				$recommender->like($user->getUserId(), $event->getEventId());
 			}
 			$eventVote->setEventId($event->getEventId());
 			$eventVote->setValue(10);
@@ -48,6 +58,8 @@ class EventController extends AppController
 			if (is_object($user))
 			{
 				$eventVote->setUserId($user->getUserId());
+				$recommender = new Ev_Recommendation();
+				$recommender->dislike($user->getUserId(), $event->getEventId());
 			}
 			$eventVote->setEventId($event->getEventId());
 			$eventVote->setValue(-10);

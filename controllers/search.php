@@ -26,6 +26,17 @@ class SearchController extends AppController
 			$eventsByDate = array();
 		}
 		
+		
+		$user = $this->getLoggedInUser();
+		$recommendations = new Event_Collection();
+		if (is_object($user))
+		{
+			$recommender = new Ev_Recommendation();
+			$idArray = $recommender->getRecommendedEvents($user->getUserId());
+			$recommendations->loadByArray($idArray, $shouldShowPastEvents);
+		}
+
+		$this->setVar('recommendations', $recommendations->getEventsChunkedByDate());
 		$this->setVar('eventsByDate', $eventsByDate);
 		$this->setVar('numEvents', count($events));
 	}

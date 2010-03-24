@@ -15,6 +15,7 @@ abstract class User_Generated extends AppCoughObject {
 	protected $fields = array(
 		'user_id' => null,
 		'facebook_uid' => null,
+		'email' => null,
 		'is_deleted' => null,
 		'date_created' => null,
 		'date_modified' => null,
@@ -28,6 +29,11 @@ abstract class User_Generated extends AppCoughObject {
 		),
 		'facebook_uid' => array(
 			'db_column_name' => 'facebook_uid',
+			'is_null_allowed' => true,
+			'default_value' => null
+		),
+		'email' => array(
+			'db_column_name' => 'email',
 			'is_null_allowed' => true,
 			'default_value' => null
 		),
@@ -139,6 +145,14 @@ abstract class User_Generated extends AppCoughObject {
 	
 	public function setFacebookUid($value) {
 		$this->setField('facebook_uid', $value);
+	}
+	
+	public function getEmail() {
+		return $this->getField('email');
+	}
+	
+	public function setEmail($value) {
+		$this->setField('email', $value);
 	}
 	
 	public function getIsDeleted() {
