@@ -10,7 +10,6 @@ class EventController extends AppController
 			$user = $this->getLoggedInUser();
 			if (is_object($user))
 			{
-				$eventVote->setUserId($user->getUserId());
 				$recommender = new Ev_Recommendation();
 				$recommender->visit($user->getUserId(), $event->getEventId());
 			}

@@ -16,6 +16,7 @@ abstract class User_Generated extends AppCoughObject {
 		'user_id' => null,
 		'facebook_uid' => null,
 		'email' => null,
+		'password_hash' => null,
 		'is_deleted' => null,
 		'date_created' => null,
 		'date_modified' => null,
@@ -35,6 +36,11 @@ abstract class User_Generated extends AppCoughObject {
 		'email' => array(
 			'db_column_name' => 'email',
 			'is_null_allowed' => true,
+			'default_value' => null
+		),
+		'password_hash' => array(
+			'db_column_name' => 'password_hash',
+			'is_null_allowed' => false,
 			'default_value' => null
 		),
 		'is_deleted' => array(
@@ -153,6 +159,14 @@ abstract class User_Generated extends AppCoughObject {
 	
 	public function setEmail($value) {
 		$this->setField('email', $value);
+	}
+	
+	public function getPasswordHash() {
+		return $this->getField('password_hash');
+	}
+	
+	public function setPasswordHash($value) {
+		$this->setField('password_hash', $value);
 	}
 	
 	public function getIsDeleted() {

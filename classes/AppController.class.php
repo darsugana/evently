@@ -14,6 +14,13 @@ class AppController extends Lvc_PageController
 		$this->setLayoutVar('actionName', $this->actionName);
 		$this->setLayoutVar('layoutName', $this->layout);
 		
+		$this->setLayoutVar('user', '');
+		if ($this->hasLoggedInUser())
+		{
+			$user = $this->getLoggedInUser();
+			$this->setLayoutVar('user', $user);
+			
+		}
 		$this->setSearchVars();
 		
 		$this->setVar('city', City::getInstance());
@@ -76,13 +83,27 @@ class AppController extends Lvc_PageController
 		}
 	}
 	
+	public function setLoggedInUser($user)
+	{
+		$_SESSION['logged_in_user'] = $user->getFields();
+	}
+	
+	public function hasLoggedInUser()
+	{
+		return isset($_SESSION['logged_in_user']);
+	}
+	
 	public function getLoggedInUser()
 	{
-		if (DEV)
+		if (isset($_SESSION['logged_in_user']))
 		{
-			return User::constructByKey(2);
+			return User::constructByFields($_SESSION['logged_in_user']);
 		}
-		
 		return null;
+	}
+	
+	public function logout()
+	{
+		unset($_SESSION['logged_in_user']);
 	}
 }

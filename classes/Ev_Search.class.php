@@ -57,6 +57,3 @@ class Ev_Search
 		return $res;
 	}
 }
-
-?>
-
