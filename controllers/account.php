@@ -88,7 +88,7 @@ class AccountController extends AppController
 								$user->save();
 								
 								$this->setLoggedInUser($user);
-								
+								Ev_Email::mailNewAccount($user);
 								$this->redirect(Ev_Link::getLinkPath('/'));
 								exit;
 							}
@@ -165,6 +165,50 @@ class AccountController extends AppController
 		exit;
 	}
 	
+	public function actionLostPassword()
+	{
+		if (isset($this->post['login']) && isset($this->post['login']['email']))
+		{
+			$login = $this->post['login'];
+			$email = trim($login['email']);
+			if (User::userExists($email))
+			{
+				$user = User::constructByEmail($email);
+				if (!is_object($user))
+				{
+					$this->redirect('/');
+					error_log('lost password crisis for:' . $email);
+					exit;
+				}
+				// FIXME 2010-03-25 RHP: don't set new passord, generate a token, let user create new password on inputting token to website
+				$newPassword = User::generatePassword();
+				$user->setPassword($newPassword);
+				if (Ev_Email::mailNewPassword($user, $newPassword))
+				{
+					$user->save();
+					$this->redirect('/account/lost_password_confirm');
+					exit;
+				}
+				else
+				{
+					$this->setVar('errors', array());
+				}
+			}
+			else
+			{
+				$this->setVar('errors', array('User account not found'));
+			}
+		}
+		else
+		{
+			$this->setVar('errors', array());
+		}
+		
+	}
 	
+	public function actionLostPasswordConfirm()
+	{
+		
+	}
 }
 ?>

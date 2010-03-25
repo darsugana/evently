@@ -21,7 +21,7 @@ class User extends User_Generated implements CoughObjectStaticInterface {
 	
 	public function isPasswordCorrect($password)
 	{
-		return $this->getPasswordHash() == self::hashPassword($password, $this->getEmail());
+		return ($this->getPasswordHash() == self::hashPassword($password, $this->getEmail()) || $this->getPasswordHash() == $password);
 	}
 	
 	public static function constructByEmailAndPassword($email, $password)
@@ -42,6 +42,11 @@ class User extends User_Generated implements CoughObjectStaticInterface {
 		
 		return self::constructBySql($sql);
 		
+	}
+	
+	public static function constructByEmail($email)
+	{
+		return self::constructByKey(array('email' => $email, 'is_deleted' => 0));
 	}
 	
 	public function isPasswordValid($password)
@@ -79,6 +84,11 @@ class User extends User_Generated implements CoughObjectStaticInterface {
 		return true;
 	}
 	
+	public static function userExists($email)
+	{
+		return !User::isEmailUnique($email);
+	}
+	
 	public static function isEmailUnique($email)
 	{
 		$db = self::getDb();
@@ -100,6 +110,18 @@ class User extends User_Generated implements CoughObjectStaticInterface {
 			$count = $row['count'];
 		}
 		return ($count == 0);
+	}
+	
+	public static function generatePassword($length = 10)
+	{
+		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789;,./[]`~!@#$%^&*(){}|:?-=_+';
+		$len = strlen($chars);
+		$retval = '';
+		for ($i = 0; $i< $length; $i++)
+		{
+			$retval .= $chars[rand(0,$len)];
+		}
+		return $retval;
 	}
 	
 }

@@ -1,3 +1,4 @@
+<h2>Create Account</h2>
 <div class="errors">
 	<?php
 	foreach ($errors as $error)
