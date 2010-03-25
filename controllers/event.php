@@ -30,6 +30,7 @@ class EventController extends AppController
 			// FIXME 2010-03-23 RHP, require loggedin user
 			if (is_object($user))
 			{
+				// FIXME 2010-03-25 RHP, only allow one vote per user
 				$eventVote->setUserId($user->getUserId());
 				$recommender = new Ev_Recommendation();
 				$recommender->like($user->getUserId(), $event->getEventId());
@@ -56,6 +57,7 @@ class EventController extends AppController
 			// FIXME 2010-03-23 RHP, require loggedin user
 			if (is_object($user))
 			{
+				// FIXME 2010-03-25 RHP, only allow one vote per user
 				$eventVote->setUserId($user->getUserId());
 				$recommender = new Ev_Recommendation();
 				$recommender->dislike($user->getUserId(), $event->getEventId());

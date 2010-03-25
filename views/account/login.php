@@ -13,7 +13,7 @@
 	}
 	?>
 </div>
-<form method="post" action="<?php echo Ev_Link::getLinkPath('/login/') ?>">
+<form method="post" action="<?php echo Ev_Link::getLinkPath('/account/login/') ?>">
 	<table class="login">
 		<tr>
 			<th>
@@ -35,5 +35,5 @@
 	<input type="submit" name="login[submit]" value="Login" />
 </form>
 <div class="login_opts">
-	<a href="#">Forgot Password?</a> -- <a href="#">New User</a>
+	<a href="#">Forgot Password?</a> -- <a href="/account/create">New User</a>
 </div>

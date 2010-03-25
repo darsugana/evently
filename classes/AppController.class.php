@@ -106,4 +106,36 @@ class AppController extends Lvc_PageController
 	{
 		unset($_SESSION['logged_in_user']);
 	}
+	
+	public function requireLogin()
+	{
+		if (!$this->hasLoggedInUser())
+		{
+			$this->setLoginRedirectUrl($_SERVER['REQUEST_URI']);
+			$this->redirect('/account/login');
+			exit;
+		}
+	}
+	
+	public function setLoginRedirectUrl($url)
+	{
+		$_SESSION['login_redirect_url'] = $url;
+	}
+
+	public function getAndClearLoginRedirectUrl()
+	{
+		if (isset($_SESSION['login_redirect_url']))
+		{
+			$loginRedirectUrl = $_SESSION['login_redirect_url'];
+			unset($_SESSION['login_redirect_url']);
+			return $loginRedirectUrl;
+		}
+		return '';
+	}
+	
+	public function hasLoginRedirectUrl()
+	{
+		return isset($_SESSION['login_redirect_url']);
+	}
+	
 }
