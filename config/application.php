@@ -50,6 +50,10 @@ include_once(APP_PATH . 'modules/vogoo/load_inc.php');
 include(APP_PATH . 'classes/Ev_Recommendation.class.php');
 Ev_Recommendation::setEngines($vogoo, $vogoo_items, $vogoo_users);
 
+// Include Summarization library
+include_once(APP_PATH . 'modules/php_summarizer/load_inc.php');
+
+
 // Include env specific confs
 Ev_Config::initConfig(parse_ini_file('environment.ini', true), parse_ini_file('environment/default.ini', true));
 
