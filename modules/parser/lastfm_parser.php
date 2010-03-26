@@ -97,6 +97,29 @@ foreach ($rawRsses as $rawRss)
 			$event->setVenueId($venue->getKeyId());
 		}
 		
+		$event->save();
+		
+		$summarizer = new Ev_Summarizer();
+
+		$text = $event->getName() . "\n" . strip_tags($event->getDescription());
+		$summaryText = $summarizer->summarize($text);
+		$tags = $summarizer->getUnstemmedKeywords();
+
+		$i = 0;
+		foreach ($tags as $tagName => $count)
+		{
+			if ($i++ > 5)
+			{
+				break;
+			}
+			$tag = Tag_Collection::getTagByName($tagName, true);
+			$tag2Event = new Tag2event();
+			$tag2Event->setTagId($tag->getKeyId());
+			$tag2Event->setEventId($event->getKeyId());
+			$tag2Event->save();
+		}
+	
+		
 		$events->add($event);
 		$seenGuids[$event->getGuid()] = true;
 	}

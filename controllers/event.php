@@ -14,6 +14,8 @@ class EventController extends AppController
 				$recommender->visit($user->getUserId(), $event->getEventId());
 			}
 			
+			
+			$this->setVar('tags', $event->getTags());
 			$this->setVar('event', $event);
 		} else {
 			die('404');

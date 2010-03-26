@@ -13,12 +13,14 @@ if (!class_exists('PorterStemmer')){
 class Summarizer {
 	var $word_stats;
 	var $stopwords;
+	var $stemmed_words;
 	
 	//Constructor
 	function Summarizer(){
 		global $default_stopwords;
 		$this->word_stats = array();
 		$this->stopwords = $default_stopwords; //see the end of this file
+		$this->stemmed_words = array();
 	}
 	
 	/**
@@ -37,7 +39,19 @@ class Summarizer {
 				//skip stopwords
 				if (in_array($word, $this->stopwords)) continue;
 				//stem
-				$word = PorterStemmer::Stem($word);
+				$stemmedWord = PorterStemmer::Stem($word);
+				if (isset($this->stemmed_words[$stemmedWord]))
+				{
+					$this->stemmed_words[$stemmedWord][] = $word;
+				}
+				else
+				{
+					$this->stemmed_words[$stemmedWord] = array();
+					$this->stemmed_words[$stemmedWord][] = $word;
+				}
+				
+				$word = $stemmedWord;
+				
 				//skip stopwords by stem
 				if (in_array($word, $this->stopwords)) continue;
 				
@@ -154,6 +168,22 @@ class Summarizer {
 			$rating += $word_rating;
 		}
 		return $rating;
+	}
+
+	public function get_unstemmed_words()
+	{
+		return $this->stemmed_words;
+	}
+
+	public function get_keywords()
+	{
+		return $this->word_stats;
+	}
+
+	public function reset_keywords()
+	{
+		$this->word_stats = array();
+		$this->stemmed_words = array();
 	}
 
 }

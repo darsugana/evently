@@ -64,6 +64,15 @@ class Event extends Event_Generated implements CoughObjectStaticInterface {
 		$db->query($sql);	
 		
 	}
+	
+	public function getTags()
+	{
+		$tags = new Tag_Collection();
+		$tags->loadByEventId($this->getEventId());
+		
+		return $tags;
+	}
+	
 }
 
 ?>

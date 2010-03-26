@@ -71,6 +71,28 @@ class Tag_Collection extends Tag_Collection_Generated {
 		return false;
 	}
 
+	public function loadByEventId($eventId)
+	{
+		$db = Tag::getDb();
+		$sql = '
+			SELECT
+				*
+			FROM
+				tag
+				INNER JOIN tag2event ON (tag2event.is_deleted = 0 AND tag2event.tag_id = tag.tag_id)
+			WHERE
+				tag.is_deleted = 0
+				AND tag2event.event_id = ' . $db->quote($eventId) . '
+			GROUP BY
+				tag.name
+			ORDER BY 
+				tag.name ASC, tag.tag_id ASC
+		';
+		
+		$this->loadBySql($sql);
+		
+	}
+
 
 }
 
