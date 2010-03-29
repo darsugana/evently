@@ -82,6 +82,8 @@ foreach ($rawHtmls as $rawHtml)
 				// create venue
 			}
 			
+			$event->setCategoryId(Category::LECTURE);
+			
 			$event->save();
 			
 			// tags

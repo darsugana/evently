@@ -8,7 +8,7 @@
 foreach ($tags as $tag)
 {
 	?>
-	<a href="#"><?php echo htmlentities($tag->getName()) ?></a> 
+	<a href="<?php echo Ev_Link::getLinkPath('/search/by_tag/' . urlencode($tag->getName()) ) ?>"><?php echo htmlentities($tag->getName()) ?></a> 
 	<?php
 }
 ?>

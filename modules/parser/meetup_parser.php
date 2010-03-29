@@ -57,6 +57,8 @@ foreach ($rawRsses as $rawRss)
 		$event->save();
 		$seenGuids[$event->getGuid()] = true;
 		
+		$event->setCategoryId(Category::MEETUP);
+		
 		$summarizer = new Ev_Summarizer();
 
 		$text = $event->getName() . "\n" . strip_tags($event->getDescription());

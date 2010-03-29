@@ -41,4 +41,26 @@ class SearchController extends AppController
 		$this->setVar('numEvents', count($events));
 	}
 	
+	public function actionByTag($tagName = null)
+	{
+		if (is_null($tagName))
+		{
+			$this->redirect(Ev_Link::getLinkPath('/'));
+			exit;
+		}
+		
+		$events = new Event_Collection();
+		$shouldShowPastEvents = isset($this->get['p']) ? (bool)$this->get['p'] : false;
+		$this->setVar('shouldShowPastEvents', $shouldShowPastEvents);
+		$this->setLayoutVar('shouldShowPastEvents', $shouldShowPastEvents);
+		
+		$events->loadByTag($tagName);
+		$eventsByDate = $events->getEventsChunkedByDate();
+		
+		$this->setVar('eventsByDate', $eventsByDate);
+		$this->setVar('numEvents', count($events));
+		
+		
+	}
+	
 }

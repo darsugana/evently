@@ -66,6 +66,8 @@ foreach ($rawRsses as $rawRss)
 		
 		$event->setDateCreated($now);
 		
+		$event->setCategoryId(Category::MUSIC);
+		
 		$dates = $item->get_item_tags(XCAL_NAMESPACE, 'dtstart');
 		
 		if (is_array($dates))

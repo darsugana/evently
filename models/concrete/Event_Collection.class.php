@@ -87,6 +87,38 @@ class Event_Collection extends Event_Collection_Generated
 		}
 	}
 	
+	public function loadByTag($tagName, $shouldShowPastEvents = false)
+	{
+		$db = Event::getDb();
+		$sql = '
+			SELECT
+				event.*
+			FROM
+				event
+				INNER JOIN tag2event
+					ON tag2event.event_id = event.event_id
+					AND tag2event.is_deleted = 0
+				INNER JOIN tag
+					ON tag.tag_id = tag2event.tag_id
+					AND tag.is_deleted = 0
+			WHERE
+				event.is_deleted = 0
+				AND tag.name = ' . $db->quote($tagName) .'
+				';
+		if (!$shouldShowPastEvents) {
+			$sql .= '
+				AND `event`.`date` >= ' . $db->quote(date('Y-m-d', time())) . '
+			';
+		}
+		$sql .= '
+			ORDER BY 
+				event.date ASC, event.vote_total DESC
+		';
+		
+		
+		$this->loadBySql($sql);
+	}
+	
 	
 	public function getEventsChunkedByDate()
 	{

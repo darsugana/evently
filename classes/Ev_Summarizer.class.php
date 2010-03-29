@@ -30,15 +30,72 @@ class Ev_Summarizer
 		{
 			if (!isset($unstemmedWords[$keyword]))
 			{
-				$retval[$keyword] = $count;
+				if ($this->isKeywordValid($keyword))
+				{
+					$retval[$keyword] = $count;
+				}
 			}
 			else
 			{
 				$unstemmedKeyword = $this->getMostCommonElement($unstemmedWords[$keyword]);
-				$retval[$unstemmedKeyword] = $count;
+				if ($this->isKeywordValid($unstemmedKeyword))
+				{
+					$retval[$unstemmedKeyword] = $count;
+				}
 			}
 		}
 		return $retval;
+	}
+	
+	private function isKeywordValid($keyword)
+	{
+	
+		$disallowedKeywords = array(
+			'jan' => true,
+			'january' => true,
+			'feb' => true,
+			'february' => true,
+			'mar' => true,
+			'march' => true,
+			'apr' => true,
+			'april' => true,
+			'may' => true,
+			'jun' => true,
+			'june' => true,
+			'jul' => true,
+			'july' => true,
+			'aug' => true,
+			'august' => true,
+			'sept' => true,
+			'september' => true,
+			'oct' => true,
+			'october' => true,
+			'nov' => true,
+			'november' => true,
+			'dec' => true,
+			'december' => true,
+			);
+		
+		if (strlen($keyword) < 4)
+		{
+			return false;
+		}
+		
+		if (strpos($keyword, 'http') === 0)
+		{
+			return false;
+		}
+
+		if (strpos($keyword, '.com') !== FALSE)
+		{
+			return false;
+		}
+		
+		if (isset($disallowedKeywords[$keyword]))
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	private function getMostCommonElement($wordArray)

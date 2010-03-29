@@ -26,6 +26,7 @@ abstract class Event_Generated extends AppCoughObject {
 		'longitude' => null,
 		'venue_id' => null,
 		'city_id' => null,
+		'category_id' => null,
 		'vote_total' => null,
 		'date_published' => null,
 		'date_modified' => null,
@@ -99,6 +100,11 @@ abstract class Event_Generated extends AppCoughObject {
 			'is_null_allowed' => true,
 			'default_value' => null
 		),
+		'category_id' => array(
+			'db_column_name' => 'category_id',
+			'is_null_allowed' => true,
+			'default_value' => null
+		),
 		'vote_total' => array(
 			'db_column_name' => 'vote_total',
 			'is_null_allowed' => false,
@@ -141,6 +147,9 @@ abstract class Event_Generated extends AppCoughObject {
 		),
 		'City_Object' => array(
 			'class_name' => 'City'
+		),
+		'Category_Object' => array(
+			'class_name' => 'Category'
 		),
 	);
 	
@@ -323,6 +332,14 @@ abstract class Event_Generated extends AppCoughObject {
 		$this->setField('city_id', $value);
 	}
 	
+	public function getCategoryId() {
+		return $this->getField('category_id');
+	}
+	
+	public function setCategoryId($value) {
+		$this->setField('category_id', $value);
+	}
+	
 	public function getVoteTotal() {
 		return $this->getField('vote_total');
 	}
@@ -438,6 +455,21 @@ abstract class Event_Generated extends AppCoughObject {
 	
 	public function setCity_Object($city) {
 		$this->objects['City_Object'] = $city;
+	}
+	
+	public function loadCategory_Object() {
+		$this->setCategory_Object(Category::constructByKey($this->getCategoryId()));
+	}
+	
+	public function getCategory_Object() {
+		if (!isset($this->objects['Category_Object'])) {
+			$this->loadCategory_Object();
+		}
+		return $this->objects['Category_Object'];
+	}
+	
+	public function setCategory_Object($category) {
+		$this->objects['Category_Object'] = $category;
 	}
 	
 	// Generated one-to-many collection loaders, getters, setters, adders, and removers

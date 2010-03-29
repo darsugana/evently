@@ -73,6 +73,20 @@ class Event extends Event_Generated implements CoughObjectStaticInterface {
 		return $tags;
 	}
 	
+	public function getCategoryName()
+	{
+		if (is_null($this->getCategoryId()))
+		{
+			return '';
+		}
+		$categoriesById = Category_Collection::getCategoryArray();
+		if (isset($categoriesById[$this->getCategoryId()]))
+		{
+			return $categoriesById[$this->getCategoryId()]->getName();
+		}
+		return '';
+	}
+	
 }
 
 ?>
