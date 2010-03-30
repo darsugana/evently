@@ -20,6 +20,7 @@ abstract class Event_Generated extends AppCoughObject {
 		'name' => null,
 		'description' => null,
 		'date' => null,
+		'all_day_event' => null,
 		'guid' => null,
 		'link' => null,
 		'latitude' => null,
@@ -67,6 +68,11 @@ abstract class Event_Generated extends AppCoughObject {
 		),
 		'date' => array(
 			'db_column_name' => 'date',
+			'is_null_allowed' => false,
+			'default_value' => null
+		),
+		'all_day_event' => array(
+			'db_column_name' => 'all_day_event',
 			'is_null_allowed' => false,
 			'default_value' => null
 		),
@@ -282,6 +288,14 @@ abstract class Event_Generated extends AppCoughObject {
 	
 	public function setDate($value) {
 		$this->setField('date', $value);
+	}
+	
+	public function getAllDayEvent() {
+		return $this->getField('all_day_event');
+	}
+	
+	public function setAllDayEvent($value) {
+		$this->setField('all_day_event', $value);
 	}
 	
 	public function getGuid() {

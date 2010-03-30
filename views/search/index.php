@@ -30,7 +30,7 @@ if (count($eventsByDate))
 							
 							<li class="event">
 								<h3 class="title">
-									<span class="time"><?php echo htmlentities(date('g:ia', strtotime($event->getDate()))) ?></span>
+									<span class="time"><?php echo $event->getAllDayEvent() == 0 ?htmlentities(date('g:ia', strtotime($event->getDate()))) : '&nbsp;' ?></span>
 									<?php 
 									if ($event->getCategoryName() != '')
 									{	

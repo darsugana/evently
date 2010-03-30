@@ -67,10 +67,18 @@ foreach ($rawHtmls as $rawHtml)
 			$event->setDateCreated($now);
 		
 
-			if ($date !== false)
+			if ($date['date'] !== false)
 			{
-				$event->setDate(date('Y-m-d H:i:s',$date));
-			}
+				if ($date['has_time'])
+				{
+					$event->setDate(date('Y-m-d H:i:s',$date['time']));
+				}
+				else
+				{
+					$event->setDate(date('Y-m-d H:i:s',$date['date']));
+				}
+				$event->setAllDayEvent(!$date['has_time']);
+			}			
 
 			$venue = Venue::constructByName($venueName);
 			if (is_object($venue))

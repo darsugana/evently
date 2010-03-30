@@ -49,7 +49,23 @@ foreach ($rawRsses as $rawRss)
 		
 		$event->setName($name);
 		$event->setDescription(html_entity_decode($item->get_description()));
-		$event->setDate(date('Y-m-d H:i:s', Ev_Date::stringToDateTime(html_entity_decode($item->get_description()))));
+		$now = date('Y-m-d H:i:s');
+		
+		$event->setDate(date('Y-m-d H:i:s', $now));
+		$date = Ev_Date::stringToDateTime(html_entity_decode($item->get_description()));
+		if ($date['date'] !== false)
+		{
+			if ($date['has_time'])
+			{
+				$event->setDate(date('Y-m-d H:i:s',$date['time']));
+			}
+			else
+			{
+				$event->setDate(date('Y-m-d H:i:s',$date['date']));
+			}
+			$event->setAllDayEvent(!$date['has_time']);
+		}
+		
 		$event->setDatePublished(date('Y-m-d H:i:s', strtotime($item->get_date())));
 		$event->setLink($item->get_link());
 		

@@ -51,18 +51,34 @@ foreach ($rawRsses as $rawRss)
 		
 		$event->setDateCreated($now);
 
-		$date = Ev_Date::stringToDateTime($event->getName());
-		if ($date !== false)
+		$date = Ev_Date::stringToDateTimeArray($event->getName());
+		if ($date['date'] !== false)
 		{
-			$event->setDate(date('Y-m-d H:i:s',$date));
+			if ($date['has_time'])
+			{
+				$event->setDate(date('Y-m-d H:i:s',$date['time']));
+			}
+			else
+			{
+				$event->setDate(date('Y-m-d H:i:s',$date['date']));
+			}
+			$event->setAllDayEvent(!$date['has_time']);
 		}
 		else 
 		{
-			$date = Ev_Date::stringToDateTime($event->getDescription());
-			if ($date !== false)
+			$date = Ev_Date::stringToDateTimeArray($event->getDescription());
+			if ($date['date'] !== false)
 			{
-				$event->setDate(date('Y-m-d H:i:s',$date));
-			}			
+				if ($date['has_time'])
+				{
+					$event->setDate(date('Y-m-d H:i:s',$date['time']));
+				}
+				else
+				{
+					$event->setDate(date('Y-m-d H:i:s',$date['date']));
+				}
+				$event->setAllDayEvent(!$date['has_time']);
+			}
 		}
 		$event->save();
 		$events->add($event);

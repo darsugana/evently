@@ -34,23 +34,42 @@ class Ev_Date
 	*/
 	
 	protected static $testValues = array(
-			'02/10/2009',
-			'10 February',
-			'Next Tuesday',
-			'February 10', 
-			'Feb 10',
-			'2009-02-10',
-			'10/02/2009',
-			'10 February 2009',
-			'Feb 10th, 2009',
-			'Feb 10th 09 08:30pm',
-			'02-10-2009 20:30',
-			'8:30pm Feb 10th 2009',
-			'02/10@8:30',
-			'Every Weds.',
-			'10 Feb \'09;',
-			'Monday, March 8 at 6:00 PM',
-			'Wednesday, April 14th, 2010, Doors at 6:30 p.m.',
+			// '02/10/2009',
+			// '10 February',
+			// 'Next Tuesday',
+			// 'February 10', 
+			// 'Feb 10',
+			// '2009-02-10',
+			// '10/02/2009',
+			// '10 February 2009',
+			// 'Feb 10th, 2009',
+			// 'Feb 10th 09 08:30pm',
+			// '02-10-2009 20:30',
+			// '8:30pm Feb 10th 2009',
+			// '02/10@8:30',
+			// 'Every Weds.',
+			// '10 Feb \'09;',
+			// 'Monday, March 8 at 6:00 PM',
+			// 'Wednesday, April 14th, 2010, Doors at 6:30 p.m.',
+			'3601 South Congress Street, Austin TX
+			Saturday April 17th, 4pm
+
+			Do you have your dress robes? Your standard size 2 pewter cauldron? Your cat, toad, rat or owl? Your Standard Book of Spells? Your phoenix feather-core wand?
+
+			If so, we suggest you meet us at Platform 9 3/4 for Quiz-Who-Must-Not-Be-Named, Geeks Who Drink\'s first Harry Potter-themed quiz. We\'ve enlisted the Darkest of the Dark and the most heroic of the Aurors to survey the wizarding world, from Hogsmeade to Beauxbatons to Knockturn Alley, in order to put together a comprehensive Harry Potter quiz that would make Nicholas Flamel proud.
+
+			Wizards, witches and Muggles are invited to join us for our first-ever all-ages theme quiz.
+
+			We\'ll reward your knowledge of J.K Rowling\'s world with cash prizes, Internet Glory and, best of all, the knowledge of an O.W.L exam well done. Accio awesome!
+
+			* $5 per player with a Winner-Take-All Cash Purse
+
+			* Maximum team size is six players.
+			* Seating is first come, first serve
+
+			* There will be NO music round for this quiz for obvious reasons.
+
+			www.geekswhodrink.com'
 		);
 	
 	protected static $separators = '[/, @-]+';
@@ -62,7 +81,7 @@ class Ev_Date
 	protected static $monthName = '((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|january|february|march|april|may|june|july|august|september|october|november|december)\.?)';
 	protected static $dayOfWeek = '((mon|tues|wed|thurs|fri|sat|sun)(\.|(day))?)';
 	protected static $day = '([0-3]?[0-9](st|nd|rd|th)?)\b';
-	protected static $time = '(([012]?[0-9]:[0-5][0-9].?(p.?m.?|a.?m.?|hours|at.night|in.the.morning))|noon|midnight)\b';
+	protected static $time = '(([012]?[0-9]:[0-5][0-9].?(p\.?m\.?|a\.?m\.?|hours|at.night|in.the.morning))|([012]?[0-9].?(p\.?m\.?|a\.?m\.?|hours|at.night|in.the.morning))|noon|midnight)\b';
 	protected static $modifiers = '(next|every)';
 	
 	
@@ -98,6 +117,24 @@ class Ev_Date
 		return false;
 	}
 	
+	public static function stringToDateTimeArray($string, $verbose = false)
+	{
+		$retval = array();
+		
+		$date = self::stringToDate($string, $verbose);
+		$time = self::stringToTime($string, $date, $verbose);
+		
+		$retval['date'] = $date;
+		$retval['time'] = $time;
+		$retval['has_time'] = false;
+		
+		if ($time !== false && $time != 0)
+		{
+			$retval['has_time'] = true;
+		}
+		return $retval;		
+	}
+	
 	public static function stringToTime($string, $date = 0, $verbose = true)
 	{
 		
@@ -118,6 +155,11 @@ class Ev_Date
 			}
 			foreach ($matches as $match)
 			{
+				// skip 2010 as a time
+				if (strpos($match, '201') !== FALSE)
+				{
+					continue;
+				}
 				if (strtotime($match[0]) !== FALSE)
 				{
 					return strtotime($match[0], $date);
@@ -287,9 +329,10 @@ class Ev_Date
 		foreach (self::$testValues as $string)
 		{
 			echo $string . "\n";
-			$date = self::stringToDateTime($string, true);
-			echo "'" . $date . "'\n";
-			echo 'retval ' . date('Y-M-d H:i:s', $date) . ' for ' . $string . "\n";
+			$date = self::stringToDateTimeArray($string, true);
+			// echo "'" . $date . "'\n";
+			// echo 'retval ' . date('Y-M-d H:i:s', $date) . ' for ' . $string . "\n";
+			print_r($date);
 		}
 	}
 	
