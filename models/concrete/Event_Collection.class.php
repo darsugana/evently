@@ -59,6 +59,10 @@ class Event_Collection extends Event_Collection_Generated
 	{
 		$city = City::getInstance();
 		$eventIds = array();
+		if (!is_array($ids))
+		{
+			return;
+		}
 		foreach($ids as $id)
 		{
 			$eventIds[] = (int) $id;
