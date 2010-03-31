@@ -14,6 +14,14 @@ class AppController extends Lvc_PageController
 		$this->setLayoutVar('actionName', $this->actionName);
 		$this->setLayoutVar('layoutName', $this->layout);
 		
+		if (DEV)
+		{
+			foreach (CoughDatabaseFactory::getDatabases() as $db)
+			{
+				$db->startLoggingQueries();
+			}
+		}
+		
 		$this->setLayoutVar('user', '');
 		if ($this->hasLoggedInUser())
 		{

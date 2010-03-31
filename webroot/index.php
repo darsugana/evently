@@ -15,7 +15,16 @@ if (isset($_GET['url']) && $_GET['url'] === 'favicon.ico') {
 		$fc = new Lvc_FrontController();
 		$fc->addRouter(new Ev_EventlyCityRouter($regexRoutes));
 		$fc->processRequest(new Lvc_HttpRequest());
-		
+		if (DEV)
+		{
+			foreach (CoughDatabaseFactory::getDatabases() as $db)
+			{
+				$log = $db->getQueryLog();
+				echo count($log) . " queries in " . $db->getQueryLogTime() . " secs <br/>";
+				Debug::SuperJam($log);
+			}
+			
+		}
 	} catch (Lvc_Exception $e) {
 		
 		// Log the error message
