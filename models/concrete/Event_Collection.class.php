@@ -132,4 +132,44 @@ class Event_Collection extends Event_Collection_Generated
 		}
 		return $events;
 	}
+	
+	public function loadRsvps($userId)
+	{
+		$db = Event::getDb();
+		
+		$eventIds = array();
+		foreach ($this as $event)
+		{
+			$eventIds[] = $db->quote($event->getEventId());
+		}
+		if (count($eventIds) == 0)
+		{
+			return;
+		}
+		$sql = '
+			SELECT
+				event_id,
+				1 as is_attending
+			FROM
+				rsvp
+			WHERE
+				is_deleted = 0
+				AND event_id IN ('. implode(',', $eventIds) . ')
+				AND user_id = ' . $db->quote($userId) . '
+		';
+		
+
+		$result = $db->query($sql);
+		while ($row = $result->getRow())
+		{
+			$event = $this->get($row['event_id']);
+			if (is_object($event))
+			{
+				$event->setFields($row);
+			}
+		}
+		
+		
+	}
+	
 }

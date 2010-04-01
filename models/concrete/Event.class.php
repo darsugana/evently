@@ -8,6 +8,15 @@
 class Event extends Event_Generated implements CoughObjectStaticInterface {
 	private $weight;
 	
+	protected $derivedFields = array(
+		'is_attending' => false
+		);
+
+	protected $derivedFieldDefinitions = array(
+		'is_attending' => true
+		);
+
+	
 	public function setWeight($weight)
 	{
 		$this->weight = $weight;
@@ -85,6 +94,40 @@ class Event extends Event_Generated implements CoughObjectStaticInterface {
 			return $categoriesById[$this->getCategoryId()]->getName();
 		}
 		return '';
+	}
+	
+	public function updateRsvpTotal()
+	{
+		$db = self::getDb();
+		$sql = '
+			UPDATE
+				event
+				INNER JOIN (
+						SELECT 
+							event_id, 
+							count(*) AS total
+						FROM
+							rsvp
+						WHERE
+							is_deleted = 0
+						GROUP BY
+							event_id
+							) AS rsvp_sum ON event.event_id = rsvp_sum.event_id
+			SET
+				event.rsvp_total = rsvp_sum.total
+
+			WHERE
+				event.is_deleted = 0
+				AND event.event_id = ' . $db->quote($this->getEventId()) . '
+		';
+
+		$db->query($sql);
+		
+	}
+	
+	public function getIsAttending()
+	{
+		return $this->getDerivedField('is_attending');
 	}
 	
 }

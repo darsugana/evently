@@ -123,6 +123,57 @@ class User extends User_Generated implements CoughObjectStaticInterface {
 		}
 		return $retval;
 	}
+
+
+	public function makeRsvp($event)
+	{
+		$eventId = $event->getEventId();
+		$db = self::getDb();
+		
+		$sql = '
+			SELECT
+				*
+			FROM
+				rsvp
+			WHERE
+				is_deleted = 0
+				AND event_id = '. $db->quote($eventId) .'
+				AND user_id = ' . $db->quote($this->getUserId()) . '
+		';
+		
+		$result = $db->query($sql);
+		while ($row = $result->getRow())
+		{
+			return;
+		}
+		
+		$rsvp = new Rsvp();
+		$rsvp->setDateCreated(date('Y-m-d H:i:s', CURRENT_TIMESTAMP));
+		$rsvp->setEventId($eventId);
+		$rsvp->setUserId($this->getUserId());
+		$rsvp->save();
+		
+	}
+	
+	public function removeRsvp($event)
+	{
+		$eventId = $event->getEventId();
+		$db = self::getDb();
+		
+		$sql = '
+			UPDATE
+				rsvp
+			SET
+				is_deleted = 1
+			WHERE
+				is_deleted = 0
+				AND event_id = '. $db->quote($eventId) .'
+				AND user_id = ' . $db->quote($this->getUserId()) . '
+		';
+		
+		$result = $db->query($sql);
+		
+	}
 	
 }
 

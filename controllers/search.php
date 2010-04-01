@@ -15,6 +15,11 @@ class SearchController extends AppController
 			$this->setLayoutVar('shouldShowPastEvents', $shouldShowPastEvents);
 			$events = new Event_Collection();
 			$events->loadBySearchString(trim($this->get['q']), $shouldShowPastEvents);
+			if ($this->hasLoggedInUser())
+			{
+				$user = $this->getLoggedInUser();
+				$events->loadRsvps($user->getUserId());
+			}
 			$eventsByDate = $events->getEventsChunkedByDate();
 			
 			$this->setLayoutVar('query', trim($this->get['q']));
@@ -55,6 +60,11 @@ class SearchController extends AppController
 		$this->setLayoutVar('shouldShowPastEvents', $shouldShowPastEvents);
 		
 		$events->loadByTag($tagName);
+		if ($this->hasLoggedInUser())
+		{
+			$user = $this->getLoggedInUser();
+			$events->loadRsvps($user->getUserId());
+		}
 		$eventsByDate = $events->getEventsChunkedByDate();
 		
 		$this->setVar('eventsByDate', $eventsByDate);

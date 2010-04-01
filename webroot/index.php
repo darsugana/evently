@@ -21,7 +21,7 @@ if (isset($_GET['url']) && $_GET['url'] === 'favicon.ico') {
 			{
 				$log = $db->getQueryLog();
 				echo count($log) . " queries in " . $db->getQueryLogTime() . " secs <br/>";
-				Debug::SuperJam($log);
+				SimpleReflector::Jam($log);
 			}
 			
 		}

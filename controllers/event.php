@@ -76,5 +76,36 @@ class EventController extends AppController
 		}
 	}
 	
+	public function actionAttend($eventId = null)
+	{
+		$this->requireLogin();
+		$eventId = (int)$eventId;
+		$event = Event::constructByKey($eventId);
+		if (is_object($event)) {
+			$user = $this->getLoggedInUser();
+			$user->makeRsvp($event);
+			$event->updateRsvpTotal();
+			$this->redirect('/' . City::getInstance()->getShortName() . '/search?q='. urlencode($this->getLastSearchQuery()));
+			die;
+		} else {
+			die('404');
+		}
+	}
+	
+	public function actionUnattend($eventId = null)
+	{
+		$this->requireLogin();
+		$eventId = (int)$eventId;
+		$event = Event::constructByKey($eventId);
+		if (is_object($event)) {
+			$user = $this->getLoggedInUser();
+			$user->removeRsvp($event);
+			$event->updateRsvpTotal();
+			$this->redirect('/' . City::getInstance()->getShortName() . '/search?q='. urlencode($this->getLastSearchQuery()));
+			die;
+		} else {
+			die('404');
+		}
+	}
 	
 }
