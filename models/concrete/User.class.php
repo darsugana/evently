@@ -175,6 +175,27 @@ class User extends User_Generated implements CoughObjectStaticInterface {
 		
 	}
 	
+	public function removeVote($event)
+	{
+		$eventId = $event->getEventId();
+		$db = self::getDb();
+		
+		$sql = '
+			UPDATE
+				event_vote
+			SET
+				is_deleted = 1
+			WHERE
+				is_deleted = 0
+				AND event_id = '. $db->quote($eventId) .'
+				AND user_id = ' . $db->quote($this->getUserId()) . '
+		';
+		
+		$result = $db->query($sql);
+		
+	}
+	
+	
 }
 
 

@@ -19,6 +19,7 @@ class SearchController extends AppController
 			{
 				$user = $this->getLoggedInUser();
 				$events->loadRsvps($user->getUserId());
+				$events->loadVotes($user->getUserId());
 			}
 			$eventsByDate = $events->getEventsChunkedByDate();
 			

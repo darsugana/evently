@@ -9,11 +9,13 @@ class Event extends Event_Generated implements CoughObjectStaticInterface {
 	private $weight;
 	
 	protected $derivedFields = array(
-		'is_attending' => false
+		'is_attending' => false,
+		'user_vote' => 0,
 		);
 
 	protected $derivedFieldDefinitions = array(
-		'is_attending' => true
+		'is_attending' => true,
+		'user_vote' => true
 		);
 
 	
@@ -47,6 +49,19 @@ class Event extends Event_Generated implements CoughObjectStaticInterface {
 	public function updateVoteTotal()
 	{
 		$db = self::getDb();
+
+		$sql = '
+			UPDATE 
+				event
+			SET
+				vote_total = 0
+			WHERE
+				event.is_deleted = 0
+				AND event.event_id = ' . $db->quote($this->getEventId()) . '			
+		
+		';
+
+		$db->query($sql);
 
 		$sql = '
 			UPDATE
@@ -129,7 +144,21 @@ class Event extends Event_Generated implements CoughObjectStaticInterface {
 	{
 		return $this->getDerivedField('is_attending');
 	}
+
+	public function getUserVote()
+	{
+		return $this->getDerivedField('user_vote');
+	}
+
+	public function getLikes()
+	{
+		return ($this->getDerivedField('user_vote') > 0);
+	}
 	
+	public function getDislikes()
+	{
+		return ($this->getDerivedField('user_vote') < 0);		
+	}
 }
 
 ?>

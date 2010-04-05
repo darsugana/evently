@@ -414,10 +414,22 @@ a:active
 	color: #fff;
 }
 
+.default_layout .event .controls .like_selected
+{
+	background-color: green;
+}
+
+.default_layout .event .controls .report_selected
+{
+	background-color: red;
+}
+
+
 .default_layout .event .controls .attend_selected
 {
 	background-color: orange;
 }
+
 
 .default_layout .event .controls a:hover.attend_selected
 {

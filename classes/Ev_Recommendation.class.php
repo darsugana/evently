@@ -56,6 +56,12 @@ class Ev_Recommendation
 		$engine->automatic_rating($userId, $eventId, true, self::EVENT);
 	}
 
+	public function clear($userId, $eventId)
+	{
+		$engine = self::getEngine();
+		$engine->delete_rating($userId, $eventId, self::EVENT);
+	}
+	
 
 	public function getRecommendedEvents($userId)
 	{

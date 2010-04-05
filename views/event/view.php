@@ -3,7 +3,29 @@
 ?>
 
 <h1><?php echo htmlentities($event->getName()) ?></h1>
-<h4><?php echo $event->getLink() ?></h4>
+<h3>
+	<?php 
+	$date = $event->getDate();
+	$displayDate = date('F j', strtotime($date));
+	if (date('Y-m-d') == $date) {
+		$displayDate = 'Today';
+	} else if (date('Y-m-d', strtotime('tomorrow')) == $date) {
+		$displayDate = 'Tomorrow';
+	}
+	?>
+	<?php echo htmlentities($displayDate) ?>, <?php echo htmlentities(date('g:ia', strtotime($event->getDate()))) ?>
+</h3>
+<h3>
+	<?php
+	if (is_object($event->getVenue_Object()))
+	{
+		$venue = $event->getVenue_Object();
+		?>
+		At <a href="#"><?php echo htmlentities($venue->getName()); ?></a>
+		<?php
+	}
+	?>
+</h3>
 <?php
 foreach ($tags as $tag)
 {
@@ -15,3 +37,4 @@ foreach ($tags as $tag)
 <p>
 	<?php echo $event->getDescription() ?>
 </p>
+<h4><a href="<?php echo $event->getLink() ?>">More Info</a></h4>

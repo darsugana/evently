@@ -45,11 +45,11 @@ if (count($eventsByDate))
 								</p>
 								<h4 class="link"><a class="external" href="<?php echo $event->getLink() ?>"><?php echo htmlentities($event->getLink()) ?></a></h4>
 								<p class="controls">
-									<a class="like" href="<?php echo Ev_Link::getLinkPath('/event/like/' . (int)$event->getEventId()) ?>">I like this</a>
+									<a class="like<?php echo ($event->getLikes() ? '_selected' : '') ?>" href="<?php echo Ev_Link::getLinkPath('/event/'.($event->getLikes() ? 'neutral' : 'like') .'/' . (int)$event->getEventId()) ?>">I like this</a>
 									<a class="attend<?php echo ($event->getIsAttending() ? '_selected' : '') ?>" href="<?php echo Ev_Link::getLinkPath('/event/'.($event->getIsAttending() ? 'un' : '') .'attend/' . (int)$event->getEventId()) ?>">I'm going!</a>
 									<a class="comment" href="#" onclick="$('comment')">Comment</a>
 									<script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=463070c7-d402-4580-b4f3-da21897e103b&amp;type=website&amp;embeds=true"></script>
-									<a class="report" href="<?php echo Ev_Link::getLinkPath('/event/dislike/' . (int)$event->getEventId()) ?>">X</a>
+									<a class="report<?php echo ($event->getDislikes() ? '_selected' : '') ?>" href="<?php echo Ev_Link::getLinkPath('/event/'.($event->getDislikes() ? 'neutral' : 'dislike') .'/' . (int)$event->getEventId()) ?>">X</a>
 									<div class="clear"></div>
 								</p>
 							</li>

@@ -3,9 +3,8 @@
 include(dirname(dirname(__FILE__)) . '/config/application.php');
 
 $summarizer = new Ev_Summarizer();
-$event = Event::constructByKey(5);
 
-$text = $event->getName() . "\n" . strip_tags($event->getDescription());
+$text = file_get_contents($argv[1]);
 print_r($text);
 print_r($summarizer->summarize($text));
 print_r($summarizer->getUnstemmedKeywords());

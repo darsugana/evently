@@ -167,8 +167,46 @@ class Event_Collection extends Event_Collection_Generated
 			{
 				$event->setFields($row);
 			}
-		}
+		}	
 		
+	}
+	
+	
+	public function loadVotes($userId)
+	{
+		$db = Event::getDb();
+		
+		$eventIds = array();
+		foreach ($this as $event)
+		{
+			$eventIds[] = $db->quote($event->getEventId());
+		}
+		if (count($eventIds) == 0)
+		{
+			return;
+		}
+		$sql = '
+			SELECT
+				event_id,
+				value AS user_vote
+			FROM
+				event_vote
+			WHERE
+				is_deleted = 0
+				AND event_id IN ('. implode(',', $eventIds) . ')
+				AND user_id = ' . $db->quote($userId) . '
+		';
+		
+
+		$result = $db->query($sql);
+		while ($row = $result->getRow())
+		{
+			$event = $this->get($row['event_id']);
+			if (is_object($event))
+			{
+				$event->setFields($row);
+			}
+		}	
 		
 	}
 	
