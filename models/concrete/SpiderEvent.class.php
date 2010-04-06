@@ -16,6 +16,22 @@ class SpiderEvent extends SpiderEvent_Generated implements CoughObjectStaticInte
 		$spiderEvent->setIsDeleted(false);
 		return $spiderEvent;
 	}
+	
+	public function setRawId($rawObject)
+	{
+		if ($rawObject instanceof RawRss)
+		{
+			$this->setRawRssId($rawObject->getRawRssId());
+		}
+		else
+		{
+			$this->setRawHtmlId($rawObject->getRawHtmlId());
+		}
+	}
+	
 }
+
+
+
 
 ?>
