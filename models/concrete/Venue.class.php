@@ -39,6 +39,40 @@ class Venue extends Venue_Generated implements CoughObjectStaticInterface {
 		
 	}
 	
+	
+	// Does this work? I don't know.
+	public static function constructByAddress($street1, $street2, $city, $state, $zip)
+	{
+		$db = self::getDb();
+		$sql = new As_SelectQuery();
+		$sql->setSelect('*');
+		$sql->setFrom('venue');
+		$sql->setWhere('is_deleted =  0');
+		$sql->addWhere('street1 = ' . $db->quote($street1));
+		if ($street2 != '')
+		{
+			$sql->addWhere('street2 = ' . $db->quote($street2));
+		}
+		if ($city != '')
+		{
+			$sql->addWhere('city= ' . $db->quote($city));
+		}
+		if ($state != '')
+		{
+			$sql->addWhere('state = ' . $db->quote($state));
+		}
+		if ($zip != '')
+		{
+			$sql->addWhere('zip_code = ' . $db->quote($zip));
+		}
+		
+		$sql->setLimit(1);
+		$sql->setOrderBy('venue_id DESC');
+		
+		return self::constructBySql($sql);
+		
+	}
+	
 }
 
 ?>

@@ -19,7 +19,7 @@ class Ev_Address
 		// from http://www.relatebase.com/development/misc/parse_address_code.txt
 		
 		// 2010-04-09 FIXME RHP: this could just a lot of cleanup to conform to the code standards
-		
+		// 						 plus the apt number stuff doesn't work?
 		/***
 		2004-10-05 Added HC n Box n, Star Route to function
 		2004-10-04 Sam Fullman (compasspointmedia.com)
@@ -54,7 +54,8 @@ class Ev_Address
 			Bvd'=>'Blvd','
 			Avenue'=>'Ave','Boulevard'=>'Blvd','Street'=>'St','Way'=>'Wy','Circle'=>'Cir','Drive'=>'Dr','Lane'=>'Ln','Place'=>'Pl','Road'=>'Rd'
 		);
-
+		$a = array();
+		$b = array();
 		$address=trim($address);
 		$b['raw_address']=$address;
 		$original=$address;
@@ -182,13 +183,30 @@ class Ev_Address
 	{		
 		$matches = array();
 		// This regexp matches some digits, some text and then a 5 or 9 digit zip code, it could be better.
-		if (preg_match('([0-9]{1,} [\s\S]*? [0-9]{5}(?:-[0-9]{4})?)', $string, $matches))
+		// '([0-9]{1,} [\s\S]*? [0-9]{5}(?:-[0-9]{4})?)'
+		
+		
+		/*
+			Reverse this because even with ungreedy set, preg_match will hit the first sequence of numbers, 
+			find the zip code and assume we want everything in between.
+			
+			This is not usually correct, we want a much less greedy result. Unfortunately, we can't use 
+			preg_match_all and then figure out which one we want because preg_match_all won't search inside of 
+			one of its matches, which is dumb.
+			
+			What we really want is the rightmost ungreedy match, not the leftmost. We can get this by reversing 
+			the string and doing the regexp backwards.
+			
+			This may break with apt numbers though, it isn't perfect yet.
+		*/
+		$string2 = strrev($string);
+		if (preg_match('([0-9]{5} [\s\S]*? [0-9]{1,})', $string2, $matches))
 		{
 			if ($verbose)
 			{
-				print_r($matches);
+				print_r(strrev($matches[0]));
 			}
-			return self::parseAddress($matches[0]);
+			return self::parseAddress(strrev($matches[0]));
 		}
 		
 		return false;
