@@ -23,6 +23,13 @@
 		?>
 		At <a href="#"><?php echo htmlentities($venue->getName()); ?></a>
 		<?php
+		if (false && $venue->getStreet1() !== null )
+		{
+			$venueAddress = $venue->getStreet1() . ' ' . $venue->getStreet2() . ' ' . $venue->getCity() . ', ' . $venue->getState() . ' ' . $venue->getZipCode() ; 
+			?>
+			<img src="http://maps.google.com/maps/api/staticmap?markers=color:blue|<?php echo urlencode($venueAddress) ?>&zoom=14&size=400x400&sensor=false"/>
+			<?php
+		}
 	}
 	?>
 </h3>
