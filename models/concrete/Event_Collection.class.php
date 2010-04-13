@@ -210,4 +210,48 @@ class Event_Collection extends Event_Collection_Generated
 		
 	}
 	
+	
+	public function loadNearby($lat, $lon, $distance = 2)
+	{
+		
+		$rect = Ev_Gis::rectCenteredOn($lat, $lon, $distance);
+		
+		list($swLat, $swLon, $neLat, $neLon) = $rect;
+
+		$db = Event::getDb();
+		$city = City::getInstance();
+
+		$sql = "
+			SELECT
+				event.*
+			FROM
+				venue_location 
+				INNER JOIN venue ON (venue.venue_id = venue_location.venue_id)
+				INNER JOIN event ON (event.venue_id = venue.venue_id)
+				
+			WHERE
+				venue_location.is_deleted = 0 
+				AND venue.is_deleted = 0
+				AND
+				MBRContains(
+					GeomFromText(
+						'Polygon((" . (float) $swLat ." " . (float) $swLon .", " . (float) $neLat . " " . (float) $swLon . ", " . (float) $neLat . " " . (float) $neLon . ", " . (float) $swLat ." " . (float) $neLon .", " . (float) $swLat. " " . (float) $swLon. "))'),
+				   		venue_location.location
+					)
+				
+				AND event.is_deleted = 0
+				AND event.vote_total >= -50
+				AND `event`.`date` >= " . $db->quote(date('Y-m-d', time())) . "
+				AND `event`.`city_id` = " . $city->getCityId() . "
+			ORDER BY
+				`event`.`date` ASC, `event`.`vote_total` DESC
+				
+			";
+
+		$this->loadBySql($sql);
+
+		
+	}
+	
+	
 }

@@ -69,8 +69,7 @@ class Ev_Address
 			$address=substr($address,0,strlen($address)-strlen($a[0]));
 		}
 		//parse suffix direction (SW)
-		if(preg_match('/\s+(North|South|East|West|Northeast|Southeast|Southwest|Northwest|N|S|E|W|NE|SE|SW|NW)$/i',
-		$address,$a)){
+		if(preg_match('/\s+(North|South|East|West|Northeast|Southeast|Southwest|Northwest|N|S|E|W|NE|SE|SW|NW)$/i',$address,$a)){
 			$b['raw_suffix_direction']=$a[0];
 			$b['suffix_direction']=$dir[$b['raw_suffix_direction']];
 			$address=substr($address,0,strlen($address)-strlen($a[0]));
@@ -109,7 +108,7 @@ class Ev_Address
 				$b['address_type']="Rural Route";
 			}
 			//Account for HC nomenclature -- for drawmack
-			echo $address;
+			// echo $address;
 			if(preg_match('/(HC|Highway County|Hwy Cty|Hwy County)\s+[0-9]+\s+(Box|Bx)\s+[0-9]+/i',$address,$a)){
 				$b['raw_hc']=$a[0];
 				$a=explode('b',strtolower($a[0]));
@@ -138,7 +137,7 @@ class Ev_Address
 			$b['prefix_direction']=$dir[trim($a[0])];
 			strlen($a[0])>2?$b['raw_prefix_direction']=$a[0]:'';
 			$address = substr($address,strlen($a[0]),strlen($address)-strlen($a[0]));
-		}else{
+		} else {
 			//presume all else is the name
 			$b['name']=trim($address);
 			$b['address_type']="Presumed Standard";

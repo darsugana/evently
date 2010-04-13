@@ -1,2 +1,2 @@
 #!/bin/sh
-../modules/coughphp/scripts/cough -g generator_config $@
+../modules/coughphp/scripts/cough -v -g generator_config $@
