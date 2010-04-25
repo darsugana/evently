@@ -34,7 +34,12 @@ define("VG_THRESHOLD_MULT",2);
 define("VG_THRESHOLD_RATING",0.66);
 define("VG_COST",5.0);
 define("VG_NOT_INTERESTED",-1.0);
-define("VG_DIRECT_LINKS",false);
+
+if (!defined("VG_DIRECT_LINKS"))
+{
+	define("VG_DIRECT_LINKS",false);
+}
+
 define("VG_DIRECT_SLOPE",false);
 if (VG_DIRECT_LINKS || VG_DIRECT_SLOPE)
 {
