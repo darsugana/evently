@@ -10,11 +10,21 @@ class SearchController extends AppController
 	{
 		if (isset($this->get['q']))
 		{
+			$query = isset($this->get['q']) ? trim($this->get['q']) : null;
 			$shouldShowPastEvents = isset($this->get['p']) ? (bool)$this->get['p'] : false;
+			
 			$this->setVar('shouldShowPastEvents', $shouldShowPastEvents);
 			$this->setLayoutVar('shouldShowPastEvents', $shouldShowPastEvents);
 			$events = new Event_Collection();
-			$events->loadBySearchString(trim($this->get['q']), $shouldShowPastEvents);
+			
+			$criteria = array(
+				'q' => $query,
+				'city_id' => City::getInstance()->getCityId(),
+				'show_past_events' => $shouldShowPastEvents,
+			);
+			
+			$events->loadByCriteria($criteria);
+			
 			if ($this->hasLoggedInUser())
 			{
 				$user = $this->getLoggedInUser();
@@ -60,7 +70,12 @@ class SearchController extends AppController
 		$this->setVar('shouldShowPastEvents', $shouldShowPastEvents);
 		$this->setLayoutVar('shouldShowPastEvents', $shouldShowPastEvents);
 		
-		$events->loadByTag($tagName);
+		$criteria = array(
+			'city_id' => City::getInstance()->getCityId(),
+			'tag' => $tagName,
+		);
+		
+		$events->loadByCriteria($criteria);
 		if ($this->hasLoggedInUser())
 		{
 			$user = $this->getLoggedInUser();

@@ -6,45 +6,99 @@
  **/
 class Event_Collection extends Event_Collection_Generated
 {
-	public function loadBySearchString($searchString, $shouldShowPastEvents = false)
+	public function loadByCriteria($criteria)
 	{
-		$search = new Ev_Search();
-		$city = City::getInstance();
-		if (is_object($city))
+		$criteria = $criteria + array(
+			'q' => null,
+			'latitude' => null,
+			'longitude' => null,
+			'within' => 2,
+			'city_id' => City::AUSTIN,
+			'show_past_events' => false,
+			'tag' => null,
+		);
+		
+		$db = Event::getDb();
+		$sql = new As_SelectQuery();
+		$sql->addSelect('`' . Event::getTableName() . '`.*');
+		$sql->addFrom('`' . Event::getDbName() . '`.`' . Event::getTableName() . '`');
+		
+		$city = City::constructByKey($criteria['city_id']);
+		
+		if (!is_null($criteria['q']) && trim($criteria['q']) != '')
 		{
-			$search->setFilter('city_id', array($city->getKeyId()));
-		}
-		$search->setFieldWeights(
-			array(
-					'name' => 10,
-					'description' => 20,
-					'venue_name' => 5,
-					'city_id' => 0,
-					'vote_total' => 0,
-				)
-			);
-		$result = $search->search($searchString);
-		if (isset($result['matches']) && is_array($result['matches']))
-		{
-			$eventIds = array_keys($result['matches']);
-			$db = Event::getDb();
-			$sql = Event::getLoadSql();
-			$sql .= '
-				WHERE
-					`event`.`event_id` IN (' . implode(', ', $eventIds)  . ')
-			';
-			if (!$shouldShowPastEvents) {
-				$sql .= '
-					AND `event`.`date` >= ' . $db->quote(date('Y-m-d', time())) . '
-				';
+			$search = new Ev_Search();
+			$search->setFieldWeights(array(
+				'name' => 10,
+				'description' => 20,
+				'venue_name' => 5,
+				'city_id' => 0,
+				'vote_total' => 0,
+			));
+			
+			$result = $search->search($criteria['q']);
+			if (isset($result['matches']) && is_array($result['matches']))
+			{
+				$eventIds = array_keys($result['matches']);
+				$sql->addWhere('`' . Event::getTableName() . '`.`event_id` IN (' . implode(', ', $eventIds)  . ')');
 			}
-			$sql .= '
-					AND `event`.`is_deleted` = 0
-					AND `event`.`vote_total` >= -50
-				ORDER BY
-					`event`.`date` ASC, `event`.`vote_total` DESC
-			';
-			$this->loadBySql($sql);
+			else
+			{
+				// No results
+				return;
+			}
+		}
+		
+		$sql->addWhere('`' . Event::getTableName() . '`.`is_deleted` = 0');
+		$sql->addWhere('`' . Event::getTableName() . '`.`vote_total` >= -50');
+		$sql->addWhere('`' . Event::getTableName() . '`.`city_id` = ' . $db->quote($city->getCityId()));
+		
+		if ($criteria['show_past_events'])
+		{
+			$sql->addWhere('`' . Event::getTableName() . '`.`date` >= ' . $db->quote(date('Y-m-d', time())));
+		}
+		
+		if (!is_null($criteria['latitude']) && !is_null($criteria['longitude']))
+		{
+			$sql->addFrom('
+				INNER JOIN `' . Venue::getDbName() . '`.`' . Venue::getTableName() . '` USING (`venue_id`)
+				INNER JOIN `' . VenueLocation::getDbName() . '`.`' . VenueLocation::getTableName() . '` USING (`venue_location_id`)
+			');
+			
+			$rect = Ev_Gis::rectCenteredOn($latitude, $longitude, $within);
+			list($swLat, $swLon, $neLat, $neLon) = $rect;
+			$sql->addWhere("
+				MBRContains(
+					GeomFromText(
+						'Polygon((" . (float) $swLat ." " . (float) $swLon .", " . (float) $neLat . " " . (float) $swLon . ", " . (float) $neLat . " " . (float) $neLon . ", " . (float) $swLat ." " . (float) $neLon .", " . (float) $swLat. " " . (float) $swLon. "))'
+					),
+					`" . VenueLocation::getTableName() . "`.`location`
+				)
+			");
+		}
+		
+		if (isset($criteria['tag']) && trim($criteria['tag']) != '')
+		{
+			$sql->addFrom('
+				INNER JOIN `' . Tag2event::getDbName() . '`.`' . Tag2event::getTableName() . '` ON
+					`' . Tag2event::getTableName() . '`.`event_id` = event.event_id
+					AND `' . Tag2event::getTableName() . '`.`is_deleted` = 0
+				INNER JOIN `' . Tag::getDbName() . '`.`' . Tag::getTableName() . '` ON
+					`' . Tag::getTableName() . '`.`tag_id` = `' . Tag2event::getTableName() . '`.`tag_id`
+					AND `' . Tag::getTableName() . '`.`is_deleted` = 0
+			');
+			$sql->addWhere('`' . Tag::getTableName() . '`.`name` = ' . $db->quote(trim($criteria['tag'])));
+		}
+		
+		$sql->addOrderBy('
+			`' . Event::getTableName() . '`.`date` ASC,
+			`' . Event::getTableName() . '`.`vote_total` DESC
+		');
+		
+		$this->loadBySql($sql);
+		
+		if (!is_null($criteria['q']) && (trim($criteria['q']) != '') && isset($result['matches']) && is_array($result['matches']))
+		{
 			foreach ($this as $event)
 			{
 				if (isset($result['matches'][$event->getEventId()]))
@@ -90,39 +144,6 @@ class Event_Collection extends Event_Collection_Generated
 			$this->loadBySql($sql);
 		}
 	}
-	
-	public function loadByTag($tagName, $shouldShowPastEvents = false)
-	{
-		$db = Event::getDb();
-		$sql = '
-			SELECT
-				event.*
-			FROM
-				event
-				INNER JOIN tag2event
-					ON tag2event.event_id = event.event_id
-					AND tag2event.is_deleted = 0
-				INNER JOIN tag
-					ON tag.tag_id = tag2event.tag_id
-					AND tag.is_deleted = 0
-			WHERE
-				event.is_deleted = 0
-				AND tag.name = ' . $db->quote($tagName) .'
-				';
-		if (!$shouldShowPastEvents) {
-			$sql .= '
-				AND `event`.`date` >= ' . $db->quote(date('Y-m-d', time())) . '
-			';
-		}
-		$sql .= '
-			ORDER BY 
-				event.date ASC, event.vote_total DESC
-		';
-		
-		
-		$this->loadBySql($sql);
-	}
-	
 	
 	public function getEventsChunkedByDate()
 	{
@@ -171,7 +192,6 @@ class Event_Collection extends Event_Collection_Generated
 		
 	}
 	
-	
 	public function loadVotes($userId)
 	{
 		$db = Event::getDb();
@@ -209,49 +229,4 @@ class Event_Collection extends Event_Collection_Generated
 		}	
 		
 	}
-	
-	
-	public function loadNearby($lat, $lon, $distance = 2)
-	{
-		
-		$rect = Ev_Gis::rectCenteredOn($lat, $lon, $distance);
-		
-		list($swLat, $swLon, $neLat, $neLon) = $rect;
-
-		$db = Event::getDb();
-		$city = City::getInstance();
-
-		$sql = "
-			SELECT
-				event.*
-			FROM
-				venue_location 
-				INNER JOIN venue ON (venue.venue_id = venue_location.venue_id)
-				INNER JOIN event ON (event.venue_id = venue.venue_id)
-				
-			WHERE
-				venue_location.is_deleted = 0 
-				AND venue.is_deleted = 0
-				AND
-				MBRContains(
-					GeomFromText(
-						'Polygon((" . (float) $swLat ." " . (float) $swLon .", " . (float) $neLat . " " . (float) $swLon . ", " . (float) $neLat . " " . (float) $neLon . ", " . (float) $swLat ." " . (float) $neLon .", " . (float) $swLat. " " . (float) $swLon. "))'),
-				   		venue_location.location
-					)
-				
-				AND event.is_deleted = 0
-				AND event.vote_total >= -50
-				AND `event`.`date` >= " . $db->quote(date('Y-m-d', time())) . "
-				AND `event`.`city_id` = " . $city->getCityId() . "
-			ORDER BY
-				`event`.`date` ASC, `event`.`vote_total` DESC
-				
-			";
-
-		$this->loadBySql($sql);
-
-		
-	}
-	
-	
 }
