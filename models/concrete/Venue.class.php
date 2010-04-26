@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the starter class for Venue_Generated.
  *
@@ -73,6 +72,51 @@ class Venue extends Venue_Generated implements CoughObjectStaticInterface {
 		
 	}
 	
+	public function save()
+	{
+		if (!is_null($this->getLatitude()) && !is_null($this->getLongitude()))
+		{
+			if (is_null($this->getVenueId()) || array_key_exists('latitude', $this->getModifiedFields()) || array_key_exists('longitude', $this->getModifiedFields()))
+			{
+				$saveResult = parent::save();
+				
+				if ($saveResult)
+				{
+					$db = VenueLocation::getDb();
+					$db->selectDb(VenueLocation::getDbName());
+					
+					$sql = '
+						INSERT INTO `' . VenueLocation::getDbName() . '`.`' . VenueLocation::getTableName() . '`
+							(
+								`venue_id`,
+								`latitude`,
+								`longitude`,
+								`location`,
+								`date_created`
+							)
+						VALUES
+							(
+								' . $db->quote($this->getVenueId()) . ',
+								' . $db->quote($this->getLatitude()) . ',
+								' . $db->quote($this->getLongitude()) . ',
+								GeomFromWKB(POINT(latitude, longitude)),
+								NOW()
+							)
+						ON DUPLICATE KEY UPDATE
+							`latitude` = VALUES(`latitude`),
+							`longitude` = VALUES(`longitude`),
+							`location` = VALUES(`location`)
+					';
+					
+					$db->query($sql);
+				}
+				
+				return $saveResult;
+			}
+		}
+		else
+		{
+			return parent::save();
+		}
+	}
 }
-
-?>

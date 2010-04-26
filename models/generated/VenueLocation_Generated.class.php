@@ -18,7 +18,6 @@ abstract class VenueLocation_Generated extends AppCoughObject {
 		'latitude' => null,
 		'longitude' => null,
 		'location' => null,
-		'is_deleted' => null,
 		'date_created' => null,
 		'date_modified' => null,
 	);
@@ -46,11 +45,6 @@ abstract class VenueLocation_Generated extends AppCoughObject {
 		),
 		'location' => array(
 			'db_column_name' => 'location',
-			'is_null_allowed' => false,
-			'default_value' => null
-		),
-		'is_deleted' => array(
-			'db_column_name' => 'is_deleted',
 			'is_null_allowed' => false,
 			'default_value' => null
 		),
@@ -185,14 +179,6 @@ abstract class VenueLocation_Generated extends AppCoughObject {
 	
 	public function setLocation($value) {
 		$this->setField('location', $value);
-	}
-	
-	public function getIsDeleted() {
-		return $this->getField('is_deleted');
-	}
-	
-	public function setIsDeleted($value) {
-		$this->setField('is_deleted', $value);
 	}
 	
 	public function getDateCreated() {

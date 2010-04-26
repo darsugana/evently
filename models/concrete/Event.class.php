@@ -160,5 +160,3 @@ class Event extends Event_Generated implements CoughObjectStaticInterface {
 		return ($this->getDerivedField('user_vote') < 0);		
 	}
 }
-
-?>
