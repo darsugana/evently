@@ -62,10 +62,10 @@ class Event_Collection extends Event_Collection_Generated
 		{
 			$sql->addFrom('
 				INNER JOIN `' . Venue::getDbName() . '`.`' . Venue::getTableName() . '` USING (`venue_id`)
-				INNER JOIN `' . VenueLocation::getDbName() . '`.`' . VenueLocation::getTableName() . '` USING (`venue_location_id`)
+				INNER JOIN `' . VenueLocation::getDbName() . '`.`' . VenueLocation::getTableName() . '` USING (`venue_id`)
 			');
 			
-			$rect = Ev_Gis::rectCenteredOn($latitude, $longitude, $within);
+			$rect = Ev_Gis::rectCenteredOn($criteria['latitude'], $criteria['longitude'], $criteria['within']);
 			list($swLat, $swLon, $neLat, $neLon) = $rect;
 			$sql->addWhere("
 				MBRContains(
