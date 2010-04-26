@@ -53,7 +53,7 @@ class Event_Collection extends Event_Collection_Generated
 		$sql->addWhere('`' . Event::getTableName() . '`.`vote_total` >= -50');
 		$sql->addWhere('`' . Event::getTableName() . '`.`city_id` = ' . $db->quote($city->getCityId()));
 		
-		if ($criteria['show_past_events'])
+		if (!$criteria['show_past_events'])
 		{
 			$sql->addWhere('`' . Event::getTableName() . '`.`date` >= ' . $db->quote(date('Y-m-d', time())));
 		}
