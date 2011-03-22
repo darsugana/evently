@@ -1,0 +1,5 @@
+## An example api structure for evently
+
+http://evently.net/api/events/?q=example+query&latitude=123&longitude=123&within=20&city_id=1
+http://evently.net/api/event/?event_id=456
+
